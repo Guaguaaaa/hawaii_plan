@@ -16,6 +16,13 @@ const TRIP_DATA = {
     timezoneDiff: "檀香山 (HST) 比 洛杉矶 (PDT) 慢 3 小时"
   },
 
+  // Google Sheets Live Sync Configuration (Optional)
+  googleSheets: {
+    budgetCsvUrl: "", // 填入你的 Google Sheets Budget 发布 CSV 链接
+    checklistCsvUrl: "", // 填入你的 Google Sheets Checklist 发布 CSV 链接
+    itineraryCsvUrl: "" // 填入你的 Google Sheets Itinerary 发布 CSV 链接
+  },
+
   hotels: [
     {
       date: "8/16 – 8/18 (周日 - 周二)",

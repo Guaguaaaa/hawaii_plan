@@ -16,6 +16,93 @@ function initApp() {
   renderBudget();
   setupEventListeners();
   setupDayPills();
+
+  // Fetch Live Google Sheets if URLs configured
+  fetchGoogleSheetsData();
+}
+
+async function fetchGoogleSheetsData() {
+  if (!TRIP_DATA.googleSheets) return;
+
+  // 1. Live Budget from Google Sheets
+  if (TRIP_DATA.googleSheets.budgetCsvUrl) {
+    try {
+      const res = await fetch(TRIP_DATA.googleSheets.budgetCsvUrl);
+      const csvText = await res.text();
+      const rows = parseCSV(csvText);
+      if (rows && rows.length > 0) {
+        renderGoogleSheetsBudget(rows);
+      }
+    } catch (e) {
+      console.warn('Google Sheets Budget fetch error:', e);
+    }
+  }
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).map(line => {
+    const regex = /(?:^|,)(?:"([^"]*)"|([^,]*))/g;
+    const obj = {};
+    let matches;
+    let i = 0;
+    while ((matches = regex.exec(line)) !== null && i < headers.length) {
+      const val = matches[1] !== undefined ? matches[1] : matches[2];
+      obj[headers[i]] = (val || '').trim();
+      i++;
+    }
+    return obj;
+  });
+}
+
+function renderGoogleSheetsBudget(rows) {
+  const container = document.getElementById('budgetContainer');
+  if (!container) return;
+
+  const rate = TRIP_DATA.meta.exchangeRate;
+  let totalRMB = 0;
+  let rowsHTML = '';
+
+  rows.forEach(r => {
+    const usd = parseFloat(r.Cost_USD || r['金额USD'] || 0);
+    const rmb = parseFloat(r.Cost_RMB || r['金额RMB'] || 0);
+    const itemTotalRMB = rmb > 0 ? rmb : (usd * rate);
+    totalRMB += itemTotalRMB;
+
+    rowsHTML += `
+      <div class="car-detail-row">
+        <span class="label">${r.Category || r['类别'] || ''} · ${r.Item || r['支出项目'] || ''} (${r.Status || r['状态'] || ''})</span>
+        <span class="value">¥${itemTotalRMB.toFixed(2)} RMB ${usd > 0 ? `($${usd} USD)` : ''}</span>
+      </div>
+    `;
+  });
+
+  const totalUSD = totalRMB / rate;
+  const perPersonRMB = totalRMB / TRIP_DATA.meta.travelers;
+  const perPersonUSD = totalUSD / TRIP_DATA.meta.travelers;
+
+  container.innerHTML = `
+    <div class="info-card">
+      <div class="card-title">📊 Google Sheets 实时动态预算</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--primary-ocean-light); padding: 1.25rem; border-radius: var(--radius-md);">
+          <div style="font-size: 0.85rem; color: var(--primary-ocean-dark); font-weight:600;">全员预估费用总计 (2人)</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--primary-ocean-dark); margin-top: 0.2rem;">¥${totalRMB.toFixed(0)} RMB</div>
+          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">约 $${totalUSD.toFixed(0)} USD</div>
+        </div>
+        <div style="background: var(--accent-coral-light); padding: 1.25rem; border-radius: var(--radius-md);">
+          <div style="font-size: 0.85rem; color: var(--accent-coral); font-weight:600;">人均费用 (2人平摊)</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-coral); margin-top: 0.2rem;">$${perPersonUSD.toFixed(0)} USD</div>
+          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">(约 ¥${perPersonRMB.toFixed(0)} RMB / 人)</div>
+        </div>
+      </div>
+      <div class="car-detail-list">
+        ${rowsHTML}
+      </div>
+    </div>
+  `;
 }
 
 // 1. Live Clocks (Honolulu vs. Los Angeles)
