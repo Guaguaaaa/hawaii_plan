@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌺 夏威夷欧胡岛 6天5晚 旅行计划 | Hawaii Oahu Trip 2026</title>
+  <meta name="description" content="专为 2026 年 8 月 16 日 - 8 月 21 日夏威夷欧胡岛行程打造的动态交互式旅行计划指南。">
+  <meta name="theme-color" content="#0284c7">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Hero Banner Header -->
+  <header class="hero-header">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>📍 夏威夷 · 欧胡岛 (Oahu, Hawaii)</span>
+        <span>·</span>
+        <span>📅 2026.08.16 - 08.21</span>
+      </div>
+      <h1 class="hero-title">🌺 夏威夷欧胡岛 6天5晚 深度之旅</h1>
+      <div class="hero-subtitle">
+        <span>✈️ 洛杉矶往返 (LAX ↔ HNL)</span>
+        <span>🏨 Waikiki Malia & Sheraton 奢华无边泳池</span>
+        <span>🚗 3天自驾环岛</span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="label">行程日期</div>
+          <div class="value">8/16 - 8/21 (6D5N)</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">住宿预订</div>
+          <div class="value">已订 5 晚 (¥9404.73)</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">自驾租车</div>
+          <div class="value">8/18 - 8/20 (3天)</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">核心任务</div>
+          <div class="value">恐龙湾/古兰尼/抢票</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Navigation Bar -->
+  <div class="sticky-nav-wrapper">
+    <nav class="nav-container">
+      <button class="nav-btn active" data-tab="tab-itinerary">📅 每日行程安排</button>
+      <button class="nav-btn" data-tab="tab-hotels">🏨 机酒与交通挂单</button>
+      <button class="nav-btn" data-tab="tab-reservations">🎟️ 强预约管理看板</button>
+      <button class="nav-btn" data-tab="tab-checklist">✅ 随身打包与清单</button>
+      <button class="nav-btn" data-tab="tab-budget">💰 动态预算与分账</button>
+    </nav>
+  </div>
+
+  <!-- Main Application Content Area -->
+  <main class="main-layout">
+
+    <!-- Tab 1: Itinerary -->
+    <section id="tab-itinerary" class="tab-pane active">
+      <div class="filter-bar">
+        <div class="day-selector-pills" id="dayPills">
+          <!-- Populated by app.js -->
+        </div>
+
+        <div class="tag-filter-group">
+          <button class="tag-btn active" data-tag="all">全部类型</button>
+          <button class="tag-btn" data-tag="drive">🚗 自驾大环线</button>
+          <button class="tag-btn" data-tag="relax">🏖️ 泡酒店渡假</button>
+          <button class="tag-btn" data-tag="adventure">🌋 探险/徒步</button>
+          <button class="tag-btn" data-tag="transit">✈️ 航班/交通</button>
+        </div>
+      </div>
+
+      <div class="days-container" id="daysContainer">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- Tab 2: Hotels & Rental Car Hub -->
+    <section id="tab-hotels" class="tab-pane">
+      <div class="section-grid">
+        <div class="info-card">
+          <div class="card-title">🏨 酒店入住与房型变更切片</div>
+          <div id="hotelList">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="card-title">🚗 自驾租车与停车油费计划</div>
+          <div id="carDetails">
+            <!-- Populated by app.js -->
+          </div>
+          <div style="margin-top: 1.5rem; background: var(--primary-ocean-light); padding: 1rem; border-radius: var(--radius-md); font-size: 0.9rem; color: var(--primary-ocean-dark);">
+            💡 <strong>取还车策略提醒：</strong><br>
+            8/18 早上步行前往 Waikiki Avis/Hertz 门店取车，8/20 晚间在 Waikiki 门店还车。可免去 8/16, 8/17, 8/21 昂贵的市区停车费。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Mandatory Reservations Tracker -->
+    <section id="tab-reservations" class="tab-pane">
+      <div class="info-card" style="margin-bottom: 1.5rem;">
+        <div class="card-title">🎟️ 强预约项目看版 (必须提前抢票)</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          夏威夷许多热门自然保护区和历史遗址实行严格的人流管制，请务必根据下方的开放时间窗口提前预约并保存确认码。
+        </p>
+        <div class="reservation-grid" id="reservationsContainer">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Interactive Packing Checklist -->
+    <section id="tab-checklist" class="tab-pane">
+      <div class="info-card" style="margin-bottom: 1.5rem;">
+        <div class="card-title">✅ 互动式行李打包与特产必买清单</div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
+          勾选框支持本地保存，每次打开或刷新页面都会保留你的准备进度。
+        </p>
+        <div class="checklist-grid" id="checklistContainer">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Dynamic Budget & Expense Splitter -->
+    <section id="tab-budget" class="tab-pane">
+      <div id="budgetContainer">
+        <!-- Populated by app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="text-align: center; padding: 2rem 1rem; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 3rem;">
+    🌺 Hawaii Oahu Trip 2026 · Built for GitHub Pages · Have a safe & marvelous trip! 🏄‍♂️
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
