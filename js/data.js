@@ -147,46 +147,6 @@ const TRIP_DATA = {
       deadline: "出发前 1 天 (8/15)",
       status: "未完成",
       notes: "防晒衣服与室内空调薄外套"
-    },
-    {
-      phase: "✈️ 旅行期间",
-      task: "8/16 深夜抵达 HNL & 打车入住 Sheraton",
-      priority: "🟢 低",
-      deadline: "8/16 22:30",
-      status: "未完成",
-      notes: "机场 ABC Store 买水零食"
-    },
-    {
-      phase: "✈️ 旅行期间",
-      task: "8/18 早前往 Waikiki Avis/Hertz 取车",
-      priority: "🟠 高",
-      deadline: "8/18 08:30",
-      status: "未完成",
-      notes: "开启 Day 3 东南岸自驾"
-    },
-    {
-      phase: "✈️ 旅行期间",
-      task: "8/18 办理 Malia 入住 & 寄存行李",
-      priority: "🟡 中",
-      deadline: "8/18 傍晚",
-      status: "未完成",
-      notes: "退房 Sheraton，入住 Malia"
-    },
-    {
-      phase: "✈️ 旅行期间",
-      task: "8/20 18:00 Waikiki 门店还车",
-      priority: "🟠 高",
-      deadline: "8/20 18:00",
-      status: "未完成",
-      notes: "加满油后顺畅还车"
-    },
-    {
-      phase: "✈️ 旅行期间",
-      task: "8/21 18:30 酒店拿行李打车前往机场",
-      priority: "🔴 紧急",
-      deadline: "8/21 18:30",
-      status: "未完成",
-      notes: "预留 2h+ 办理登机手续"
     }
   ],
 
