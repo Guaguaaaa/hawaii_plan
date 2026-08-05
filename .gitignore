@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Trashes
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files & folders
+temp/
+*.tmp
+*.log
+
+# Build & Dependencies (if needed)
+node_modules/
+dist/
