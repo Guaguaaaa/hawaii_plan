@@ -354,10 +354,13 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
     dayCard.id = `day-${day.dayNum}`;
 
     let timelineHTML = '';
-    day.timeline.forEach(item => {
+    day.timeline.forEach((item, itemIdx) => {
       const mapUrl = item.mapQuery 
         ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.mapQuery)}`
         : null;
+
+      const hasModal = !!item.modalData;
+      const modalDataJson = hasModal ? encodeURIComponent(JSON.stringify(item.modalData)) : '';
 
       timelineHTML += `
         <div class="timeline-item">
@@ -371,6 +374,7 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
             </div>
             <div class="activity-details">${item.details}</div>
             <div class="action-row">
+              ${hasModal ? `<button class="btn-action" style="background: var(--primary-ocean-light); color: var(--primary-ocean-dark); border-color: var(--primary-ocean);" onclick="openDetailModal('${modalDataJson}')">📄 查看行程与卡片详情</button>` : ''}
               ${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="btn-action">📍 打开地图导航</a>` : ''}
               <button class="btn-action" onclick="copyToClipboard('${item.activity} - ${item.location || ''}')">📋 复制信息</button>
             </div>
@@ -690,4 +694,78 @@ function showToast(msg) {
   setTimeout(() => {
     toast.classList.remove('show');
   }, 2500);
+}
+
+// Detail Modal Controller for Flights, Hotels, Rental Cars & Tickets
+function openDetailModal(encodedJson) {
+  try {
+    const modalData = JSON.parse(decodeURIComponent(encodedJson));
+    let modalEl = document.getElementById('detailModalOverlay');
+    if (!modalEl) {
+      modalEl = document.createElement('div');
+      modalEl.id = 'detailModalOverlay';
+      modalEl.className = 'modal-overlay';
+      document.body.appendChild(modalEl);
+    }
+
+    let itemsHTML = '';
+    if (modalData.items) {
+      modalData.items.forEach(it => {
+        itemsHTML += `
+          <div class="modal-info-row">
+            <span class="modal-label">${it.label}</span>
+            <span class="modal-value">
+              <span>${it.value}</span>
+              ${it.copyable ? `<button class="btn-copy-small" onclick="copyToClipboard('${it.value.split(' ')[0]}')">📋 复制</button>` : ''}
+            </span>
+          </div>
+        `;
+      });
+    }
+
+    modalEl.innerHTML = `
+      <div class="modal-container">
+        <div class="modal-header">
+          <div>
+            <span class="modal-category">${modalData.category || '行程详情'}</span>
+            <h3 class="modal-title">${modalData.title}</h3>
+          </div>
+          <button class="modal-close-btn" onclick="closeDetailModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          ${modalData.flightStatusLink ? `
+            <div style="margin-bottom: 1.25rem;">
+              <a href="${modalData.flightStatusLink}" target="_blank" rel="noopener" class="btn-action" style="background: var(--primary-ocean); color: white; width: 100%; justify-content: center; padding: 0.65rem 1rem; font-size: 0.95rem;">
+                🌐 点击免费查询实时航班状态 (Google Flight Tracking)
+              </a>
+            </div>
+          ` : ''}
+          <div class="modal-info-list">
+            ${itemsHTML}
+          </div>
+        </div>
+      </div>
+    `;
+
+    modalEl.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    modalEl.onclick = (e) => {
+      if (e.target === modalEl) closeDetailModal();
+    };
+
+    document.onkeydown = (e) => {
+      if (e.key === 'Escape') closeDetailModal();
+    };
+  } catch (err) {
+    console.error('Failed to open modal:', err);
+  }
+}
+
+function closeDetailModal() {
+  const modalEl = document.getElementById('detailModalOverlay');
+  if (modalEl) {
+    modalEl.classList.remove('active');
+  }
+  document.body.style.overflow = '';
 }
