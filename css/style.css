@@ -117,7 +117,7 @@ body {
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -699,8 +699,17 @@ body {
     padding: 1.5rem 1rem;
   }
   
+  .hero-stats {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
+  }
+  
   .stat-card {
     padding: 0.75rem;
+    min-width: 140px;
+    flex-shrink: 0;
   }
   
   .timeline-item {

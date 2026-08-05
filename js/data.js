@@ -16,11 +16,11 @@ const TRIP_DATA = {
     timezoneDiff: "檀香山 (HST) 比 洛杉矶 (PDT) 慢 3 小时"
   },
 
-  // Google Sheets Live Sync Configuration
+  // Google Sheets Live Sync Configuration (Temporarily disabled, falls back to local data)
   googleSheets: {
-    budgetCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSaYi7RdFhYp91KMLieDFL3tzm3XyWlbX6cUkl8LyyxDDxlOy8nE9oOW1-pBmJtdz-ycOapJ2X8pf8l/pub?gid=921972646&single=true&output=csv",
-    checklistCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSl6lOHgfy7c3UHsND3ho5ABHh4YtqRebP0sQ4lFY3A0aXyXAnVP1rOiIghT1Si_eW8d9SAYLwaN20W/pub?gid=1709512214&single=true&output=csv",
-    todoCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQUQ4_eHnEgpcO935e5ToR7YWJRpwVgHLqFlzl0RJ1e--OXPFkUg7LRS8fCZhL3GfEPhqUgNF7nmRuN/pub?gid=2086344847&single=true&output=csv"
+    budgetCsvUrl: "",
+    checklistCsvUrl: "",
+    todoCsvUrl: ""
   },
 
   // 🏥 酒店附近 Urgent Care & 医疗救助诊所
