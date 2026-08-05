@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🌺 夏威夷欧胡岛 6天5晚 旅行计划 | Hawaii Oahu Trip 2026</title>
-  <meta name="description" content="专为 2026 年 8 月 16 日 - 8 月 21 日夏威夷欧胡岛行程打造的动态交互式旅行计划指南。">
+  <meta name="description" content="专为 2026 年 8 月 16 日 - 8 月 22 日夏威夷欧胡岛行程打造的动态交互式旅行计划指南。">
   <meta name="theme-color" content="#0284c7">
   
   <link rel="stylesheet" href="css/style.css">
@@ -17,23 +17,47 @@
       <div class="hero-badge">
         <span>📍 夏威夷 · 欧胡岛 (Oahu, Hawaii)</span>
         <span>·</span>
-        <span>📅 2026.08.16 - 08.21</span>
+        <span>📅 2026.08.16 - 08.22 (周日 - 周六)</span>
       </div>
       <h1 class="hero-title">🌺 夏威夷欧胡岛 6天5晚 深度之旅</h1>
       <div class="hero-subtitle">
-        <span>✈️ 洛杉矶往返 (LAX ↔ HNL)</span>
-        <span>🏨 Waikiki Malia & Sheraton 奢华无边泳池</span>
+        <span>✈️ 洛杉矶往返 (8/21 晚返程，8/22 晨抵 LAX)</span>
+        <span>🏨 Sheraton 无边泳池 & Waikiki Malia</span>
         <span>🚗 3天自驾环岛</span>
+      </div>
+
+      <!-- Live Dual Clock & Timezone Widget -->
+      <div style="margin-top: 1.25rem; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(8px); padding: 0.8rem 1.2rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.25); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
+          <div>
+            <span style="font-size: 0.75rem; opacity: 0.8; text-uppercase: uppercase;">🌺 檀香山时间 (HST)</span>
+            <div id="hnlClock" style="font-size: 1.3rem; font-weight: 700; font-family: monospace;">--:--:--</div>
+          </div>
+          <div style="font-size: 1.2rem; opacity: 0.5;">↔</div>
+          <div>
+            <span style="font-size: 0.75rem; opacity: 0.8; text-uppercase: uppercase;">🌴 洛杉矶时间 (PDT)</span>
+            <div id="laxClock" style="font-size: 1.3rem; font-weight: 700; font-family: monospace;">--:--:--</div>
+          </div>
+          <span style="font-size: 0.8rem; background: var(--accent-sand); color: #000; padding: 0.25rem 0.6rem; border-radius: 99px; font-weight: 600;">
+            时差：檀香山慢 3 小时
+          </span>
+        </div>
+
+        <!-- Live Weather Widget -->
+        <div id="weatherWidget" style="font-size: 0.9rem;">
+          <!-- Populated by app.js Open-Meteo API -->
+          <span>☀️ 正在获取檀香山天气...</span>
+        </div>
       </div>
 
       <div class="hero-stats">
         <div class="stat-card">
-          <div class="label">行程日期</div>
-          <div class="value">8/16 - 8/21 (6D5N)</div>
+          <div class="label">行程时间</div>
+          <div class="value">8/16 - 8/22 (6D5N)</div>
         </div>
         <div class="stat-card">
           <div class="label">住宿预订</div>
-          <div class="value">已订 5 晚 (¥9404.73)</div>
+          <div class="value" style="color: #fed7aa;">5 晚待预订 (预估 ¥9404)</div>
         </div>
         <div class="stat-card">
           <div class="label">自驾租车</div>

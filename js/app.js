@@ -4,6 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
+  initLiveClocks();
+  fetchLiveWeather();
 });
 
 function initApp() {
@@ -16,7 +18,80 @@ function initApp() {
   setupDayPills();
 }
 
-// 1. Render Day-by-Day Itinerary Cards
+// 1. Live Clocks (Honolulu vs. Los Angeles)
+function initLiveClocks() {
+  updateClocks();
+  setInterval(updateClocks, 1000);
+}
+
+function updateClocks() {
+  const hnlTimeEl = document.getElementById('hnlClock');
+  const laxTimeEl = document.getElementById('laxClock');
+
+  if (hnlTimeEl) {
+    const hnlStr = new Date().toLocaleTimeString('zh-CN', {
+      timeZone: 'Pacific/Honolulu',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    hnlTimeEl.innerText = hnlStr;
+  }
+
+  if (laxTimeEl) {
+    const laxStr = new Date().toLocaleTimeString('zh-CN', {
+      timeZone: 'America/Los_Angeles',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    laxTimeEl.innerText = laxStr;
+  }
+}
+
+// 2. Fetch Live Weather & 3-Day Forecast (Open-Meteo Free API)
+async function fetchLiveWeather() {
+  const weatherEl = document.getElementById('weatherWidget');
+  if (!weatherEl) return;
+
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=21.3069&longitude=-157.8583&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Pacific%2FHonolulu';
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data && data.current_weather) {
+      const tempC = Math.round(data.current_weather.temperature);
+      const tempF = Math.round((tempC * 9/5) + 32);
+      const windSpeed = data.current_weather.windspeed;
+
+      const daily = data.daily;
+      let forecastHTML = '';
+      if (daily && daily.time) {
+        for (let i = 0; i < Math.min(3, daily.time.length); i++) {
+          const dayName = i === 0 ? '今天' : i === 1 ? '明天' : '后天';
+          const maxF = Math.round((daily.temperature_2m_max[i] * 9/5) + 32);
+          const minF = Math.round((daily.temperature_2m_min[i] * 9/5) + 32);
+          forecastHTML += `<span style="font-size:0.8rem; background:rgba(255,255,255,0.15); padding:0.2rem 0.6rem; border-radius:4px;">${dayName}: ${minF}°F - ${maxF}°F</span>`;
+        }
+      }
+
+      weatherEl.innerHTML = `
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+          <span>☀️ 檀香山实时天气: <strong>${tempF}°F (${tempC}°C)</strong></span>
+          <span>· 风速 ${windSpeed} km/h</span>
+          <div style="display:inline-flex; gap:0.4rem; margin-left:0.5rem;">${forecastHTML}</div>
+        </div>
+      `;
+    }
+  } catch (err) {
+    console.log('Weather fetch failed, falling back to static info:', err);
+    weatherEl.innerHTML = `☀️ 檀香山年均气温: <strong>80°F - 86°F (26°C - 30°C)</strong> · 晴朗热带气候`;
+  }
+}
+
+// 3. Render Day-by-Day Itinerary Cards
 function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
   const container = document.getElementById('daysContainer');
   if (!container) return;
@@ -24,10 +99,7 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
   container.innerHTML = '';
 
   TRIP_DATA.days.forEach(day => {
-    // Filter by specific day if selected
     if (activeDayNum !== null && day.dayNum !== activeDayNum) return;
-
-    // Filter by tag if selected
     if (filterTag !== 'all' && day.tag !== filterTag) return;
 
     const dayCard = document.createElement('div');
@@ -87,7 +159,7 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
   }
 }
 
-// 2. Setup Day Pills Selector
+// 4. Setup Day Pills Selector
 function setupDayPills() {
   const dayPillsContainer = document.getElementById('dayPills');
   if (!dayPillsContainer) return;
@@ -119,20 +191,23 @@ function setupDayPills() {
   });
 }
 
-// 3. Render Hotels & Rental Car Section
+// 5. Render Hotels & Rental Car Section
 function renderHotels() {
   const hotelListContainer = document.getElementById('hotelList');
   if (!hotelListContainer) return;
 
   let hotelHTML = '';
   TRIP_DATA.hotels.forEach(hotel => {
+    const isBooked = hotel.status === '已预订';
+    const statusColor = isBooked ? 'var(--accent-palm)' : 'var(--accent-coral)';
+
     hotelHTML += `
       <div class="hotel-item">
         <div class="hotel-name">
           <span>${hotel.name}</span>
           <span class="hotel-price">¥${hotel.priceRMB.toFixed(2)}</span>
         </div>
-        <div class="hotel-sub">📅 ${hotel.date} (${hotel.nights}晚) · <span style="color: var(--accent-palm); font-weight:600;">${hotel.status}</span></div>
+        <div class="hotel-sub">📅 ${hotel.date} (${hotel.nights}晚) · <span style="color: ${statusColor}; font-weight:700;">${hotel.status}</span></div>
         <div class="hotel-sub" style="margin-top: 0.3rem;">📍 ${hotel.address}</div>
         <div class="hotel-sub" style="margin-top: 0.3rem; color: var(--text-main);">💡 ${hotel.notes}</div>
         <div style="margin-top: 0.5rem; display:flex; gap:0.5rem;">
@@ -144,7 +219,6 @@ function renderHotels() {
   });
   hotelListContainer.innerHTML = hotelHTML;
 
-  // Rental car details
   const carContainer = document.getElementById('carDetails');
   if (!carContainer) return;
 
@@ -179,7 +253,7 @@ function renderHotels() {
   `;
 }
 
-// 4. Render Mandatory Reservations
+// 6. Render Mandatory Reservations
 function renderReservations() {
   const container = document.getElementById('reservationsContainer');
   if (!container) return;
@@ -208,12 +282,11 @@ function renderReservations() {
   container.innerHTML = html;
 }
 
-// 5. Render Packing Checklist with LocalStorage Persistence
+// 7. Render Packing Checklist
 function renderChecklist() {
   const container = document.getElementById('checklistContainer');
   if (!container) return;
 
-  // Load saved state
   const savedState = JSON.parse(localStorage.getItem('hawaii_packing_checklist') || '{}');
 
   let html = '';
@@ -253,7 +326,7 @@ function toggleChecklistItem(id, checkboxEl) {
   }
 }
 
-// 6. Render Budget Calculator
+// 8. Render Budget Calculator
 function renderBudget() {
   const container = document.getElementById('budgetContainer');
   if (!container) return;
@@ -268,27 +341,30 @@ function renderBudget() {
   const foodRMB = b.foodUSD * rate;
 
   const totalRMB = b.hotelsTotalRMB + rentalRMB + parkingRMB + gasRMB + ticketsRMB + foodRMB;
+  const totalUSD = totalRMB / rate;
+
   const perPersonRMB = totalRMB / TRIP_DATA.meta.travelers;
+  const perPersonUSD = totalUSD / TRIP_DATA.meta.travelers;
 
   container.innerHTML = `
     <div class="info-card">
-      <div class="card-title">💰 6天5晚 预算总览 (人均比对)</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: var(--primary-ocean-light); padding: 1rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--primary-ocean-dark);">预估费用总计 (全员)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--primary-ocean-dark);">¥${totalRMB.toFixed(0)} RMB</div>
-          <div style="font-size: 0.8rem; opacity: 0.8;">折合约 $${(totalRMB / rate).toFixed(0)} USD</div>
+      <div class="card-title">💰 6天5晚 预算总览</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--primary-ocean-light); padding: 1.25rem; border-radius: var(--radius-md);">
+          <div style="font-size: 0.85rem; color: var(--primary-ocean-dark); font-weight:600;">全员预估费用总计 (2人)</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--primary-ocean-dark); margin-top: 0.2rem;">¥${totalRMB.toFixed(0)} RMB</div>
+          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">约 $${totalUSD.toFixed(0)} USD</div>
         </div>
-        <div style="background: var(--accent-coral-light); padding: 1rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--accent-coral);">人均费用 (2人平摊)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-coral);">¥${perPersonRMB.toFixed(0)} RMB</div>
-          <div style="font-size: 0.8rem; opacity: 0.8;">含住宿、租车、油费、门票及餐食</div>
+        <div style="background: var(--accent-coral-light); padding: 1.25rem; border-radius: var(--radius-md);">
+          <div style="font-size: 0.85rem; color: var(--accent-coral); font-weight:600;">人均费用 (2人平摊)</div>
+          <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-coral); margin-top: 0.2rem;">$${perPersonUSD.toFixed(0)} USD</div>
+          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">(约 ¥${perPersonRMB.toFixed(0)} RMB / 人)</div>
         </div>
       </div>
 
       <div class="car-detail-list">
         <div class="car-detail-row">
-          <span class="label">🏨 酒店住宿费用 (已预订 5晚)</span>
+          <span class="label">🏨 酒店住宿费用 (5晚，待预订)</span>
           <span class="value">¥${b.hotelsTotalRMB.toFixed(2)} RMB</span>
         </div>
         <div class="car-detail-row">
@@ -316,9 +392,8 @@ function renderBudget() {
   `;
 }
 
-// 7. Event Listeners for Navigation & Tag Filtering
+// 9. Event Listeners for Navigation & Tag Filtering
 function setupEventListeners() {
-  // Main Tab Navigation
   const navBtns = document.querySelectorAll('.nav-btn');
   navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -331,7 +406,6 @@ function setupEventListeners() {
     });
   });
 
-  // Tag filter buttons
   const tagBtns = document.querySelectorAll('.tag-btn');
   tagBtns.forEach(btn => {
     btn.addEventListener('click', () => {

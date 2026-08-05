@@ -1,45 +1,37 @@
 /**
  * Hawaii Oahu Trip 2026 Data Source
- * Period: 2026.08.16 - 2026.08.21 (6 Days 5 Nights)
+ * Period: 2026.08.16 - 2026.08.22 (6 Days 5 Nights)
  */
 
 const TRIP_DATA = {
   meta: {
     title: "夏威夷欧胡岛 6天5晚 深度游",
-    subtitle: "2026.08.16 (周日) — 2026.08.21 (周五)",
+    subtitle: "2026.08.16 (周日) — 2026.08.22 (周六)",
     startDate: "2026-08-16",
-    endDate: "2026-08-21",
+    endDate: "2026-08-22",
     destination: "Honolulu, Oahu, Hawaii",
     currency: "USD / RMB",
     exchangeRate: 7.25, // 1 USD ≈ 7.25 RMB
-    travelers: 2
+    travelers: 2,
+    timezoneDiff: "檀香山 (HST) 比 洛杉矶 (PDT) 慢 3 小时"
   },
 
   hotels: [
     {
-      date: "8/16 (周日)",
-      name: "Waikiki Malia",
-      nights: 1,
-      priceRMB: 1217.74, // 896.41 + 321.33
-      status: "已预订",
-      address: "2470 Kuhio Ave, Honolulu, HI 96815",
-      notes: "深夜 22:30 抵达后 Uber 前往入住"
-    },
-    {
-      date: "8/17 – 8/18 (周一 - 周二)",
+      date: "8/16 – 8/18 (周日 - 周二)",
       name: "Sheraton Waikiki Beach Resort",
       nights: 2,
-      priceRMB: 5864.90, // 5029.62 + 835.28
-      status: "已预订",
+      priceRMB: 5864.90,
+      status: "未预订",
       address: "2255 Kalakaua Ave, Honolulu, HI 96815",
       notes: "奢华海景度假日，玩水看日落；8/18 自驾停车 1 晚约 $60"
     },
     {
-      date: "8/19 – 8/20 (周三 - 周四)",
+      date: "8/18 – 8/21 (周二 - 周五)",
       name: "Waikiki Malia",
-      nights: 2,
-      priceRMB: 2322.09, // 1679.42 + 642.67
-      status: "已预订",
+      nights: 3,
+      priceRMB: 3539.83, // 1217.74 + 2322.09
+      status: "未预订",
       address: "2470 Kuhio Ave, Honolulu, HI 96815",
       notes: "北岸与古兰尼完结后入住，停车 1 晚约 $35"
     }
@@ -111,7 +103,7 @@ const TRIP_DATA = {
       title: "洛杉矶 ✈️ 檀香山｜晚间抵达入住",
       tag: "transit",
       carStatus: "🚫 不租车 (Uber)",
-      hotelStay: "Waikiki Malia",
+      hotelStay: "Sheraton Waikiki Beach Resort",
       summary: "从洛杉矶飞行抵达夏威夷，入住 Waikiki 酒店并采购物资",
       timeline: [
         {
@@ -125,10 +117,10 @@ const TRIP_DATA = {
         {
           time: "22:30",
           activity: "打 Uber 前往 Waikiki",
-          location: "Waikiki Malia Hotel",
-          mapQuery: "Waikiki Malia",
+          location: "Sheraton Waikiki Beach Resort",
+          mapQuery: "Sheraton Waikiki Beach Resort",
           type: "transit",
-          details: "车程约 25 分钟，直达 Waikiki Malia"
+          details: "车程约 25 分钟，直达 Sheraton Waikiki"
         },
         {
           time: "23:00",
@@ -189,8 +181,8 @@ const TRIP_DATA = {
       title: "东南海岸线自驾｜果冻海与俯瞰夜景",
       tag: "drive",
       carStatus: "🚗 租车 Day 1 (东南岸大环线)",
-      hotelStay: "Sheraton Waikiki (停车 $60)",
-      summary: "步行取车，打卡恐龙湾、喷泉洞、绝美 Lanikai 细白沙滩、平等院，坦塔罗斯山看夜景",
+      hotelStay: "Waikiki Malia (停车 $35)",
+      summary: "步行取车，打卡恐龙湾、喷泉洞、绝美 Lanikai 细白沙滩、平等院，坦塔罗斯山看夜景，入住 Malia",
       timeline: [
         {
           time: "08:30",
@@ -251,11 +243,11 @@ const TRIP_DATA = {
         },
         {
           time: "20:00",
-          activity: "Waikiki 特色 Poke 晚餐",
-          location: "Musubi Cafe Iyasume / Maguro Spot",
-          mapQuery: "Musubi Cafe Iyasume Kuhio Ave",
+          activity: "Waikiki 特色 Poke 晚餐 & 入住 Malia",
+          location: "Waikiki Malia Hotel",
+          mapQuery: "Waikiki Malia Hotel",
           type: "food",
-          details: "打卡超赞饭团 Musubi Cafe 或新鲜极致的 Maguro Spot Poke Bowl"
+          details: "打卡超赞饭团 Musubi Cafe 或 Maguro Spot Poke Bowl，入住 Malia 酒店"
         }
       ]
     },
@@ -265,12 +257,12 @@ const TRIP_DATA = {
       title: "北岸大环线自驾｜菠萝园与海龟探访",
       tag: "drive",
       carStatus: "🚗 租车 Day 2 (北岸环线)",
-      hotelStay: "Waikiki Malia (停车 $35)",
-      summary: "退房寄存行李，菠萝冰淇淋，Haleiwa 小镇刨冰与史努比，Laniakea 海龟，北岸日落",
+      hotelStay: "Waikiki Malia",
+      summary: "菠萝冰淇淋，Haleiwa 小镇刨冰与史努比，Laniakea 海龟，北岸日落",
       timeline: [
         {
           time: "09:00",
-          activity: "退房寄存行李 -> 前往 Dole 菠萝园",
+          activity: "前往 Dole 菠萝园",
           location: "Dole Plantation",
           mapQuery: "Dole Plantation Hawaii",
           type: "attraction",
@@ -310,11 +302,11 @@ const TRIP_DATA = {
         },
         {
           time: "20:00",
-          activity: "返回 Waikiki 入住 Malia",
+          activity: "返回 Waikiki Malia",
           location: "Waikiki Malia Hotel",
           mapQuery: "Waikiki Malia Hotel",
           type: "transit",
-          details: "还车前停 Malia 酒店，入住休息"
+          details: "返回 Malia 酒店停车休息"
         }
       ]
     },
@@ -373,11 +365,11 @@ const TRIP_DATA = {
     {
       dayNum: 6,
       date: "8月21日 (周五)",
-      title: "钻石头山日出 ✈️ 珍珠港｜离岛返程",
+      title: "钻石头山日出 ✈️ 珍珠港｜离岛返程 (8/22晨抵LAX)",
       tag: "transit",
       carStatus: "🚫 不租车 (Uber)",
       hotelStay: "无 (今晚返程飞 LAX)",
-      summary: "登顶 Diamond Head 看火奴鲁鲁，参观珍珠港亚利桑那号，傍晚返程飞洛杉矶",
+      summary: "登顶 Diamond Head 看火奴鲁鲁，参观珍珠港亚利桑那号，傍晚返程飞洛杉矶 (8/22 早上到达 LAX)",
       timeline: [
         {
           time: "06:30",
@@ -415,10 +407,10 @@ const TRIP_DATA = {
         },
         {
           time: "21:00",
-          activity: "✈️ 飞往洛杉矶 (LAX)",
+          activity: "✈️ 飞往洛杉矶 (8/22 晨抵达 LAX)",
           location: "HNL Airport Gate",
           type: "flight",
-          details: "带着美好的夏威夷记忆踏上归途！"
+          details: "带着美好的夏威夷记忆踏上归途！次日 (8/22) 早上抵达洛杉矶"
         }
       ]
     }
@@ -430,8 +422,8 @@ const TRIP_DATA = {
       items: [
         { id: "p1", text: "护照 & 护照复印件/电子件" },
         { id: "p2", text: "驾照原件 & 翻译件/租车确认单" },
-        { id: "p3", text: "双币信用卡 (Visa/Mastercard)" },
-        { id: "p4", text: "少量美元现金 (小费与停车)" },
+        { id: "p3", text: "银行卡 (Visa/Mastercard)" },
+        { id: "p4", text: "少量美金现金 (小费与停车)" },
         { id: "p5", text: "酒店/机票/景点预约单电子件" }
       ]
     },
