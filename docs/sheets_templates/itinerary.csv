@@ -1,0 +1,32 @@
+Day,Time,Activity,Location,MapQuery,Type,Badge,Details
+1,21:50,抵达檀香山机场 (HNL),Daniel K. Inouye International Airport,Daniel K. Inouye International Airport,flight,,领取行李出关
+1,22:30,打 Uber 前往 Sheraton,Sheraton Waikiki Beach Resort,Sheraton Waikiki Beach Resort,transit,,车程约25分钟入住Sheraton
+1,23:00,入住 & ABC Store 采购,ABC Stores Waikiki,ABC Store Kuhio Ave Waikiki,shopping,,买水零食防晒喷雾
+2,10:00,Honolulu Museum of Art (HoMA),Honolulu Museum of Art,Honolulu Museum of Art,culture,,出片神地日式中庭
+2,13:00,Royal Hawaiian & International Market Place,Royal Hawaiian Center,Royal Hawaiian Center,shopping,,逛街打卡黑皮Kitty
+2,15:30,Sheraton 边缘无边泳池,Sheraton Waikiki Beach Resort,Sheraton Waikiki Beach Resort,relax,,无边泳池玩水看海景
+2,18:30,Waikiki Beach 日落,Waikiki Beach,Waikiki Beach Honolulu,view,,金黄沙滩椰林落日
+3,08:30,步行前往取车,Waikiki Rental Branch,Avis Rent A Car Waikiki,transit,,办理租车开启自驾
+3,09:30,Hanauma Bay 恐龙湾,Hanauma Bay Nature Preserve,Hanauma Bay,nature,需提前预约,火山海湾渐变果冻海
+3,11:00,Kahala Beach & Halona Blowhole,Halona Blowhole Lookout,Halona Blowhole Lookout,view,,Jennie同款海滩喷泉洞
+3,12:00,Lanai & Makapuʻu Lookout,Makapuʻu Point Lookout,Makapuʻu Point Lookout,view,,黑色火山岩与悬崖海岸
+3,13:00,Lanikai Beach & Kailua 午餐,Lanikai Beach,Lanikai Beach,food,,果冻海与Kalapawai/Adela's
+3,15:30,Byodo-in Temple 平等院,Byodo-In Temple Hawaii,Byodo-In Temple Hawaii,culture,,山脚日式禅意寺庙
+3,18:30,Tantalus Lookout 坦塔罗斯山,Tantalus Lookout,Tantalus Lookout Puu Ualakaa State Park,view,,俯瞰火奴鲁鲁夕阳夜景
+3,20:00,Waikiki 晚餐 & 入住 Malia,Waikiki Malia Hotel,Waikiki Malia Hotel,food,,Musubi Cafe/Maguro Spot入住Malia
+4,09:00,前往 Dole 菠萝园,Dole Plantation,Dole Plantation Hawaii,attraction,,观光小火车菠萝冰淇淋
+4,12:00,北岸蒜蓉虾饭午餐,Giovanni's Shrimp Truck,Giovanni's Shrimp Truck Haleiwa,food,,Giovanni's蒜蓉虾饭
+4,13:30,Haleiwa 复古小镇漫步,Haleiwa Town,Haleiwa Town Oahu,shopping,,Matsumoto刨冰Snoopy商店
+4,15:30,Laniakea Beach 看野生海龟,Laniakea Beach,Laniakea Beach Turtle Beach,nature,,看沙滩晒太阳巨型海龟
+4,17:00,Waimea Bay & Sunset Beach 日落,Sunset Beach Park,Sunset Beach Park Oahu,view,,北岸冲浪者海岸日落
+4,20:00,返回 Waikiki Malia,Waikiki Malia Hotel,Waikiki Malia Hotel,transit,,返回Malia停车休息
+5,08:30,Kualoa Ranch 古兰尼牧场,Kualoa Ranch,Kualoa Ranch Hawaii,adventure,需提前预约,侏罗纪取景地UTV/Jungle
+5,12:30,牧场午餐 (Ranch House),Kualoa Ranch House,Kualoa Ranch House,food,,牛肉汉堡与牛肉饭
+5,14:00,Kualoa Regional Park,Kualoa Regional Park,Kualoa Regional Park,view,,草帽岛明信片机位
+5,15:30,Ho'omaluhia Botanical Garden,Ho'omaluhia Botanical Garden,Ho'omaluhia Botanical Garden,nature,,雨林植物园侏罗纪仙境
+5,18:00,返回 Waikiki 还车,Waikiki Rental Branch,Avis Rent A Car Waikiki,transit,,顺畅还车海滩漫步
+6,06:30,Diamond Head 钻石山徒步,Diamond Head State Monument,Diamond Head State Monument,adventure,需提前预约,登顶看火奴鲁鲁全景
+6,10:00,Pearl Harbor 珍珠港,Pearl Harbor National Memorial,Pearl Harbor National Memorial,culture,需提前预约,参观亚利桑那号纪念馆
+6,14:00,市区采购与午后咖啡,Waikiki Shopping Plaza,Waikiki Shopping Plaza,shopping,,补齐伴手礼享用咖啡
+6,18:30,回酒店拿行李 -> 机场,Daniel K. Inouye International Airport,Daniel K. Inouye International Airport,transit,,打车前往机场预留2h
+6,21:00,✈️ 飞往洛杉矶 (8/22 晨抵 LAX),HNL Airport Gate,HNL Airport Gate,flight,,次日早上抵达洛杉矶
