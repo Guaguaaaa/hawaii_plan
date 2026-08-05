@@ -12,6 +12,7 @@ function initApp() {
   renderTodoList();
   renderItineraryDays();
   renderHotels();
+  renderUrgentCare();
   renderReservations();
   renderChecklist();
   renderBudget();
@@ -19,6 +20,34 @@ function initApp() {
   setupDayPills();
 
   fetchGoogleSheetsData();
+}
+
+function renderUrgentCare() {
+  const container = document.getElementById('urgentCareList');
+  if (!container || !TRIP_DATA.urgentCare) return;
+
+  let html = '';
+  TRIP_DATA.urgentCare.forEach(clinic => {
+    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.mapQuery)}`;
+    
+    html += `
+      <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; border-left: 4px solid var(--badge-food);">
+        <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
+          <span>🏥 ${clinic.name}</span>
+          <a href="tel:${clinic.phone.replace(/[^0-9]/g, '')}" style="color:var(--primary-ocean); font-weight:700; text-decoration:none;">📞 ${clinic.phone}</a>
+        </div>
+        <div style="font-size:0.85rem; color:var(--text-muted);">📍 ${clinic.location}</div>
+        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.2rem;">⏰ 营业时间: ${clinic.hours}</div>
+        <div style="font-size:0.85rem; color:var(--text-main); margin-top:0.4rem;">💡 ${clinic.notes}</div>
+        <div style="margin-top:0.6rem; display:flex; gap:0.5rem;">
+          <a href="${mapUrl}" target="_blank" class="btn-action" style="font-size:0.75rem;">📍 地图导航</a>
+          <a href="tel:${clinic.phone.replace(/[^0-9]/g, '')}" class="btn-action" style="font-size:0.75rem; background:var(--badge-food); color:white;">📞 拨打电话</a>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
 }
 
 // 1. Render Todo List (Priority, DDL, Phase)

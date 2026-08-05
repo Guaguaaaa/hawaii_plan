@@ -23,6 +23,42 @@ const TRIP_DATA = {
     todoCsvUrl: "" // 填入你的 Google Sheets Todo List 发布 CSV 链接
   },
 
+  // 🏥 酒店附近 Urgent Care & 医疗救助诊所
+  urgentCare: [
+    {
+      name: "Straub Doctors on Call (Sheraton 酒店内)",
+      location: "Sheraton Waikiki Beach Resort 底楼 (Lower Level)",
+      phone: "(808) 971-6000",
+      hours: "每天 08:00 - 18:00",
+      mapQuery: "Doctors on Call at Sheraton Waikiki",
+      notes: "🌟 就在 Sheraton 酒店楼下！提供门诊、X光、化验，提供 Waikiki 区域酒店免费班车接送"
+    },
+    {
+      name: "Kuhio Medical Clinic (Malia 酒店旁)",
+      location: "2310 Kuhio Ave, Suite 223 (距 Malia 酒店步行 1 分钟)",
+      phone: "(808) 924-6688",
+      hours: "周一至周五 08:00-17:00, 周六 09:00-17:00",
+      mapQuery: "Kuhio Medical Clinic Honolulu",
+      notes: "🌟 紧邻 Waikiki Malia 酒店，出门过马路即到"
+    },
+    {
+      name: "Doctors of Waikiki (夜间急诊诊所)",
+      location: "120 Liliuokalani Ave #101, Honolulu",
+      phone: "(808) 922-2112",
+      hours: "每天 08:00 - 22:00 (营业至晚 10 点)",
+      mapQuery: "Doctors of Waikiki",
+      notes: "Waikiki 营业时间最长的综合 Urgent Care，适合晚间不适就医"
+    },
+    {
+      name: "Urgent Care Clinic of Waikiki",
+      location: "2155 Kalakaua Ave, Suite 308",
+      phone: "(808) 924-3399",
+      hours: "周一至周五 09:00-17:00, 周日 09:00-12:00",
+      mapQuery: "Urgent Care Clinic of Waikiki",
+      notes: "位于 Kalakaua 大道，提供 Waikiki 区域内免费出租车接送至诊所"
+    }
+  ],
+
   todoList: [
     {
       phase: "🔥 当务之急",
