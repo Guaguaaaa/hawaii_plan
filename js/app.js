@@ -145,6 +145,61 @@ async function fetchGoogleSheetsData() {
       if (rows && rows.length > 0) renderTodoList(rows);
     } catch (e) { console.warn('Google Sheets Todo error:', e); }
   }
+
+  // Live Packing Checklist from Google Sheets
+  if (TRIP_DATA.googleSheets.checklistCsvUrl) {
+    try {
+      const res = await fetch(TRIP_DATA.googleSheets.checklistCsvUrl);
+      const csvText = await res.text();
+      const rows = parseCSV(csvText);
+      if (rows && rows.length > 0) renderGoogleSheetsChecklist(rows);
+    } catch (e) { console.warn('Google Sheets Checklist error:', e); }
+  }
+}
+
+function renderGoogleSheetsChecklist(rows) {
+  const container = document.getElementById('checklistContainer');
+  if (!container) return;
+
+  const savedState = JSON.parse(localStorage.getItem('hawaii_packing_checklist') || '{}');
+  const categories = {};
+
+  rows.forEach((r, idx) => {
+    const cat = r.Category || r['类别'] || '📦 物品清单';
+    if (!categories[cat]) categories[cat] = [];
+    categories[cat].push({
+      id: `gs_check_${idx}`,
+      text: r.Item || r['准备物品'] || '',
+      priority: r.Priority || r['优先级'] || '',
+      notes: r.Notes || r['备注'] || ''
+    });
+  });
+
+  let html = '';
+  Object.keys(categories).forEach(catName => {
+    let itemsHTML = '';
+    categories[catName].forEach(item => {
+      const isChecked = !!savedState[item.id];
+      itemsHTML += `
+        <label class="check-item ${isChecked ? 'completed' : ''}" data-id="${item.id}" style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleChecklistItem('${item.id}', this)">
+            <span>${item.text} ${item.notes ? `<small style="color:var(--text-muted); font-size:0.8rem;">(${item.notes})</small>` : ''}</span>
+          </div>
+          ${item.priority ? `<span class="badge-tag" style="font-size:0.75rem; background:var(--bg-subtle);">${item.priority}</span>` : ''}
+        </label>
+      `;
+    });
+
+    html += `
+      <div class="checklist-card">
+        <div class="checklist-title">${catName}</div>
+        <div>${itemsHTML}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
 }
 
 function parseCSV(text) {
