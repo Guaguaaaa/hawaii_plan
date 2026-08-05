@@ -365,18 +365,18 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
       timelineHTML += `
         <div class="timeline-item">
           <div class="timeline-time">⏰ ${item.time}</div>
-          <div class="timeline-content">
+          <div class="timeline-content ${hasModal ? 'clickable-card' : ''}" ${hasModal ? `onclick="openDetailModal('${modalDataJson}')"` : ''}>
             <div class="item-top">
               <span class="activity-name">${item.activity}</span>
               <div class="item-badges">
+                ${hasModal ? `<span class="badge-tag" style="background: var(--primary-ocean-light); color: var(--primary-ocean-dark); font-weight:600;">📄 点击查看详情</span>` : ''}
                 ${item.badge ? `<span class="badge-tag need-booking">🎟️ ${item.badge}</span>` : ''}
               </div>
             </div>
             <div class="activity-details">${item.details}</div>
             <div class="action-row">
-              ${hasModal ? `<button class="btn-action" style="background: var(--primary-ocean-light); color: var(--primary-ocean-dark); border-color: var(--primary-ocean);" onclick="openDetailModal('${modalDataJson}')">📄 查看行程与卡片详情</button>` : ''}
-              ${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="btn-action">📍 打开地图导航</a>` : ''}
-              <button class="btn-action" onclick="copyToClipboard('${item.activity} - ${item.location || ''}')">📋 复制信息</button>
+              ${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="btn-action" onclick="event.stopPropagation();">📍 打开地图导航</a>` : ''}
+              <button class="btn-action" onclick="event.stopPropagation(); copyToClipboard('${item.activity} - ${item.location || ''}');">📋 复制信息</button>
             </div>
           </div>
         </div>

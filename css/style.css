@@ -404,10 +404,15 @@ body {
   transition: var(--transition);
 }
 
-.timeline-item:hover .timeline-content {
+.timeline-content.clickable-card {
+  cursor: pointer;
+}
+
+.timeline-content.clickable-card:hover {
   background: #ffffff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.12);
   border-color: var(--primary-ocean);
+  transform: translateY(-2px);
 }
 
 .item-top {
