@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initApp() {
+  renderTodoList();
   renderItineraryDays();
   renderHotels();
   renderReservations();
@@ -17,25 +18,103 @@ function initApp() {
   setupEventListeners();
   setupDayPills();
 
-  // Fetch Live Google Sheets if URLs configured
   fetchGoogleSheetsData();
 }
 
+// 1. Render Todo List (Priority, DDL, Phase)
+function renderTodoList(customList = null) {
+  const container = document.getElementById('todoContainer');
+  if (!container) return;
+
+  const list = customList || TRIP_DATA.todoList;
+  if (!list || list.length === 0) return;
+
+  // Group by Phase
+  const groups = {};
+  list.forEach(item => {
+    const phase = item.phase || item['Phase'] || item['阶段'] || '📌 待办事项';
+    if (!groups[phase]) groups[phase] = [];
+    groups[phase].push(item);
+  });
+
+  const savedState = JSON.parse(localStorage.getItem('hawaii_todo_state') || '{}');
+
+  let html = '';
+  Object.keys(groups).forEach(phaseName => {
+    let itemsHTML = '';
+    groups[phaseName].forEach((task, idx) => {
+      const taskId = `todo_${phaseName}_${idx}`;
+      const isDone = !!savedState[taskId] || task.status === '已完成' || task['Status'] === '已完成';
+      const taskText = task.task || task['Task'] || task['待办事项'] || '';
+      const priority = task.priority || task['Priority'] || task['优先级'] || '🟡 中';
+      const ddl = task.deadline || task['Deadline'] || task['截止日期'] || '';
+      const notes = task.notes || task['Notes'] || task['详细说明'] || '';
+
+      itemsHTML += `
+        <div class="timeline-content ${isDone ? 'completed-task' : ''}" style="margin-bottom: 0.75rem; border-left: 4px solid ${priority.includes('紧急') ? '#ef4444' : priority.includes('高') ? '#f97316' : '#0284c7'};">
+          <div class="item-top">
+            <label style="display:flex; align-items:center; gap:0.6rem; cursor:pointer; font-weight:700; font-size:1.05rem;">
+              <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTodoStatus('${taskId}', this)" style="width:18px; height:18px; accent-color:var(--primary-ocean);">
+              <span class="todo-title-text" style="${isDone ? 'text-decoration: line-through; color: var(--text-light);' : ''}">${taskText}</span>
+            </label>
+            <div class="item-badges">
+              <span class="badge-tag" style="background: var(--bg-card); border: 1px solid var(--border-color);">${priority}</span>
+              ${ddl ? `<span class="badge-tag need-booking">⏰ DDL: ${ddl}</span>` : ''}
+            </div>
+          </div>
+          ${notes ? `<div class="activity-details" style="margin-top:0.4rem; font-size:0.85rem;">💡 ${notes}</div>` : ''}
+        </div>
+      `;
+    });
+
+    html += `
+      <div class="info-card" style="margin-bottom: 1.5rem;">
+        <div class="card-title">${phaseName}</div>
+        <div>${itemsHTML}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleTodoStatus(id, checkboxEl) {
+  const savedState = JSON.parse(localStorage.getItem('hawaii_todo_state') || '{}');
+  savedState[id] = checkboxEl.checked;
+  localStorage.setItem('hawaii_todo_state', JSON.stringify(savedState));
+
+  const titleTextEl = checkboxEl.closest('.item-top').querySelector('.todo-title-text');
+  if (checkboxEl.checked) {
+    titleTextEl.style.textDecoration = 'line-through';
+    titleTextEl.style.color = 'var(--text-light)';
+  } else {
+    titleTextEl.style.textDecoration = 'none';
+    titleTextEl.style.color = 'var(--text-main)';
+  }
+}
+
+// 2. Fetch Live Google Sheets if URLs configured
 async function fetchGoogleSheetsData() {
   if (!TRIP_DATA.googleSheets) return;
 
-  // 1. Live Budget from Google Sheets
+  // Live Budget from Google Sheets
   if (TRIP_DATA.googleSheets.budgetCsvUrl) {
     try {
       const res = await fetch(TRIP_DATA.googleSheets.budgetCsvUrl);
       const csvText = await res.text();
       const rows = parseCSV(csvText);
-      if (rows && rows.length > 0) {
-        renderGoogleSheetsBudget(rows);
-      }
-    } catch (e) {
-      console.warn('Google Sheets Budget fetch error:', e);
-    }
+      if (rows && rows.length > 0) renderGoogleSheetsBudget(rows);
+    } catch (e) { console.warn('Google Sheets Budget error:', e); }
+  }
+
+  // Live Todo from Google Sheets
+  if (TRIP_DATA.googleSheets.todoCsvUrl) {
+    try {
+      const res = await fetch(TRIP_DATA.googleSheets.todoCsvUrl);
+      const csvText = await res.text();
+      const rows = parseCSV(csvText);
+      if (rows && rows.length > 0) renderTodoList(rows);
+    } catch (e) { console.warn('Google Sheets Todo error:', e); }
   }
 }
 
@@ -105,7 +184,7 @@ function renderGoogleSheetsBudget(rows) {
   `;
 }
 
-// 1. Live Clocks (Honolulu vs. Los Angeles)
+// Live Clocks
 function initLiveClocks() {
   updateClocks();
   setInterval(updateClocks, 1000);
@@ -116,29 +195,27 @@ function updateClocks() {
   const laxTimeEl = document.getElementById('laxClock');
 
   if (hnlTimeEl) {
-    const hnlStr = new Date().toLocaleTimeString('zh-CN', {
+    hnlTimeEl.innerText = new Date().toLocaleTimeString('zh-CN', {
       timeZone: 'Pacific/Honolulu',
       hour12: false,
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit'
     });
-    hnlTimeEl.innerText = hnlStr;
   }
 
   if (laxTimeEl) {
-    const laxStr = new Date().toLocaleTimeString('zh-CN', {
+    laxTimeEl.innerText = new Date().toLocaleTimeString('zh-CN', {
       timeZone: 'America/Los_Angeles',
       hour12: false,
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit'
     });
-    laxTimeEl.innerText = laxStr;
   }
 }
 
-// 2. Fetch Live Weather & 3-Day Forecast (Open-Meteo Free API)
+// Live Weather
 async function fetchLiveWeather() {
   const weatherEl = document.getElementById('weatherWidget');
   if (!weatherEl) return;
@@ -173,12 +250,11 @@ async function fetchLiveWeather() {
       `;
     }
   } catch (err) {
-    console.log('Weather fetch failed, falling back to static info:', err);
     weatherEl.innerHTML = `☀️ 檀香山年均气温: <strong>80°F - 86°F (26°C - 30°C)</strong> · 晴朗热带气候`;
   }
 }
 
-// 3. Render Day-by-Day Itinerary Cards
+// Render Day-by-Day Itinerary Cards
 function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
   const container = document.getElementById('daysContainer');
   if (!container) return;
@@ -246,7 +322,7 @@ function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
   }
 }
 
-// 4. Setup Day Pills Selector
+// Setup Day Pills Selector
 function setupDayPills() {
   const dayPillsContainer = document.getElementById('dayPills');
   if (!dayPillsContainer) return;
@@ -278,7 +354,7 @@ function setupDayPills() {
   });
 }
 
-// 5. Render Hotels & Rental Car Section
+// Render Hotels & Rental Car Section
 function renderHotels() {
   const hotelListContainer = document.getElementById('hotelList');
   if (!hotelListContainer) return;
@@ -340,7 +416,7 @@ function renderHotels() {
   `;
 }
 
-// 6. Render Mandatory Reservations
+// Render Mandatory Reservations
 function renderReservations() {
   const container = document.getElementById('reservationsContainer');
   if (!container) return;
@@ -369,7 +445,7 @@ function renderReservations() {
   container.innerHTML = html;
 }
 
-// 7. Render Packing Checklist
+// Render Packing Checklist
 function renderChecklist() {
   const container = document.getElementById('checklistContainer');
   if (!container) return;
@@ -413,7 +489,7 @@ function toggleChecklistItem(id, checkboxEl) {
   }
 }
 
-// 8. Render Budget Calculator
+// Render Budget Calculator
 function renderBudget() {
   const container = document.getElementById('budgetContainer');
   if (!container) return;
@@ -479,7 +555,7 @@ function renderBudget() {
   `;
 }
 
-// 9. Event Listeners for Navigation & Tag Filtering
+// Event Listeners
 function setupEventListeners() {
   const navBtns = document.querySelectorAll('.nav-btn');
   navBtns.forEach(btn => {

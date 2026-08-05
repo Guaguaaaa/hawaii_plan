@@ -20,8 +20,139 @@ const TRIP_DATA = {
   googleSheets: {
     budgetCsvUrl: "", // 填入你的 Google Sheets Budget 发布 CSV 链接
     checklistCsvUrl: "", // 填入你的 Google Sheets Checklist 发布 CSV 链接
-    itineraryCsvUrl: "" // 填入你的 Google Sheets Itinerary 发布 CSV 链接
+    todoCsvUrl: "" // 填入你的 Google Sheets Todo List 发布 CSV 链接
   },
+
+  todoList: [
+    {
+      phase: "🔥 当务之急",
+      task: "订洛杉矶往返檀香山机票 (LAX↔HNL)",
+      priority: "🔴 紧急",
+      deadline: "尽快 (8月上旬)",
+      status: "未完成",
+      notes: "8/16 21:50抵HNL，8/21 21:00飞离HNL"
+    },
+    {
+      phase: "🔥 当务之急",
+      task: "预订 Sheraton Waikiki 酒店 (8/16-8/18 2晚)",
+      priority: "🔴 紧急",
+      deadline: "尽快 (8月上旬)",
+      status: "未完成",
+      notes: "海景房，无边泳池度假"
+    },
+    {
+      phase: "🔥 当务之急",
+      task: "预订 Waikiki Malia 酒店 (8/18-8/21 3晚)",
+      priority: "🔴 紧急",
+      deadline: "尽快 (8月上旬)",
+      status: "未完成",
+      notes: "环岛结束后入住"
+    },
+    {
+      phase: "🔥 当务之急",
+      task: "预订 Avis / Hertz 租车 (8/18早-8/20晚 3天)",
+      priority: "🔴 紧急",
+      deadline: "尽快 (8月上旬)",
+      status: "未完成",
+      notes: "Waikiki 门店取还车"
+    },
+    {
+      phase: "🎟️ 预订抢票",
+      task: "预订古兰尼牧场 Kualoa Ranch (UTV / Jungle)",
+      priority: "🟠 高",
+      deadline: "提前 1 个月",
+      status: "未完成",
+      notes: "热门 UTV Tour 极易售罄，需提前官网上锁"
+    },
+    {
+      phase: "🎟️ 预订抢票",
+      task: "预订珍珠港 USS Arizona 纪念馆门票",
+      priority: "🟠 高",
+      deadline: "提前 8 周 / 前一天15:00",
+      status: "未完成",
+      notes: "Recreation.gov 抢票"
+    },
+    {
+      phase: "🎟️ 预订抢票",
+      task: "预约钻石山 Diamond Head 登顶名额",
+      priority: "🟡 中",
+      deadline: "提前 14 天 (8/7左右)",
+      status: "未完成",
+      notes: "预约 8/21 早晨 06:30 场次"
+    },
+    {
+      phase: "🎟️ 预订抢票",
+      task: "抢恐龙湾 Hanauma Bay 门票",
+      priority: "🔴 紧急",
+      deadline: "提前 2 天早7:00 (HST)",
+      status: "未完成",
+      notes: "8/16 早 7:00 (HST) 抢 8/18 (Day3) 门票"
+    },
+    {
+      phase: "🧳 行前打包",
+      task: "检查护照有效期 & 驾照原件/翻译件",
+      priority: "🟠 高",
+      deadline: "出发前 7 天",
+      status: "未完成",
+      notes: "租车及机场安检必需"
+    },
+    {
+      phase: "🧳 行前打包",
+      task: "采购 Reef-Safe 环保防晒霜 & 涉水鞋/面镜",
+      priority: "🟡 中",
+      deadline: "出发前 3 天",
+      status: "未完成",
+      notes: "夏威夷法律规定使用环保防晒"
+    },
+    {
+      phase: "🧳 行前打包",
+      task: "打包夏日服饰、长裙、薄外套、充电宝",
+      priority: "🟡 中",
+      deadline: "出发前 1 天 (8/15)",
+      status: "未完成",
+      notes: "防晒衣服与室内空调薄外套"
+    },
+    {
+      phase: "✈️ 旅行期间",
+      task: "8/16 深夜抵达 HNL & 打车入住 Sheraton",
+      priority: "🟢 低",
+      deadline: "8/16 22:30",
+      status: "未完成",
+      notes: "机场 ABC Store 买水零食"
+    },
+    {
+      phase: "✈️ 旅行期间",
+      task: "8/18 早前往 Waikiki Avis/Hertz 取车",
+      priority: "🟠 高",
+      deadline: "8/18 08:30",
+      status: "未完成",
+      notes: "开启 Day 3 东南岸自驾"
+    },
+    {
+      phase: "✈️ 旅行期间",
+      task: "8/18 办理 Malia 入住 & 寄存行李",
+      priority: "🟡 中",
+      deadline: "8/18 傍晚",
+      status: "未完成",
+      notes: "退房 Sheraton，入住 Malia"
+    },
+    {
+      phase: "✈️ 旅行期间",
+      task: "8/20 18:00 Waikiki 门店还车",
+      priority: "🟠 高",
+      deadline: "8/20 18:00",
+      status: "未完成",
+      notes: "加满油后顺畅还车"
+    },
+    {
+      phase: "✈️ 旅行期间",
+      task: "8/21 18:30 酒店拿行李打车前往机场",
+      priority: "🔴 紧急",
+      deadline: "8/21 18:30",
+      status: "未完成",
+      notes: "预留 2h+ 办理登机手续"
+    }
+  ],
 
   hotels: [
     {
@@ -37,7 +168,7 @@ const TRIP_DATA = {
       date: "8/18 – 8/21 (周二 - 周五)",
       name: "Waikiki Malia",
       nights: 3,
-      priceRMB: 3539.83, // 1217.74 + 2322.09
+      priceRMB: 3539.83,
       status: "未预订",
       address: "2470 Kuhio Ave, Honolulu, HI 96815",
       notes: "北岸与古兰尼完结后入住，停车 1 晚约 $35"
@@ -48,9 +179,9 @@ const TRIP_DATA = {
     period: "8/18 (早) — 8/20 (晚) 连续三天",
     providers: "Avis / Hertz (Waikiki 门店取还车)",
     carTypes: ["Toyota Corolla", "Nissan Sentra", "Hyundai Elantra"],
-    costEstimateUSD: 280, // ~$230-320
-    parkingEstimateUSD: 95, // $60 Sheraton + $35 Malia
-    gasEstimateUSD: 40, // 180-220 英里
+    costEstimateUSD: 280,
+    parkingEstimateUSD: 95,
+    gasEstimateUSD: 40,
     totalMileageMiles: "180 - 220 英里 (290 - 355 公里)"
   },
 
@@ -376,7 +507,7 @@ const TRIP_DATA = {
       tag: "transit",
       carStatus: "🚫 不租车 (Uber)",
       hotelStay: "无 (今晚返程飞 LAX)",
-      summary: "登顶 Diamond Head 看火奴鲁鲁，参观珍珠港亚利桑那号，傍晚返程飞洛杉矶 (8/22 早上到达 LAX)",
+      summary: "登顶 Diamond Head 看火奴鲁鲁，参观珍珠港亚利桑那号，傍晚返程飞洛杉矶 (8/22 早上抵达 LAX)",
       timeline: [
         {
           time: "06:30",
