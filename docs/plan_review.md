@@ -95,39 +95,38 @@
   - `15:00` 下午 3 点返回 Sheraton 办理 Check-in 入住 ➔ 边缘无边泳池玩水看海景 (*在酒店玩水！休息诶嘿嘿嘿～🤤*)
   - `18:30` Waikiki Beach 看落日晚宴
 
-### 📍 DAY 3｜8月18日 (周二) · 🚗 租车 Day 1 东南海岸线自驾
-* **交通**：🚗 租车 (东南岸大环线)
-* **住宿**：Sheraton Waikiki Beach Resort (入住第 2 晚，停车 $60)
+### 📍 DAY 3｜8月18日 (周二) · Sheraton 全天度假日 & 泡无边泳池
+* **交通**：🚫 不租车 (全天泡 Sheraton 酒店)
+* **住宿**：Sheraton Waikiki Beach Resort (入住第 2 晚，自由度假)
 * **行程节点**：
-  - `08:30` 步行前往 Avis / Hertz 门店取车
+  - `09:00` 睡到自然醒 & 在 Sheraton 海景露台享用夏威夷早餐
+  - `11:00` Edge Infinity Pool 边缘无边泳池看海、晒太阳与玩水
+  - `13:30` Royal Hawaiian Center 绿荫中庭享用午餐 & 漫步
+  - `16:00` 海滩戏水 & 泳池 Sunset 特调鸡尾酒
+  - `18:30` Waikiki 海滩落日海鲜晚宴
+
+### 📍 DAY 4｜8月19日 (周三) · 🚗 租车 Day 1 东南海岸线自驾
+* **交通**：🚗 租车 (东南岸大环线)
+* **住宿**：Waikiki Malia (入住第 1 晚，停车 $35)
+* **行程节点**：
+  - `08:30` Sheraton 办理退房 ➔ 步行前往 Avis / Hertz 门店取车
   - `09:30` Hanauma Bay 恐龙湾浮潜 (🎟️ 需预约)
-  - `11:00` Kahala Beach (Jennie 同款) & Halona Blowhole 喷泉洞
-  - `12:00` Lanai Lookout & Makapuʻu Lookout 火山悬崖海岸线
+  - `11:30` Kahala Beach (Jennie 同款) & Halona Blowhole 喷泉洞
   - `13:00` Lanikai Beach 细白沙滩 & Kailua Town 午餐 (推荐 Kalapawai Cafe / Adela's Country Eatery)
   - `15:30` Byodo-in Temple 平等院日式禅意寺庙
   - `18:30` Tantalus Lookout 坦塔罗斯山看火奴鲁鲁全景日落与夜景
-  - `20:00` 晚餐：Musubi Cafe Iyasume 饭团 或 Maguro Spot Poke Bowl，返回 Sheraton Waikiki 停车休息
+  - `20:00` 晚餐：Musubi Cafe Iyasume 饭团 或 Maguro Spot Poke Bowl ➔ 入住 Waikiki Malia 停车休息 ($35/晚)
 
-### 📍 DAY 4｜8月19日 (周三) · 🚗 租车 Day 2 北岸大环线
-* **交通**：🚗 租车 (北岸环线)
-* **住宿**：Waikiki Malia (入住第 1 晚，停车 $35)
-* **行程节点**：
-  - `09:00` Dole 菠萝园 (菠萝冰淇淋、观光小火车、菠萝 Kitty，*不用全部项目，和你在一起就足够啦❤️*)
-  - `12:00` 午餐：Giovanni's Garlic Shrimp 蒜蓉虾饭 或 Haleiwa Joe's (风景好的漂亮饭)
-  - `13:30` Haleiwa 小镇漫步 (Matsumoto Shave Ice 刨冰 & Snoopy’s Surf Shop)
-  - `15:30` Laniakea Beach 看野生海龟
-  - `17:00` Waimea Bay & Sunset Beach 日落
-  - `20:00` 入住 Waikiki Malia 酒店停车休息
-
-### 📍 DAY 5｜8月20日 (周四) · 🚗 租车 Day 3 古兰尼牧场 & 珍珠港
+### 📍 DAY 5｜8月20日 (周四) · 🚗 租车 Day 2 北岸大环线 & 古兰尼牧场 & 珍珠港
 * **交通**：🚗 租车 (傍晚 Waikiki 门店还车)
 * **住宿**：Waikiki Malia (入住第 2 晚，今晚无需停车费)
 * **行程节点**：
   - `08:30` Pearl Harbor 珍珠港 USS Arizona 纪念馆 (🎟️ 需预约，预计 2.5h)
-  - `12:00` 前往古兰尼牧场 & 享用 Ranch House 特色牛肉饭午餐
+  - `10:30` Dole 菠萝园 (菠萝冰淇淋、观光小火车、菠萝 Kitty，*不用全部项目，和你在一起就足够啦❤️*)
+  - `12:00` 午餐：Giovanni's Garlic Shrimp 蒜蓉虾饭 或 Haleiwa Joe's (风景好的漂亮饭)
   - `13:30` Kualoa Ranch 古兰尼牧场 (🎟️ 需预约: UTV Tour / Movie Sites / Jungle Adventure)
   - `15:30` Kualoa Regional Park (草帽岛明信片打卡) & Ho'omaluhia Botanical Garden 侏罗纪雨林植物园
-  - `18:00` 返回 Waikiki 门店还车 & 海滩自由漫步晚餐
+  - `18:00` 返回 Waikiki 门店归还租车 (加满油箱，从今晚起无额外停车费) & 晚间海滩漫步
 
 ### 📍 DAY 6｜8月21日 (周五) · 告别夏威夷 ➔ 飞返洛杉矶
 * **交通**：🚫 不租车 (Uber)

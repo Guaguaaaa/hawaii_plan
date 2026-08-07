@@ -450,20 +450,71 @@ const TRIP_DATA = {
     {
       dayNum: 3,
       date: "8月18日 (周二)",
-      title: "东南海岸线自驾｜果冻海与俯瞰夜景",
+      title: "Sheraton 度假日｜无边泳池看海 & 全天度假放松",
+      tag: "relax",
+      carStatus: "🚫 不租车 (全天泡酒店)",
+      hotelStay: "Sheraton Waikiki Beach Resort",
+      summary: "全天留给 Sheraton Waikiki 度假村，睡到自然醒，无边泳池看海玩水，海滩日光浴与海鲜日落",
+      timeline: [
+        {
+          time: "09:00",
+          activity: "起床 & 享用 Sheraton 奢华海景早餐",
+          location: "Sheraton Waikiki Beach Resort",
+          mapQuery: "Sheraton Waikiki Beach Resort",
+          type: "hotel",
+          details: "享受无忧清晨，在海景露台享用夏威夷风味早餐与咖啡"
+        },
+        {
+          time: "11:00",
+          activity: "Sheraton Edge Infinity Pool 边缘无边泳池",
+          location: "Sheraton Waikiki Edge Infinity Pool",
+          mapQuery: "Sheraton Waikiki Edge Infinity Pool",
+          type: "relax",
+          details: "全天畅游夏威夷最美无边泳池，俯瞰太平洋海景，晒太阳看海放松"
+        },
+        {
+          time: "13:30",
+          activity: "Royal Hawaiian Center 漫步午餐",
+          location: "Royal Hawaiian Center",
+          mapQuery: "Royal Hawaiian Center",
+          type: "food",
+          details: "在 Sheraton 楼下 Royal Hawaiian 绿荫中庭享用午餐，轻松漫步"
+        },
+        {
+          time: "16:00",
+          activity: "海滩戏水 & 泳池 Sunset 鸡尾酒",
+          location: "Sheraton Waikiki Pool Bar",
+          mapQuery: "Sheraton Waikiki Beach Resort",
+          type: "relax",
+          details: "泳池边品尝热带特调鸡尾酒，感受凉爽海风与微醺假期"
+        },
+        {
+          time: "18:30",
+          activity: "Waikiki Beach 日落晚餐",
+          location: "Waikiki Beach",
+          mapQuery: "Waikiki Beach Honolulu",
+          type: "view",
+          details: "漫步金黄沙滩，在海边餐厅享用丰盛晚宴，欣赏椰林落日"
+        }
+      ]
+    },
+    {
+      dayNum: 4,
+      date: "8月19日 (周三)",
+      title: "东南海岸线自驾｜果冻海与火山悬崖",
       tag: "drive",
       carStatus: "🚗 租车 Day 1 (东南岸大环线)",
-      hotelStay: "Sheraton Waikiki Beach Resort (停车 $60)",
-      summary: "步行取车，打卡恐龙湾、喷泉洞、绝美 Lanikai 细白沙滩、平等院，坦塔罗斯山看夜景，回 Sheraton 停车休息",
+      hotelStay: "Waikiki Malia (停车 $35)",
+      summary: "退房 Sheraton 入住 Malia，步行取车，打卡恐龙湾、喷泉洞、绝美 Lanikai 细白沙滩、平等院，坦塔罗斯山看夜景",
       timeline: [
         {
           time: "08:30",
-          activity: "步行前往 Avis / Hertz 门店取车",
+          activity: "Sheraton 退房 ➔ Waikiki 门店取车",
           location: "Waikiki Rental Car Branch",
           mapQuery: "Avis Rent A Car Waikiki",
           type: "transit",
           badge: "租车凭证与确认号",
-          details: "办理手续，检查车况，开启自驾大环线",
+          details: "办理 Sheraton 退房，行李带上车，步行前往 Avis / Hertz 取车",
           modalData: {
             title: "🚗 Avis / Hertz Waikiki 门店取车",
             category: "租车订单详情",
@@ -472,18 +523,17 @@ const TRIP_DATA = {
               { label: "租车确认号 (Confirmation)", value: "AVIS-HI-778899 (示例)", copyable: true },
               { label: "取车地点", value: "Avis / Hertz Waikiki International Market Place 门店" },
               { label: "预订车型", value: "Standard Sedan (Toyota Corolla / Nissan Sentra 或同级)" },
-              { label: "租期", value: "8/18 08:30 - 8/20 18:00 (连续 3 天)" },
-              { label: "取车必需凭证", value: "主驾驶驾照原件、翻译件、主驾驶名下信用卡" },
-              { label: "燃油政策", value: "Full-to-Full (满油取车，满油还车)" }
+              { label: "租期", value: "8/19 08:30 - 8/20 18:00 (连续 2 天)" },
+              { label: "取车必需凭证", value: "主驾驶驾照原件、翻译件、主驾驶名下信用卡" }
             ]
           }
         },
         {
           time: "09:30",
-          activity: "Hanauma Bay 恐龙湾",
+          activity: "Hanauma Bay 恐龙湾浮潜",
           location: "Hanauma Bay Nature Preserve",
           mapQuery: "Hanauma Bay",
-          type: "nature",
+          type: "adventure",
           badge: "需提前预约",
           details: "火山海湾，渐变果冻海，夏威夷最出名的浮潜天堂",
           modalData: {
@@ -494,26 +544,17 @@ const TRIP_DATA = {
               { label: "预约确认码", value: "HANAUMA-CONF-1029 (示例)", copyable: true },
               { label: "入园时间段", value: "09:30 AM (需提前 15 分钟抵达门外排队)" },
               { label: "门票费用", value: "$25/人 (非夏威夷居民，现场或网上已付)" },
-              { label: "停车费", value: "$3 USD (现金/刷卡，车位先到先得)" },
-              { label: "入园要求", value: "需出示所有入园者带照片身份证明 (Passport / ID)" }
+              { label: "停车费", value: "$3 USD (现金/刷卡)" }
             ]
           }
         },
         {
-          time: "11:00",
-          activity: "Kahala Beach & Halona Blowhole",
+          time: "11:30",
+          activity: "Kahala Beach & Halona Blowhole 喷泉洞",
           location: "Halona Blowhole Lookout",
           mapQuery: "Halona Blowhole Lookout",
           type: "view",
           details: "Jennie 拍照同款 Kahala 海滩 -> Halona 岩洞海浪喷泉 (She Her Hers 封面同款绿浪)"
-        },
-        {
-          time: "12:00",
-          activity: "Lanai Lookout & Makapuʻu Lookout",
-          location: "Makapuʻu Point Lookout",
-          mapQuery: "Makapuʻu Point Lookout",
-          type: "view",
-          details: "黑色火山岩与整段火山悬崖海岸线"
         },
         {
           time: "13:00",
@@ -529,7 +570,7 @@ const TRIP_DATA = {
           location: "Byodo-In Temple Hawaii",
           mapQuery: "Byodo-In Temple Hawaii",
           type: "culture",
-          details: "山脚下的日式禅意寺庙，绿意盎然，拍照极其出片"
+          details: "山脚下的日式禅意寺庙，绿意盎然，Valley of the Temples 庄严出片"
         },
         {
           time: "18:30",
@@ -546,33 +587,49 @@ const TRIP_DATA = {
           mapQuery: "Waikiki Malia Hotel",
           type: "hotel",
           badge: "Malia 入住确认",
-          details: "打卡超赞饭团 Musubi Cafe 或 Maguro Spot Poke Bowl，入住 Malia 酒店",
+          details: "打卡 Musubi Cafe 饭团 或 Maguro Spot Poke Bowl，入住 Malia 酒店停车 ($35/晚)",
           modalData: {
             title: "🏨 Waikiki Malia Hotel 办理入住",
             category: "酒店入住详情",
-            pnr: "MALIA-CONF-334455",
+            pnr: "MALIA-CONF-NIGHT2",
             items: [
-              { label: "预订确认号", value: "MALIA-CONF-334455 (示例)", copyable: true },
-              { label: "地址", value: "2470 Kuhio Ave, Honolulu, HI 96815" },
-              { label: "入住晚数", value: "8/18 - 8/21 (共 3 晚)" },
-              { label: "停车信息", value: "酒店代客停车约 $35/晚" },
-              { label: "紧急诊所提醒", value: "对面 2310 Kuhio Ave 设 Kuhio Medical Clinic" }
+              { label: "预订确认号", value: "MALIA-CONF-NIGHT2 (示例)", copyable: true },
+              { label: "入住时间", value: "8/19 - 8/21 (共 2 晚)" },
+              { label: "停车信息", value: "酒店代客停车约 $35/晚 (8/19 停 1 晚)" }
             ]
           }
         }
       ]
     },
     {
-      dayNum: 4,
-      date: "8月19日 (周三)",
-      title: "北岸大环线自驾｜菠萝园与海龟探访",
+      dayNum: 5,
+      date: "8月20日 (周四)",
+      title: "北岸大环线 & 古兰尼牧场 & 珍珠港｜还车",
       tag: "drive",
-      carStatus: "🚗 租车 Day 2 (北岸环线)",
-      hotelStay: "Waikiki Malia (停车 $35)",
-      summary: "退房 Sheraton 入住 Malia，打卡 Dole 菠萝园，Haleiwa 小镇刨冰与史努比，Laniakea 海龟，北岸日落",
+      carStatus: "🚗 租车 Day 2 (北岸与古兰尼 & 傍晚还车)",
+      hotelStay: "Waikiki Malia (无停车费)",
+      summary: "打卡 Dole 菠萝园，珍珠港亚利桑那号，蒜蓉虾饭，古兰尼牧场 UTV，草帽岛，侏罗纪雨林植物园，傍晚还车",
       timeline: [
         {
-          time: "09:00",
+          time: "08:30",
+          activity: "Pearl Harbor 珍珠港历史怀古",
+          location: "Pearl Harbor National Memorial",
+          mapQuery: "Pearl Harbor National Memorial",
+          type: "culture",
+          badge: "需提前预约",
+          details: "参观 USS Arizona Memorial 亚利桑那号纪念馆，感受历史沉淀 (预计 2.5h)",
+          modalData: {
+            title: "⚓ Pearl Harbor 珍珠港亚利桑那号门票",
+            category: "纪念馆凭证",
+            pnr: "PEARL-REC-5544",
+            items: [
+              { label: "预订确认号 (Recreation.gov)", value: "PEARL-REC-5544 (示例)", copyable: true },
+              { label: "渡轮与纪念馆场次", value: "08:45 AM (需提前 30 分钟通过安检)" }
+            ]
+          }
+        },
+        {
+          time: "10:30",
           activity: "前往 Dole 菠萝园",
           location: "Dole Plantation",
           mapQuery: "Dole Plantation Hawaii",
@@ -589,87 +646,6 @@ const TRIP_DATA = {
         },
         {
           time: "13:30",
-          activity: "Haleiwa 复古小镇漫步",
-          location: "Haleiwa Town",
-          mapQuery: "Haleiwa Town Oahu",
-          type: "shopping",
-          details: "Matsumoto Shave Ice 必吃葡萄味刨冰，Snoopy’s Surf Shop 买超萌冲浪史努比"
-        },
-        {
-          time: "15:30",
-          activity: "Laniakea Beach 看野生海龟",
-          location: "Laniakea Beach",
-          mapQuery: "Laniakea Beach Turtle Beach",
-          type: "nature",
-          details: "知名 Turtle Beach，常有巨大的野生夏威夷绿海龟在沙滩晒太阳"
-        },
-        {
-          time: "17:00",
-          activity: "Waimea Bay & Sunset Beach 日落",
-          location: "Sunset Beach Park",
-          mapQuery: "Sunset Beach Park Oahu",
-          type: "view",
-          details: "玻璃海戏水，在北岸最出名的 Sunset Beach 欣赏震撼冲浪者海岸日落"
-        },
-        {
-          time: "20:00",
-          activity: "入住 Waikiki Malia 酒店",
-          location: "Waikiki Malia Hotel",
-          mapQuery: "Waikiki Malia Hotel",
-          type: "hotel",
-          badge: "Malia 再次入住",
-          details: "入住 Waikiki Malia 酒店 (后2晚 1679.42+642.67 RMB)，代客停车 $35/晚",
-          modalData: {
-            title: "🏨 Waikiki Malia Hotel 办理入住 (后2晚)",
-            category: "酒店入住详情",
-            pnr: "MALIA-CONF-NIGHT2",
-            items: [
-              { label: "预订确认号", value: "MALIA-CONF-NIGHT2 (示例)", copyable: true },
-              { label: "入住时间", value: "8/19 - 8/21 (共 2 晚)" },
-              { label: "停车信息", value: "酒店代客停车约 $35/晚 (8/19 停 1 晚)" }
-            ]
-          }
-        }
-      ]
-    },
-    {
-      dayNum: 5,
-      date: "8月20日 (周四)",
-      title: "古兰尼牧场 & 珍珠港｜雨林冒险与还车",
-      tag: "adventure",
-      carStatus: "🚗 租车 Day 3 (傍晚 Waikiki 还车)",
-      hotelStay: "Waikiki Malia (无停车费)",
-      summary: "珍珠港亚利桑那号历史怀古，古兰尼牧场 UTV/电影之旅，Kualoa 草帽岛，侏罗纪雨林植物园，傍晚还车",
-      timeline: [
-        {
-          time: "08:30",
-          activity: "Pearl Harbor 珍珠港历史怀古",
-          location: "Pearl Harbor National Memorial",
-          mapQuery: "Pearl Harbor National Memorial",
-          type: "culture",
-          badge: "需提前预约",
-          details: "参观 USS Arizona Memorial 亚利桑那号纪念馆，感受历史沉淀 (预计 2.5h)",
-          modalData: {
-            title: "⚓ Pearl Harbor 珍珠港亚利桑那号门票",
-            category: "纪念馆凭证",
-            pnr: "PEARL-REC-5544",
-            items: [
-              { label: "预订确认号 (Recreation.gov)", value: "PEARL-REC-5544 (示例)", copyable: true },
-              { label: "渡轮与纪念馆场次", value: "08:45 AM (需提前 30 分钟通过安检)" },
-              { label: "安检安全规定", value: "严禁携带任何背包/手提包 (可携带透明水瓶与口袋相机)" }
-            ]
-          }
-        },
-        {
-          time: "12:00",
-          activity: "前往古兰尼牧场 & Ranch House 午餐",
-          location: "Kualoa Ranch House",
-          mapQuery: "Kualoa Ranch House",
-          type: "food",
-          details: "抵达古兰尼牧场，享用 Ranch House 特色牛肉汉堡与牛肉饭休整"
-        },
-        {
-          time: "13:30",
           activity: "Kualoa Ranch 古兰尼牧场",
           location: "Kualoa Ranch",
           mapQuery: "Kualoa Ranch Hawaii",
@@ -682,8 +658,7 @@ const TRIP_DATA = {
             pnr: "KUALOA-UTV-9988",
             items: [
               { label: "预订确认号", value: "KUALOA-UTV-9988 (示例)", copyable: true },
-              { label: "行程项目", value: "Raptor UTV Tour / Movie Sites Tour / Jungle Adventure" },
-              { label: "着装提醒", value: "全包全封式鞋子 (Closed-toe shoes)、包头护目镜/太阳镜" }
+              { label: "行程项目", value: "Raptor UTV Tour / Movie Sites Tour / Jungle Adventure" }
             ]
           }
         },
