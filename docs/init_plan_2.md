@@ -42,17 +42,21 @@ Waikiki Malia
 总共约 180–220 英里（290–355 公里）。  
 一般只需要一箱油左右：约 $30–45
 
-**# DAY1｜8月16日（周日）**  
+**\# DAY1｜8月16日（周日）**  
 洛杉矶 → 檀香山  
-10:05 LAX 起飞 (航班 AS803) ✈️ 12:58 抵达 HNL  
-13:30 出机场打车前往 Sheraton Waikiki  
-14:30 办理入住 & 寄存行李  
-下午：海滩漫步、无边泳池玩水 & ABC Store 采购零食防晒  
-傍晚：Waikiki 享用海滩晚宴看日落  
+21:50 抵达 HNL  
+22:30 出机场  
+Uber 前往 Waikiki Malia（约25分钟）
 
-**# DAY2｜8月17日（周一）**  
+入住后：  
+附近 ABC Store 买水零食
+
+**\# DAY2｜8月17日（周一）**  
  Sheraton 度假日（不租车）  
-在酒店玩水！休息诶嘿嘿嘿
+在酒店玩水！休息诶嘿嘿嘿（from 悦悦宝宝的宝宝：诶嘿嘿嘿🤤）
+
+Diamond Head（一定前一晚预约）  
+可以看日出，起不来不看也ok，但一定要上午爬山不要中午去太晒啦
 
 市区可以去：  
 Honolulu Museum of Art (HoMA)  
@@ -62,7 +66,10 @@ International Market Place
 ABC Store：买 Kitty 黑皮限定  
 傍晚：Waikiki Beach 看日落
 
-**\# DAY3｜8月18日（周二）**  
+**\# DAY3｜8月18日（周二）**
+
+**\# DAY4｜8月19日（周三）**
+
 🚗租车 Day1  
  东南岸 \+ 东岸精华（住 Sheraton）
 
@@ -105,10 +112,6 @@ Kalapawai Cafe 或Adela's Country Eatery
 很漂亮的日式寺庙  
 Valley of the Temples 我想看张学良墓
 
-傍晚：  
-Tantalus Lookout  
-看整个火奴鲁鲁日落夜景
-
 晚上：回酒店附近吃饭休息  
 可以吃超级好吃的poke bowl和饭团！
 
@@ -117,7 +120,8 @@ Musubi Cafe Iyasume（Waikiki店）
 Maguro Spot   
 📍2441 Kuhio Ave，Honolulu，HI 96815
 
-**\# DAY4｜8月19日（周三）**  
+**\# DAY5｜8月20日（周四）**
+
 \#\# 🚗租车 Day2  
 今天是北岸大环线
 
@@ -128,11 +132,14 @@ Maguro Spot
 上午：  
 菠萝园🍍  
 Dole Plantation  
-Pineapple Express Train  
-Garden Maze  
  Dole Whip 菠萝冰淇淋😋  
 这里也有可爱的菠萝限定款kitty  
-不用全部项目，2小时足够啦
+不用全部项目，和你在一起就足够啦
+
+Pearl Harbor  
+USS Arizona Memorial  
+要提前预约  
+预计2.5小时
 
 午餐：  
 Giovanni's Shrimp: Garlic Shrimp  虾饭好吃🤤  
@@ -140,27 +147,7 @@ Giovanni's Shrimp: Garlic Shrimp  虾饭好吃🤤
 Haleiwa Joe's:fine dining 风景好的漂亮饭
 
 下午：  
-1.Haleiwa 小镇  
-Matsumoto Shave Ice 超好吃刨冰一定要吃🍧葡萄味封神  
-Snoopy’s Surf Shop 我买的超可爱史努比就在这里 
-
-2.Laniakea Beach  
-这里可以看海龟
-
-3.Waimea Bay  
-	超级美丽的玻璃海
-
-4.Sunset Beach  
-在这里看北岸日落
-
-返回 Waikiki  
-入住 Malia玛丽亚酒店
-
-**\# DAY5｜8月20日（周四）**  
-\#\# 🚗租车 Day3
-
-上午：  
-1.古兰尼牧场  
+古兰尼牧场  
 就是侏罗纪拍摄地，非常好玩的一个景点，前一天晚上要提前做攻略  
 如果想坐热门项目需要预约
 
@@ -168,14 +155,10 @@ UTV Tour：一定要预约
 Movie Sites Tour：预计3小时  
 Jungle Adventure：也很不错，我们坐的是这个
 
-午餐没确定 你选吧哈哈哈哈  
-可以 Ranch House
-
-下午：  
-2\.Kualoa Regional Park  
+Kualoa Regional Park  
 明信片出片机位
 
-3.Ho'omaluhia Botanical Garden  
+Ho'omaluhia Botanical Garden  
 侏罗纪本纪
 
 回 Waikiki  
@@ -185,8 +168,15 @@ Jungle Adventure：也很不错，我们坐的是这个
 干啥都行 可以海边散散步
 
 **\# DAY6｜8月21日（周五）**  
-告别夏威夷 → 飞返洛杉矶  
-08:00 Waikiki Malia 办理退房  
-08:40 打 Uber 前往 HNL 檀香山机场 ( Terminal 1 )  
-11:33 HNL 起飞 (航班 AS826) ✈️ 19:53 顺利抵达 LAX  
-20:30 接机 / 打车返回温馨家中  
+市区最后一天  
+不租车 uber就行
+
+上午：
+
+18:30  
+回酒店拿行李
+
+19:00  
+前往机场  
+（建议至少提前2小时到达）  
+✈️ 21:00 飞洛杉矶  

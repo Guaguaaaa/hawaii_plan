@@ -11,10 +11,10 @@
 ## ✈️ 一、基本信息 (Meta & Flights)
 
 * **目的地**：夏威夷 · 欧胡岛 (Oahu, Hawaii)
-* **全程时间**：2026年8月16日 (周日) — 2026年8月22日 (周六) (门到门完整全程)
-* **航班状态**：洛杉矶往返 (LAX ↔ HNL) [状态：未预订]
-* **去程**：8/16 17:30 从家中出发 ➔ 18:30 LAX 起飞 ✈️ 21:50 抵达 HNL 机场 ➔ 入住 Sheraton
-* **回程**：8/21 21:00 HNL 起飞 ✈️ 8/22 05:30 晨抵 LAX ➔ 接机返回温馨家中
+* **全程时间**：2026年8月16日 (周日) — 2026年8月21日 (周五) (门到门完整全程)
+* **航班状态**：洛杉矶往返 (LAX ↔ HNL) [状态：已预订 (阿拉斯加航空)]
+* **去程**：8/16 07:00 从家中出发 ➔ 10:05 LAX 起飞 ✈️ (AS803) ➔ 12:58 抵达 HNL 机场 ➔ 下午入住 Waikiki Malia (首晚)
+* **回程**：8/21 11:33 HNL 起飞 ✈️ (AS826) ➔ 19:53 当晚抵 LAX ➔ 接机返回温馨家中
 
 > 批注 / 备注区：(可在上方或此处输入你的修改意见)
 
@@ -23,19 +23,23 @@
 ## 🏨 二、酒店与交通安排 (Hotels & Rental Car)
 
 ### 1. 酒店入住节点
-* **8/16 – 8/18 (周日 - 周二)**：Sheraton Waikiki Beach Resort（2晚，预估 ¥5,864.90，[状态：未预订]）
-  * 地址：`2255 Kalakaua Ave, Honolulu, HI 96815`
-  * 备注：奢华海景度假日，玩水看日落；8/18 自驾停车 1 晚约 $60
-* **8/18 – 8/21 (周二 - 周五)**：Waikiki Malia（3晚，预估 ¥3,539.83，[状态：未预订]）
+* **8/16 (周日 1晚)**：Waikiki Malia（1晚，896.41+321.33 = **¥1,217.74**，[状态：已预订/待查]）
   * 地址：`2470 Kuhio Ave, Honolulu, HI 96815`
-  * 备注：北岸与古兰尼完结后入住，停车 1 晚约 $35
+  * 备注：首晚入住，离机场 Uber 约 25 分钟，次日搬至 Sheraton
+* **8/17 – 8/18 (周一 - 周二 2晚)**：Sheraton Waikiki Beach Resort（2晚，5029.62+835.28 = **¥5,864.90**，[状态：已预订/待查]）
+  * 地址：`2255 Kalakaua Ave, Honolulu, HI 96815`
+  * 备注：奢华海景度假日，无边泳池看日落；8/18 自驾停车 1 晚约 $60
+* **8/19 – 8/20 (周三 - 周四 2晚)**：Waikiki Malia（2晚，1679.42+642.67 = **¥2,322.09**，[状态：已预订/待查]）
+  * 地址：`2470 Kuhio Ave, Honolulu, HI 96815`
+  * 备注：环岛与古兰尼完结后入住，8/19 自驾停车 1 晚约 $35
+* **住宿费用总计**：**¥9,404.73 RMB**（人均 **¥4,702.36 RMB**）
 
 ### 2. 租车与停车
 * **租车区间**：8/18 (早) — 8/20 (晚) 连续 3 天 [状态：未预订]
 * **取还车门店**：Avis / Hertz (Waikiki 门店取还车)
 * **推荐车型**：Toyota Corolla / Nissan Sentra / Hyundai Elantra
 * **租车费用预估**：约 $230–320 (3天)
-* **停车费预估**：Sheraton 1晚 ($60) + Malia 1晚 ($35) = 约 $95
+* **停车费预估**：Sheraton 1晚 ($60) + Malia 1晚 ($35) = 约 $95 (8/20 傍晚还车，无需第3晚停车费)
 * **油费预估**：整程 180–220 英里，约 $30–45
 
 ### 3. 🏥 酒店附近 Urgent Care 诊所（备用）
@@ -69,26 +73,30 @@
 
 ## 📅 四、每日详细行程安排 (Day-by-Day Itinerary)
 
-### 📍 DAY 1｜8月16日 (周日) · 抵达与入住
+### 📍 DAY 1｜8月16日 (周日) · 抵达与入住 Malia
 * **交通**：🚫 不租车 (Uber)
-* **住宿**：Sheraton Waikiki Beach Resort
+* **住宿**：Waikiki Malia (首晚 896.41+321.33 RMB)
 * **行程节点**：
-  - `21:50` 抵达檀香山机场 (HNL)
-  - `22:30` 打 Uber 前往 Sheraton Waikiki (车程约 25 分钟)
-  - `23:00` 入住 & ABC Store 采购矿泉水、零食防晒
+  - `07:00` 从家中出发前往 LAX Terminal 6
+  - `10:05 - 12:58` ✈️ 航班 AS803 (LAX ➔ HNL 直飞，飞行 5h53m)
+  - `13:30` 打 Uber 前往 Waikiki Malia 酒店 (车程约 25 分钟)
+  - `14:30` 入住 Waikiki Malia 酒店 & 寄存行李
+  - `16:00` Waikiki 海滩漫步 & ABC Store 采购水、零食及防晒
+  - `18:30` Waikiki 海滩晚宴 & 观赏夏威夷落日
 
-### 📍 DAY 2｜8月17日 (周一) · Sheraton 度假日 & 市区艺术
+### 📍 DAY 2｜8月17日 (周一) · 钻石山日出 & Sheraton 度假日
 * **交通**：🚫 不租车 (步行 / Uber)
-* **住宿**：Sheraton Waikiki Beach Resort
+* **住宿**：Sheraton Waikiki Beach Resort (入住第 1 晚)
 * **行程节点**：
-  - `10:00` Honolulu Museum of Art (HoMA 艺术馆)
+  - `06:30` Diamond Head 钻石山日出登顶 (🎟️ 需预约，看火奴鲁鲁全景)
+  - `10:00` Honolulu Museum of Art (HoMA 艺术馆，出片神地)
   - `13:00` Royal Hawaiian & International Market Place (逛街 & 买 **黑皮 Kitty**)
-  - `15:30` Sheraton 边缘无边泳池玩水 & 泡酒店
-  - `18:30` Waikiki Beach 看日落
+  - `15:00` Sheraton 边缘无边泳池玩水 & 泡酒店 (*在酒店玩水！休息诶嘿嘿嘿～🤤*)
+  - `18:30` Waikiki Beach 看落日晚宴
 
 ### 📍 DAY 3｜8月18日 (周二) · 🚗 租车 Day 1 东南海岸线自驾
 * **交通**：🚗 租车 (东南岸大环线)
-* **住宿**：Waikiki Malia (停车 $35)
+* **住宿**：Sheraton Waikiki Beach Resort (入住第 2 晚，停车 $60)
 * **行程节点**：
   - `08:30` 步行前往 Avis / Hertz 门店取车
   - `09:30` Hanauma Bay 恐龙湾浮潜 (🎟️ 需预约)
@@ -97,38 +105,37 @@
   - `13:00` Lanikai Beach 细白沙滩 & Kailua Town 午餐 (推荐 Kalapawai Cafe / Adela's Country Eatery)
   - `15:30` Byodo-in Temple 平等院日式禅意寺庙
   - `18:30` Tantalus Lookout 坦塔罗斯山看火奴鲁鲁全景日落与夜景
-  - `20:00` 晚餐：Musubi Cafe Iyasume 饭团 或 Maguro Spot Poke Bowl，入住 Waikiki Malia
+  - `20:00` 晚餐：Musubi Cafe Iyasume 饭团 或 Maguro Spot Poke Bowl，返回 Sheraton Waikiki 停车休息
 
 ### 📍 DAY 4｜8月19日 (周三) · 🚗 租车 Day 2 北岸大环线
 * **交通**：🚗 租车 (北岸环线)
-* **住宿**：Waikiki Malia
+* **住宿**：Waikiki Malia (入住第 1 晚，停车 $35)
 * **行程节点**：
-  - `09:00` 前往 Dole 菠萝园 (菠萝冰淇淋、观光小火车、菠萝 Kitty)
-  - `12:00` 午餐：Giovanni's Garlic Shrimp 蒜蓉虾饭 或 Haleiwa Joe's
+  - `09:00` Dole 菠萝园 (菠萝冰淇淋、观光小火车、菠萝 Kitty，*不用全部项目，和你在一起就足够啦❤️*)
+  - `12:00` 午餐：Giovanni's Garlic Shrimp 蒜蓉虾饭 或 Haleiwa Joe's (风景好的漂亮饭)
   - `13:30` Haleiwa 小镇漫步 (Matsumoto Shave Ice 刨冰 & Snoopy’s Surf Shop)
   - `15:30` Laniakea Beach 看野生海龟
   - `17:00` Waimea Bay & Sunset Beach 日落
-  - `20:00` 返回 Waikiki Malia 玛丽亚酒店
+  - `20:00` 入住 Waikiki Malia 酒店停车休息
 
-### 📍 DAY 5｜8月20日 (周四) · 🚗 租车 Day 3 古兰尼牧场 & 植物园
-* **交通**：🚗 租车 (傍晚 Waikiki 还车)
-* **住宿**：Waikiki Malia
+### 📍 DAY 5｜8月20日 (周四) · 🚗 租车 Day 3 古兰尼牧场 & 珍珠港
+* **交通**：🚗 租车 (傍晚 Waikiki 门店还车)
+* **住宿**：Waikiki Malia (入住第 2 晚，今晚无需停车费)
 * **行程节点**：
-  - `08:30` Kualoa Ranch 古兰尼牧场 (🎟️ 需预约: UTV Tour / Movie Sites / Jungle Adventure)
-  - `12:30` 午餐：Ranch House 牧场餐厅
-  - `14:00` Kualoa Regional Park (草帽岛明信片打卡)
-  - `15:30` Ho'omaluhia Botanical Garden 侏罗纪雨林植物园
-  - `18:00` 返回 Waikiki 还车 & 海滩自由漫步晚餐
+  - `08:30` Pearl Harbor 珍珠港 USS Arizona 纪念馆 (🎟️ 需预约，预计 2.5h)
+  - `12:00` 前往古兰尼牧场 & 享用 Ranch House 特色牛肉饭午餐
+  - `13:30` Kualoa Ranch 古兰尼牧场 (🎟️ 需预约: UTV Tour / Movie Sites / Jungle Adventure)
+  - `15:30` Kualoa Regional Park (草帽岛明信片打卡) & Ho'omaluhia Botanical Garden 侏罗纪雨林植物园
+  - `18:00` 返回 Waikiki 门店还车 & 海滩自由漫步晚餐
 
-### 📍 DAY 6｜8月21日 (周五) · 钻石山日出 & 珍珠港离岛
+### 📍 DAY 6｜8月21日 (周五) · 告别夏威夷 ➔ 飞返洛杉矶
 * **交通**：🚫 不租车 (Uber)
-* **住宿**：无 (今晚 21:00 航班飞返 LAX，8/22 晨抵达)
+* **住宿**：无 (今晚 19:53 抵达 LAX)
 * **行程节点**：
-  - `06:30` Diamond Head 钻石山登顶看全景 (🎟️ 需预约)
-  - `10:00` Pearl Harbor 珍珠港 USS Arizona 纪念馆 (🎟️ 需预约)
-  - `14:00` Waikiki 市区最后采购与午后咖啡
-  - `18:30` 酒店拿行李 -> 打车前往机场 (预留 2h+ 办登机)
-  - `21:00` ✈️ 航班起飞返回洛杉矶 (8/22 早上抵达 LAX)
+  - `08:00` Waikiki Malia 办理退房 & 告别早餐
+  - `08:40` 打 Uber 前往 HNL 檀香山机场 Terminal 1 (预留 2.5h 办理登机)
+  - `11:33 - 19:53` ✈️ 航班 AS826 (HNL ➔ LAX 直飞，飞行 5h20m)
+  - `20:30` 从 LAX 机场接机 / 打 Uber 返回洛杉矶家中，夏威夷之旅圆满结束！
 
 > 批注 / 备注区：(可在上方或此处输入你的修改意见)
 
