@@ -88,10 +88,11 @@
 * **交通**：🚫 不租车 (步行 / Uber)
 * **住宿**：Sheraton Waikiki Beach Resort (入住第 1 晚)
 * **行程节点**：
-  - `06:30` Diamond Head 钻石山日出登顶 (🎟️ 需预约，看火奴鲁鲁全景)
-  - `10:00` Honolulu Museum of Art (HoMA 艺术馆，出片神地)
+  - `06:30` Diamond Head 钻石山日出登顶 (🎟️ 需预约，看火奴鲁鲁全景与晨景)
+  - `10:00` Malia 办理 Check-out ➔ 前往 Sheraton Waikiki 寄存行李
+  - `10:30` Honolulu Museum of Art (HoMA 艺术馆，出片神地) & 市区漫步
   - `13:00` Royal Hawaiian & International Market Place (逛街 & 买 **黑皮 Kitty**)
-  - `15:00` Sheraton 边缘无边泳池玩水 & 泡酒店 (*在酒店玩水！休息诶嘿嘿嘿～🤤*)
+  - `15:00` 下午 3 点返回 Sheraton 办理 Check-in 入住 ➔ 边缘无边泳池玩水看海景 (*在酒店玩水！休息诶嘿嘿嘿～🤤*)
   - `18:30` Waikiki Beach 看落日晚宴
 
 ### 📍 DAY 3｜8月18日 (周二) · 🚗 租车 Day 1 东南海岸线自驾

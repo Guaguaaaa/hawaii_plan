@@ -396,6 +396,14 @@ const TRIP_DATA = {
         },
         {
           time: "10:00",
+          activity: "Malia 退房 ➔ 前往 Sheraton 寄存行李",
+          location: "Waikiki Malia ➔ Sheraton Waikiki",
+          mapQuery: "Sheraton Waikiki Beach Resort",
+          type: "hotel",
+          details: "办理 Waikiki Malia 退房，前往 Sheraton Waikiki 礼宾部免费寄存行李"
+        },
+        {
+          time: "10:30",
           activity: "Honolulu Museum of Art (HoMA)",
           location: "Honolulu Museum of Art",
           mapQuery: "Honolulu Museum of Art",
@@ -421,12 +429,13 @@ const TRIP_DATA = {
           details: "逛街，打卡 ABC Store 寻找夏威夷限定 **黑皮 Kitty** 玩偶！"
         },
         {
-          time: "15:30",
-          activity: "Sheraton 边缘无边泳池 & 泡酒店",
+          time: "15:00",
+          activity: "Sheraton 办理 Check-in & 边缘无边泳池",
           location: "Sheraton Waikiki Edge Infinity Pool",
           mapQuery: "Sheraton Waikiki Beach Resort",
           type: "relax",
-          details: "入住 Sheraton Waikiki 奢华海景房，在无边泳池玩水看海景！（在酒店玩水！休息诶嘿嘿嘿～🤤）"
+          badge: "Check-in 15:00",
+          details: "下午 3 点返回 Sheraton 办理 Check-in 入住奢华海景房，在无边泳池玩水看海景！（在酒店玩水！休息诶嘿嘿嘿～🤤）"
         },
         {
           time: "18:30",
