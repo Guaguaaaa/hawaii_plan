@@ -1,6 +1,7 @@
 Category,Item,Cost_USD,Cost_RMB,Status,Notes
-住宿,Sheraton Waikiki Beach Resort (2晚),0,5864.90,未预订,8/16-8/18 奢华海景房
-住宿,Waikiki Malia (3晚),0,3539.83,未预订,8/18-8/21 完结入住
+住宿,Waikiki Malia (首晚，1晚),0,1217.74,未预订,8/16-8/17 首晚入住
+住宿,Sheraton Waikiki Beach Resort (2晚),0,5864.90,未预订,8/17-8/19 奢华海景房
+住宿,Waikiki Malia (后段，2晚),0,2322.09,未预订,8/19-8/21 环岛结束后入住
 租车,Avis/Hertz 租车 (3天),280,2030.00,未预订,8/18早-8/20晚
 停车,Sheraton 停车 (1晚),60,435.00,待支付,8/18 晚上停车
 停车,Malia 停车 (1晚),35,253.75,待支付,8/19 晚上停车

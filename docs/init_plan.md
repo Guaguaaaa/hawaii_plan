@@ -45,9 +45,9 @@ Waikiki Malia
 **# DAY1｜8月16日（周日）**  
 洛杉矶 → 檀香山  
 10:05 LAX 起飞 (航班 AS803) ✈️ 12:58 抵达 HNL  
-13:30 出机场打车前往 Sheraton Waikiki  
+13:30 出机场打车前往 Waikiki Malia
 14:30 办理入住 & 寄存行李  
-下午：海滩漫步、无边泳池玩水 & ABC Store 采购零食防晒  
+下午：海滩漫步 & ABC Store 采购零食防晒
 傍晚：Waikiki 享用海滩晚宴看日落  
 
 **# DAY2｜8月17日（周一）**  
