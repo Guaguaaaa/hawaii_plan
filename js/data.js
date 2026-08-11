@@ -12,6 +12,7 @@ export const TRIP_DATA = {
     endDate: "2026-08-21",
     destination: "Honolulu, Oahu, Hawaii",
     destinationLabel: "夏威夷 · 欧胡岛",
+    tagline: "两个人 · 一座岛 · 六天海风",
     exchangeRate: 7.25,
     travelers: 2,
     homeTimezone: "America/Los_Angeles",
@@ -295,6 +296,7 @@ export const TRIP_DATA = {
       dateLabel: "8月16日 · 周日",
       shortDate: "8/16",
       title: "抵达檀香山",
+      vibe: "第一场日落",
       theme: "transit",
       transport: "Uber / 步行",
       hotel: "Waikiki Malia",
@@ -374,6 +376,7 @@ export const TRIP_DATA = {
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach",
           type: "food",
+          mood: "romantic",
           details: "在海边用餐，欣赏抵达夏威夷后的第一场日落。"
         }
       ]
@@ -385,6 +388,7 @@ export const TRIP_DATA = {
       dateLabel: "8月17日 · 周一",
       shortDate: "8/17",
       title: "钻石山与 Sheraton",
+      vibe: "山海与日落",
       theme: "relax",
       transport: "Uber / 步行",
       hotel: "Sheraton Waikiki Beach Resort",
@@ -454,6 +458,7 @@ export const TRIP_DATA = {
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach Honolulu",
           type: "view",
+          mood: "romantic",
           details: "漫步沙滩，欣赏椰林日落。"
         }
       ]
@@ -465,6 +470,7 @@ export const TRIP_DATA = {
       dateLabel: "8月18日 · 周二",
       shortDate: "8/18",
       title: "Sheraton 度假日",
+      vibe: "把时间调慢",
       theme: "relax",
       transport: "步行",
       hotel: "Sheraton Waikiki Beach Resort",
@@ -504,6 +510,7 @@ export const TRIP_DATA = {
           location: "Sheraton Waikiki Pool Bar",
           mapQuery: "Sheraton Waikiki Beach Resort",
           type: "relax",
+          mood: "romantic",
           details: "海滩戏水，在泳池边感受日落前的海风。"
         },
         {
@@ -513,6 +520,7 @@ export const TRIP_DATA = {
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach Honolulu",
           type: "food",
+          mood: "romantic",
           details: "在海边用餐，欣赏椰林落日。"
         }
       ]
@@ -524,6 +532,7 @@ export const TRIP_DATA = {
       dateLabel: "8月19日 · 周三",
       shortDate: "8/19",
       title: "东南海岸线自驾",
+      vibe: "沿海追光",
       theme: "drive",
       transport: "租车 · Day 1",
       hotel: "Waikiki Malia",
@@ -577,6 +586,7 @@ export const TRIP_DATA = {
           location: "Lanikai / Kailua",
           mapQuery: "Lanikai Beach",
           type: "food",
+          mood: "romantic",
           details: "细白沙滩和玻璃海；午餐可选 Kalapawai Cafe 或 Adela's。"
         },
         {
@@ -595,6 +605,7 @@ export const TRIP_DATA = {
           location: "Tantalus Lookout",
           mapQuery: "Tantalus Lookout Puu Ualakaa State Park",
           type: "view",
+          mood: "romantic",
           details: "俯瞰 Honolulu 天际线、Diamond Head 与城市夜景。"
         },
         {
@@ -620,6 +631,7 @@ export const TRIP_DATA = {
       dateLabel: "8月20日 · 周四",
       shortDate: "8/20",
       title: "北岸、珍珠港与古兰尼",
+      vibe: "岛屿探险",
       theme: "drive",
       transport: "租车 · Day 2",
       hotel: "Waikiki Malia",
@@ -696,6 +708,7 @@ export const TRIP_DATA = {
       dateLabel: "8月21日 · 周五",
       shortDate: "8/21",
       title: "告别 Waikiki，返回洛杉矶",
+      vibe: "把海风带回家",
       theme: "transit",
       transport: "Uber / 步行",
       hotel: "当晚抵达洛杉矶",

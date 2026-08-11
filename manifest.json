@@ -1,12 +1,12 @@
 {
-  "name": "Oahu 2026 · 六天五晚旅行工作台",
-  "short_name": "Oahu 2026",
-  "description": "夏威夷欧胡岛六天五晚行程、准备清单与旅行工具。",
+  "name": "Oahu for Two · 双人海岛旅行工作台",
+  "short_name": "Oahu for Two",
+  "description": "夏威夷欧胡岛双人海岛假期、六天五晚行程、准备清单与旅行工具。",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f4f7f5",
-  "theme_color": "#073b4c",
+  "background_color": "#fff3df",
+  "theme_color": "#073251",
   "icons": [
     {
       "src": "assets/icon-192.png",

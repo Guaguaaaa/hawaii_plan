@@ -63,6 +63,14 @@ function currency(value, digits = 0) {
   }).format(value);
 }
 
+function coupleRings(extraClass = "") {
+  return `<span class="couple-rings ${extraClass}" aria-hidden="true"><i></i><i></i></span>`;
+}
+
+function heroKicker(label) {
+  return `<div class="hero-kicker">${coupleRings()}<span>${escapeHtml(label)}</span></div>`;
+}
+
 function dualClockRow() {
   return `
     <div class="clock-row">
@@ -78,7 +86,7 @@ function overviewClockCard() {
     <section class="surface overview-clock-card" aria-label="Honolulu 与 Los Angeles 当前时间">
       <div class="overview-clock-copy">
         <span class="eyebrow">双城时间</span>
-        <strong>出发地与目的地</strong>
+        <strong>我们与岛屿的时间</strong>
       </div>
       ${dualClockRow()}
     </section>
@@ -102,10 +110,10 @@ export function renderNavigation(data, mode, activeSection) {
 
   document.querySelector("#desktop-nav").innerHTML = `
     <div class="brand-block">
-      <div class="brand-mark" aria-hidden="true">H</div>
+      <div class="brand-mark" aria-hidden="true"><img class="brand-image" src="./assets/icon-192.png" alt=""></div>
       <div>
-        <strong>Oahu 2026</strong>
-        <span>${escapeHtml(data.meta.subtitle)}</span>
+        <strong>Oahu for Two</strong>
+        <span>${escapeHtml(data.meta.tagline)}</span>
       </div>
     </div>
     <nav class="app-nav-list" aria-label="主导航">${navItems}</nav>
@@ -122,9 +130,12 @@ export function renderTopbar(data, mode, autoMode) {
   const modeLabels = { plan: "计划模式", trip: "旅行模式", archive: "回顾模式" };
   const topbar = document.querySelector("#topbar");
   topbar.innerHTML = `
-    <div class="topbar-copy">
-      <span class="eyebrow">${escapeHtml(data.meta.destinationLabel)}</span>
-      <strong>${escapeHtml(data.meta.title)}</strong>
+    <div class="topbar-brand">
+      <img class="topbar-brand-image" src="./assets/favicon-32x32.png" alt="" aria-hidden="true">
+      <div class="topbar-copy">
+        <span class="eyebrow">${escapeHtml(data.meta.destinationLabel)} · 双人假期</span>
+        <strong>${escapeHtml(data.meta.title)}</strong>
+      </div>
     </div>
     <div class="topbar-actions">
       <label class="mode-picker">
@@ -149,6 +160,7 @@ function dayStrip(data, selectedId, target = "itinerary") {
           <span>Day ${day.dayNum}</span>
           <strong>${day.shortDate}</strong>
           <small>${escapeHtml(day.title)}</small>
+          <em>${escapeHtml(day.vibe)}</em>
         </a>
       `).join("")}
     </div>
@@ -182,6 +194,35 @@ function compactTask(task, localState) {
   `;
 }
 
+function romanticMoments(data) {
+  const featuredIds = new Set(["d1-sunset-dinner", "d3-dinner", "d4-tantalus"]);
+  const moments = data.days.flatMap((day) => day.timeline
+    .filter((event) => featuredIds.has(event.id))
+    .map((event) => ({ day, event })));
+
+  return `
+    <section class="content-section romantic-section" aria-labelledby="romantic-moments-title">
+      <div class="section-heading romantic-heading">
+        <div><span class="eyebrow">For two</span><h2 id="romantic-moments-title">留给彼此的岛屿时刻</h2></div>
+        <span>日落 · 海风 · 晚餐</span>
+      </div>
+      <div class="romantic-grid">
+        ${moments.map(({ day, event }, index) => `
+          <a class="romantic-card" href="#itinerary/${day.id}">
+            <span class="moment-index">0${index + 1}</span>
+            <span class="moment-copy">
+              <small>Day ${day.dayNum} · ${escapeHtml(day.vibe)}</small>
+              <strong>${escapeHtml(event.title)}</strong>
+              <span>${escapeHtml(event.details)}</span>
+            </span>
+            <span class="moment-arrow" aria-hidden="true">↗</span>
+          </a>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function overviewPlan(data, localState, now) {
   const taskProgress = getTaskProgress(data, localState);
   const packingProgress = getPackingProgress(data, localState);
@@ -195,9 +236,10 @@ function overviewPlan(data, localState, now) {
   return `
     <section class="overview-hero planning-hero" aria-labelledby="overview-title">
       <div class="hero-copy">
+        ${heroKicker("两个人的海岛假期")}
         <span class="eyebrow">出发前工作台</span>
         <h1 id="overview-title">${countdown > 0 ? `距离出发还有 <span class="countdown-number">${countdown}</span> 天` : "旅程即将开始"}</h1>
-        <p>把重要预约和打包收好，剩下的时间留给期待。</p>
+        <p>把重要预约和打包收好，把日落、海风和相处的时间留给彼此。</p>
       </div>
       <div class="hero-weather" data-weather aria-live="polite">
         <span class="weather-kicker">Honolulu 天气</span>
@@ -248,6 +290,8 @@ function overviewPlan(data, localState, now) {
       </div>
       ${dayStrip(data, null)}
     </section>
+
+    ${romanticMoments(data)}
   `;
 }
 
@@ -282,6 +326,7 @@ function overviewTrip(data, localState, selectedDay, now) {
   return `
     <section class="overview-hero trip-hero" aria-labelledby="today-title">
       <div class="hero-copy">
+        ${heroKicker("正在岛上 · 一起慢下来")}
         <span class="eyebrow">Day ${selectedDay.dayNum} · ${selectedDay.dateLabel}</span>
         <h1 id="today-title">${escapeHtml(selectedDay.title)}</h1>
         <p>${escapeHtml(selectedDay.summary)}</p>
@@ -330,9 +375,10 @@ function overviewArchive(data, localState) {
   return `
     <section class="overview-hero archive-hero">
       <div class="hero-copy">
-        <span class="eyebrow">旅程回顾</span>
-        <h1>六天五晚的 Oahu 旅程</h1>
-        <p>每日路线、预算与清单仍保留在这台设备上，随时可以回看。</p>
+        ${heroKicker("两个人的岛屿回忆")}
+        <span class="eyebrow">双人旅程回顾</span>
+        <h1>六天五晚，一座岛，两个人</h1>
+        <p>海边日落、山海公路与度假时光都留在这里，随时可以一起回看。</p>
       </div>
       <div class="archive-stat"><strong>6</strong><span>旅行日</span></div>
     </section>
@@ -346,6 +392,7 @@ function overviewArchive(data, localState) {
       <div class="section-heading"><div><span class="eyebrow">完整旅程</span><h2>按日期回看</h2></div><a href="#itinerary/${data.days[0].id}">打开时间线</a></div>
       ${dayStrip(data, null)}
     </section>
+    ${romanticMoments(data)}
   `;
 }
 
@@ -365,12 +412,13 @@ function taskStatusForEvent(event, data, localState) {
 export function renderItinerary(data, localState, selectedDay) {
   return `
     <section class="page-intro">
-      <div><span class="eyebrow">每日路线</span><h1>六日行程</h1><p>先看整段旅程，再专注于选中的一天。</p></div>
+      <div><span class="eyebrow">两个人的每日路线</span><h1>六日行程</h1><p>把路线交给时间，把沿途的海风与风景留给彼此。</p></div>
     </section>
     ${dayStrip(data, selectedDay.id)}
     <section class="itinerary-layout">
       <aside class="surface day-summary-card">
         <span class="day-index">Day ${selectedDay.dayNum}</span>
+        <span class="day-vibe">${coupleRings()}${escapeHtml(selectedDay.vibe)}</span>
         <h2>${escapeHtml(selectedDay.title)}</h2>
         <p>${escapeHtml(selectedDay.summary)}</p>
         <dl>
@@ -383,14 +431,14 @@ export function renderItinerary(data, localState, selectedDay) {
         <div class="section-heading compact"><div><span class="eyebrow">${selectedDay.dateLabel}</span><h2>时间线</h2></div><span>${selectedDay.timeline.length} 项安排</span></div>
         <ol class="timeline-list">
           ${selectedDay.timeline.map((event) => `
-            <li class="timeline-entry" data-event-type="${event.type}">
+            <li class="timeline-entry" data-event-type="${event.type}" ${event.mood ? `data-mood="${event.mood}"` : ""}>
               <time datetime="${selectedDay.dateISO}T${event.startTime}">${event.startTime}</time>
               <span class="timeline-node" aria-hidden="true"></span>
               <article class="timeline-card">
                 <button class="timeline-card-trigger" type="button" data-action="open-event" data-event-id="${event.id}" aria-label="查看${escapeHtml(event.title)}的详情"></button>
                 <div class="timeline-title-row">
                   <div><span class="type-label">${TYPE_LABELS[event.type] || "行程"}</span><h3>${escapeHtml(event.title)}</h3></div>
-                  <div class="timeline-badges">${event.badge ? `<span class="badge">${escapeHtml(event.badge)}</span>` : ""}${taskStatusForEvent(event, data, localState)}</div>
+                  <div class="timeline-badges">${event.mood === "romantic" ? '<span class="moment-badge">♡ 双人时光</span>' : ""}${event.badge ? `<span class="badge">${escapeHtml(event.badge)}</span>` : ""}${taskStatusForEvent(event, data, localState)}</div>
                 </div>
                 <p>${escapeHtml(event.details)}</p>
                 <div class="timeline-actions">
@@ -445,7 +493,7 @@ export function renderPrepare(data, localState) {
 
   return `
     <section class="page-intro page-intro-with-progress">
-      <div><span class="eyebrow">出发准备</span><h1>准备中心</h1><p>预约、待办和打包进度都集中在这里。</p></div>
+      <div><span class="eyebrow">为两个人收好琐事</span><h1>准备中心</h1><p>把预约、待办和行李提前收好，把旅行时间留给彼此。</p></div>
       <div class="mini-progress"><strong>${taskProgress.percent}%</strong><span>待办完成</span></div>
     </section>
 
@@ -506,7 +554,7 @@ export function renderTools(data, localState) {
 
   return `
     <section class="page-intro">
-      <div><span class="eyebrow">低频但重要</span><h1>旅行工具</h1><p>住宿、交通、天气、医疗与预算集中收纳。</p></div>
+      <div><span class="eyebrow">安心去看海</span><h1>旅行工具</h1><p>住宿、交通、天气、医疗与预算收在一起，让度假保持轻松。</p></div>
     </section>
 
     <section class="utility-grid">
@@ -577,11 +625,12 @@ export function renderEventDrawer(day, event) {
   return `
     <div class="drawer-handle" aria-hidden="true"></div>
     <div class="drawer-header">
-      <div><span class="eyebrow">Day ${day.dayNum} · ${TYPE_LABELS[event.type] || "行程"}</span><h2 id="drawer-title">${escapeHtml(event.title)}</h2></div>
+      <div><span class="eyebrow">Day ${day.dayNum} · ${TYPE_LABELS[event.type] || "行程"}${event.mood === "romantic" ? " · 双人时光" : ""}</span><h2 id="drawer-title">${escapeHtml(event.title)}</h2></div>
       <button class="icon-button" type="button" data-action="close-drawer" aria-label="关闭详情">×</button>
     </div>
     <div class="drawer-body">
       <div class="drawer-summary"><time>${event.startTime}${event.endTime ? `–${event.endTime}` : ""}</time><span>${escapeHtml(event.location)}</span></div>
+      ${event.mood === "romantic" ? '<div class="drawer-moment-note"><span aria-hidden="true">♡</span> 适合一起放慢脚步的岛屿时刻</div>' : ""}
       <p>${escapeHtml(event.details)}</p>
       ${infoRows ? `<dl class="detail-list drawer-info">${infoRows}</dl>` : ""}
       <div class="drawer-actions">
