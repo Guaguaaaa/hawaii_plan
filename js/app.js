@@ -1,780 +1,284 @@
-/**
- * Hawaii Oahu Trip 2026 Interactive Application Controller
- */
+import { TRIP_DATA } from "./data.js";
+import {
+  LocalTripStore,
+  getAutoMode,
+  getDefaultDay,
+  getEffectiveMode,
+  getModeOverride,
+  parseRoute,
+  setModeOverride
+} from "./state.js";
+import {
+  findEvent,
+  renderEventDrawer,
+  renderItinerary,
+  renderNavigation,
+  renderOverview,
+  renderPrepare,
+  renderTools,
+  renderTopbar
+} from "./views.js";
 
-document.addEventListener('DOMContentLoaded', () => {
-  initApp();
-  initLiveClocks();
-  fetchLiveWeather();
-});
+const store = new LocalTripStore();
+const appRoot = document.querySelector("#app-view");
+const drawerOverlay = document.querySelector("#detail-drawer-overlay");
+const drawer = document.querySelector("#detail-drawer");
+const toast = document.querySelector("#toast");
+const updateBanner = document.querySelector("#update-banner");
 
-// Register Service Worker for Android & PWA Installability
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(err => {
-      console.log('Service Worker registration skipped:', err);
-    });
-  });
+let selectedDayId = null;
+let lastSection = null;
+let previousFocus = null;
+let waitingWorker = null;
+let reloadForWorker = false;
+let toastTimer = null;
+let weatherState = null;
+
+function currentContext() {
+  const now = new Date();
+  const autoMode = getAutoMode(TRIP_DATA, now);
+  const mode = getEffectiveMode(TRIP_DATA, now);
+  const route = parseRoute(location.hash, TRIP_DATA);
+  const fallbackDay = getDefaultDay(TRIP_DATA, mode, now);
+  selectedDayId = route.dayId || selectedDayId || fallbackDay.id;
+  const selectedDay = TRIP_DATA.days.find((day) => day.id === selectedDayId) || fallbackDay;
+  return { now, autoMode, mode, route, selectedDay };
 }
 
-function initApp() {
-  renderTodoList();
-  renderItineraryDays();
-  renderHotels();
-  renderUrgentCare();
-  renderReservations();
-  renderChecklist();
-  renderBudget();
-  setupEventListeners();
-  setupDayPills();
+function render() {
+  const context = currentContext();
+  const localState = store.snapshot();
 
-  fetchGoogleSheetsData();
-}
+  renderNavigation(TRIP_DATA, context.mode, context.route.section);
+  renderTopbar(TRIP_DATA, context.mode, context.autoMode, getModeOverride());
 
-function renderUrgentCare() {
-  const container = document.getElementById('urgentCareList');
-  if (!container || !TRIP_DATA.urgentCare) return;
-
-  let html = '';
-  TRIP_DATA.urgentCare.forEach(clinic => {
-    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.mapQuery)}`;
-    
-    html += `
-      <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1rem; border-left: 4px solid var(--badge-food);">
-        <div style="font-weight:700; font-size:1.05rem; margin-bottom:0.2rem; display:flex; justify-content:space-between; flex-wrap:wrap;">
-          <span>🏥 ${clinic.name}</span>
-          <a href="tel:${clinic.phone.replace(/[^0-9]/g, '')}" style="color:var(--primary-ocean); font-weight:700; text-decoration:none;">📞 ${clinic.phone}</a>
-        </div>
-        <div style="font-size:0.85rem; color:var(--text-muted);">📍 ${clinic.location}</div>
-        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:0.2rem;">⏰ 营业时间: ${clinic.hours}</div>
-        <div style="font-size:0.85rem; color:var(--text-main); margin-top:0.4rem;">💡 ${clinic.notes}</div>
-        <div style="margin-top:0.6rem; display:flex; gap:0.5rem;">
-          <a href="${mapUrl}" target="_blank" class="btn-action" style="font-size:0.75rem;">📍 地图导航</a>
-          <a href="tel:${clinic.phone.replace(/[^0-9]/g, '')}" class="btn-action" style="font-size:0.75rem; background:var(--badge-food); color:white;">📞 拨打电话</a>
-        </div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-}
-
-// 1. Render Todo List (Priority, DDL, Phase)
-function renderTodoList(customList = null) {
-  const container = document.getElementById('todoContainer');
-  if (!container) return;
-
-  const list = customList || TRIP_DATA.todoList;
-  if (!list || list.length === 0) return;
-
-  // Group by Phase
-  const groups = {};
-  list.forEach(item => {
-    const phase = item.phase || item['Phase'] || item['阶段'] || '📌 待办事项';
-    if (!groups[phase]) groups[phase] = [];
-    groups[phase].push(item);
-  });
-
-  const savedState = JSON.parse(localStorage.getItem('hawaii_todo_state') || '{}');
-
-  let html = '';
-  Object.keys(groups).forEach(phaseName => {
-    let itemsHTML = '';
-    groups[phaseName].forEach((task, idx) => {
-      const taskId = `todo_${phaseName}_${idx}`;
-      const isDone = !!savedState[taskId] || task.status === '已完成' || task['Status'] === '已完成';
-      const taskText = task.task || task['Task'] || task['待办事项'] || '';
-      const priority = task.priority || task['Priority'] || task['优先级'] || '🟡 中';
-      const ddl = task.deadline || task['Deadline'] || task['截止日期'] || '';
-      const notes = task.notes || task['Notes'] || task['详细说明'] || '';
-
-      itemsHTML += `
-        <div class="timeline-content ${isDone ? 'completed-task' : ''}" style="margin-bottom: 0.75rem; border-left: 4px solid ${priority.includes('紧急') ? '#ef4444' : priority.includes('高') ? '#f97316' : '#0284c7'};">
-          <div class="item-top">
-            <label style="display:flex; align-items:center; gap:0.6rem; cursor:pointer; font-weight:700; font-size:1.05rem;">
-              <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleTodoStatus('${taskId}', this)" style="width:18px; height:18px; accent-color:var(--primary-ocean);">
-              <span class="todo-title-text" style="${isDone ? 'text-decoration: line-through; color: var(--text-light);' : ''}">${taskText}</span>
-            </label>
-            <div class="item-badges">
-              <span class="badge-tag" style="background: var(--bg-card); border: 1px solid var(--border-color);">${priority}</span>
-              ${ddl ? `<span class="badge-tag need-booking">⏰ DDL: ${ddl}</span>` : ''}
-            </div>
-          </div>
-          ${notes ? `<div class="activity-details" style="margin-top:0.4rem; font-size:0.85rem;">💡 ${notes}</div>` : ''}
-        </div>
-      `;
-    });
-
-    html += `
-      <div class="info-card" style="margin-bottom: 1.5rem;">
-        <div class="card-title">${phaseName}</div>
-        <div>${itemsHTML}</div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-}
-
-function toggleTodoStatus(id, checkboxEl) {
-  const savedState = JSON.parse(localStorage.getItem('hawaii_todo_state') || '{}');
-  savedState[id] = checkboxEl.checked;
-  localStorage.setItem('hawaii_todo_state', JSON.stringify(savedState));
-
-  const titleTextEl = checkboxEl.closest('.item-top').querySelector('.todo-title-text');
-  if (checkboxEl.checked) {
-    titleTextEl.style.textDecoration = 'line-through';
-    titleTextEl.style.color = 'var(--text-light)';
+  if (context.route.section === "itinerary") {
+    appRoot.innerHTML = renderItinerary(TRIP_DATA, localState, context.selectedDay);
+  } else if (context.route.section === "prepare") {
+    appRoot.innerHTML = renderPrepare(TRIP_DATA, localState);
+  } else if (context.route.section === "tools") {
+    appRoot.innerHTML = renderTools(TRIP_DATA, localState);
   } else {
-    titleTextEl.style.textDecoration = 'none';
-    titleTextEl.style.color = 'var(--text-main)';
-  }
-}
-
-// 2. Fetch Live Google Sheets if URLs configured
-async function fetchGoogleSheetsData() {
-  if (!TRIP_DATA.googleSheets) return;
-
-  // Live Budget from Google Sheets
-  if (TRIP_DATA.googleSheets.budgetCsvUrl) {
-    try {
-      const res = await fetch(TRIP_DATA.googleSheets.budgetCsvUrl);
-      const csvText = await res.text();
-      const rows = parseCSV(csvText);
-      if (rows && rows.length > 0) renderGoogleSheetsBudget(rows);
-    } catch (e) { console.warn('Google Sheets Budget error:', e); }
+    appRoot.innerHTML = renderOverview(TRIP_DATA, localState, context.mode, context.selectedDay, context.now);
   }
 
-  // Live Todo from Google Sheets
-  if (TRIP_DATA.googleSheets.todoCsvUrl) {
-    try {
-      const res = await fetch(TRIP_DATA.googleSheets.todoCsvUrl);
-      const csvText = await res.text();
-      const rows = parseCSV(csvText);
-      if (rows && rows.length > 0) renderTodoList(rows);
-    } catch (e) { console.warn('Google Sheets Todo error:', e); }
-  }
-
-  // Live Packing Checklist from Google Sheets
-  if (TRIP_DATA.googleSheets.checklistCsvUrl) {
-    try {
-      const res = await fetch(TRIP_DATA.googleSheets.checklistCsvUrl);
-      const csvText = await res.text();
-      const rows = parseCSV(csvText);
-      if (rows && rows.length > 0) renderGoogleSheetsChecklist(rows);
-    } catch (e) { console.warn('Google Sheets Checklist error:', e); }
-  }
-}
-
-function renderGoogleSheetsChecklist(rows) {
-  const container = document.getElementById('checklistContainer');
-  if (!container) return;
-
-  const savedState = JSON.parse(localStorage.getItem('hawaii_packing_checklist') || '{}');
-  const categories = {};
-
-  rows.forEach((r, idx) => {
-    const cat = r.Category || r['类别'] || '📦 物品清单';
-    if (!categories[cat]) categories[cat] = [];
-    categories[cat].push({
-      id: `gs_check_${idx}`,
-      text: r.Item || r['准备物品'] || '',
-      priority: r.Priority || r['优先级'] || '',
-      notes: r.Notes || r['备注'] || ''
-    });
-  });
-
-  let html = '';
-  Object.keys(categories).forEach(catName => {
-    let itemsHTML = '';
-    categories[catName].forEach(item => {
-      const isChecked = !!savedState[item.id];
-      itemsHTML += `
-        <label class="check-item ${isChecked ? 'completed' : ''}" data-id="${item.id}" style="display:flex; justify-content:space-between; align-items:center;">
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleChecklistItem('${item.id}', this)">
-            <span>${item.text} ${item.notes ? `<small style="color:var(--text-muted); font-size:0.8rem;">(${item.notes})</small>` : ''}</span>
-          </div>
-          ${item.priority ? `<span class="badge-tag" style="font-size:0.75rem; background:var(--bg-subtle);">${item.priority}</span>` : ''}
-        </label>
-      `;
-    });
-
-    html += `
-      <div class="checklist-card">
-        <div class="checklist-title">${catName}</div>
-        <div>${itemsHTML}</div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-}
-
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-  return lines.slice(1).map(line => {
-    const regex = /(?:^|,)(?:"([^"]*)"|([^,]*))/g;
-    const obj = {};
-    let matches;
-    let i = 0;
-    while ((matches = regex.exec(line)) !== null && i < headers.length) {
-      const val = matches[1] !== undefined ? matches[1] : matches[2];
-      obj[headers[i]] = (val || '').trim();
-      i++;
-    }
-    return obj;
-  });
-}
-
-function renderGoogleSheetsBudget(rows) {
-  const container = document.getElementById('budgetContainer');
-  if (!container) return;
-
-  const rate = TRIP_DATA.meta.exchangeRate;
-  let totalRMB = 0;
-  let rowsHTML = '';
-
-  rows.forEach(r => {
-    const usd = parseFloat(r.Cost_USD || r['金额USD'] || 0);
-    const rmb = parseFloat(r.Cost_RMB || r['金额RMB'] || 0);
-    const itemTotalRMB = rmb > 0 ? rmb : (usd * rate);
-    totalRMB += itemTotalRMB;
-
-    rowsHTML += `
-      <div class="car-detail-row">
-        <span class="label">${r.Category || r['类别'] || ''} · ${r.Item || r['支出项目'] || ''} (${r.Status || r['状态'] || ''})</span>
-        <span class="value">¥${itemTotalRMB.toFixed(2)} RMB ${usd > 0 ? `($${usd} USD)` : ''}</span>
-      </div>
-    `;
-  });
-
-  const totalUSD = totalRMB / rate;
-  const perPersonRMB = totalRMB / TRIP_DATA.meta.travelers;
-  const perPersonUSD = totalUSD / TRIP_DATA.meta.travelers;
-
-  container.innerHTML = `
-    <div class="info-card">
-      <div class="card-title">📊 Google Sheets 实时动态预算</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: var(--primary-ocean-light); padding: 1.25rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--primary-ocean-dark); font-weight:600;">全员预估费用总计 (2人)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--primary-ocean-dark); margin-top: 0.2rem;">¥${totalRMB.toFixed(0)} RMB</div>
-          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">约 $${totalUSD.toFixed(0)} USD</div>
-        </div>
-        <div style="background: var(--accent-coral-light); padding: 1.25rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--accent-coral); font-weight:600;">人均费用 (2人平摊)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-coral); margin-top: 0.2rem;">$${perPersonUSD.toFixed(0)} USD</div>
-          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">(约 ¥${perPersonRMB.toFixed(0)} RMB / 人)</div>
-        </div>
-      </div>
-      <div class="car-detail-list">
-        ${rowsHTML}
-      </div>
-    </div>
-  `;
-}
-
-// Live Clocks
-function initLiveClocks() {
+  document.body.dataset.mode = context.mode;
+  document.title = `${SECTION_LABEL(context.route.section, context.mode)} · ${TRIP_DATA.meta.title}`;
+  updateWeatherNodes();
   updateClocks();
-  setInterval(updateClocks, 1000);
+
+  if (lastSection && lastSection !== context.route.section) window.scrollTo({ top: 0, behavior: "instant" });
+  lastSection = context.route.section;
+}
+
+function SECTION_LABEL(section, mode) {
+  if (section === "overview") return mode === "trip" ? "今日" : mode === "archive" ? "回顾" : "概览";
+  return { itinerary: "行程", prepare: "准备", tools: "工具" }[section] || "概览";
 }
 
 function updateClocks() {
-  const hnlTimeEl = document.getElementById('hnlClock');
-  const laxTimeEl = document.getElementById('laxClock');
+  const format = (timeZone) => new Intl.DateTimeFormat("zh-CN", {
+    timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).format(new Date());
 
-  if (hnlTimeEl) {
-    hnlTimeEl.innerText = new Date().toLocaleTimeString('zh-CN', {
-      timeZone: 'Pacific/Honolulu',
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-  }
-
-  if (laxTimeEl) {
-    laxTimeEl.innerText = new Date().toLocaleTimeString('zh-CN', {
-      timeZone: 'America/Los_Angeles',
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-  }
+  document.querySelectorAll('[data-clock="hnl"]').forEach((node) => {
+    node.textContent = format(TRIP_DATA.meta.destinationTimezone);
+  });
+  document.querySelectorAll('[data-clock="lax"]').forEach((node) => {
+    node.textContent = format(TRIP_DATA.meta.homeTimezone);
+  });
 }
 
-// Live Weather
-async function fetchLiveWeather() {
-  const weatherEl = document.getElementById('weatherWidget');
-  if (!weatherEl) return;
+async function refreshWeather() {
+  document.querySelectorAll("[data-weather]").forEach((node) => {
+    node.classList.add("is-loading");
+  });
 
   try {
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=21.3069&longitude=-157.8583&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Pacific%2FHonolulu';
-    const res = await fetch(url);
-    const data = await res.json();
+    const endpoint = "https://api.open-meteo.com/v1/forecast?latitude=21.3069&longitude=-157.8583&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=Pacific%2FHonolulu&forecast_days=3";
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error("Weather unavailable");
+    const data = await response.json();
+    weatherState = {
+      available: true,
+      temperature: Math.round(data.current.temperature_2m),
+      code: data.current.weather_code,
+      wind: Math.round(data.current.wind_speed_10m),
+      high: Math.round(data.daily.temperature_2m_max[0]),
+      low: Math.round(data.daily.temperature_2m_min[0])
+    };
+  } catch {
+    weatherState = { available: false };
+  }
 
-    if (data && data.current_weather) {
-      const tempC = Math.round(data.current_weather.temperature);
-      const tempF = Math.round((tempC * 9/5) + 32);
-      const windSpeed = data.current_weather.windspeed;
+  updateWeatherNodes();
+}
 
-      const daily = data.daily;
-      let forecastHTML = '';
-      if (daily && daily.time) {
-        for (let i = 0; i < Math.min(3, daily.time.length); i++) {
-          const dayName = i === 0 ? '今天' : i === 1 ? '明天' : '后天';
-          const maxF = Math.round((daily.temperature_2m_max[i] * 9/5) + 32);
-          const minF = Math.round((daily.temperature_2m_min[i] * 9/5) + 32);
-          forecastHTML += `<span style="font-size:0.8rem; background:rgba(255,255,255,0.15); padding:0.2rem 0.6rem; border-radius:4px;">${dayName}: ${minF}°F - ${maxF}°F</span>`;
-        }
-      }
+function weatherLabel(code) {
+  if (code === 0) return "晴朗";
+  if ([1, 2, 3].includes(code)) return "局部多云";
+  if ([45, 48].includes(code)) return "有雾";
+  if (code >= 51 && code <= 67) return "有阵雨";
+  if (code >= 80 && code <= 82) return "短时阵雨";
+  return "热带天气";
+}
 
-      weatherEl.innerHTML = `
-        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-          <span>☀️ 檀香山实时天气: <strong>${tempF}°F (${tempC}°C)</strong></span>
-          <span>· 风速 ${windSpeed} km/h</span>
-          <div style="display:inline-flex; gap:0.4rem; margin-left:0.5rem;">${forecastHTML}</div>
-        </div>
-      `;
+function updateWeatherNodes() {
+  document.querySelectorAll("[data-weather]").forEach((node) => {
+    node.classList.remove("is-loading");
+    if (!weatherState) return;
+    if (!weatherState.available) {
+      node.innerHTML = '<span class="weather-kicker">Honolulu 天气</span><strong>暂时离线</strong><small>恢复联网后可刷新天气</small>';
+      return;
     }
-  } catch (err) {
-    weatherEl.innerHTML = `☀️ 檀香山年均气温: <strong>80°F - 86°F (26°C - 30°C)</strong> · 晴朗热带气候`;
-  }
-}
-
-// Render Day-by-Day Itinerary Cards
-function renderItineraryDays(filterTag = 'all', activeDayNum = null) {
-  const container = document.getElementById('daysContainer');
-  if (!container) return;
-
-  container.innerHTML = '';
-
-  TRIP_DATA.days.forEach(day => {
-    if (activeDayNum !== null && day.dayNum !== activeDayNum) return;
-    if (filterTag !== 'all' && day.tag !== filterTag) return;
-
-    const dayCard = document.createElement('div');
-    dayCard.className = 'day-card';
-    dayCard.id = `day-${day.dayNum}`;
-
-    let timelineHTML = '';
-    day.timeline.forEach((item, itemIdx) => {
-      const mapUrl = item.mapQuery 
-        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.mapQuery)}`
-        : null;
-
-      const hasModal = !!item.modalData;
-      const modalDataJson = hasModal ? encodeURIComponent(JSON.stringify(item.modalData)) : '';
-
-      timelineHTML += `
-        <div class="timeline-item">
-          <div class="timeline-time">⏰ ${item.time}</div>
-          <div class="timeline-content ${hasModal ? 'clickable-card' : ''}" ${hasModal ? `onclick="openDetailModal('${modalDataJson}')"` : ''}>
-            <div class="item-top">
-              <span class="activity-name">${item.activity}</span>
-              <div class="item-badges">
-                ${hasModal ? `<span class="badge-tag" style="background: var(--primary-ocean-light); color: var(--primary-ocean-dark); font-weight:600;">📄 点击查看详情</span>` : ''}
-                ${item.badge ? `<span class="badge-tag need-booking">🎟️ ${item.badge}</span>` : ''}
-              </div>
-            </div>
-            <div class="activity-details">${item.details}</div>
-            <div class="action-row">
-              ${mapUrl ? `<a href="${mapUrl}" target="_blank" rel="noopener" class="btn-action" onclick="event.stopPropagation();">📍 打开地图导航</a>` : ''}
-              <button class="btn-action" onclick="event.stopPropagation(); copyToClipboard('${item.activity} - ${item.location || ''}');">📋 复制信息</button>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-
-    dayCard.innerHTML = `
-      <div class="day-card-header">
-        <div class="day-title-group">
-          <span class="day-number-badge">DAY ${day.dayNum}</span>
-          <div>
-            <div class="day-title">${day.title}</div>
-            <div style="font-size: 0.85rem; color: var(--text-muted);">${day.date}</div>
-          </div>
-        </div>
-        <div class="day-meta-chips">
-          <span class="chip chip-car">${day.carStatus}</span>
-          <span class="chip chip-hotel">🏨 ${day.hotelStay}</span>
-        </div>
-      </div>
-      <div class="timeline-list">
-        ${timelineHTML}
-      </div>
-    `;
-
-    container.appendChild(dayCard);
-  });
-
-  if (container.children.length === 0) {
-    container.innerHTML = `<div style="text-align:center; padding: 3rem; color: var(--text-muted);">未找到符合条件的行程</div>`;
-  }
-}
-
-// Setup Day Pills Selector
-function setupDayPills() {
-  const dayPillsContainer = document.getElementById('dayPills');
-  if (!dayPillsContainer) return;
-
-  dayPillsContainer.innerHTML = `<button class="day-pill active" data-day="all">显示全部 6 天</button>`;
-  
-  TRIP_DATA.days.forEach(day => {
-    const pill = document.createElement('button');
-    pill.className = 'day-pill';
-    pill.dataset.day = day.dayNum;
-    pill.innerText = `Day ${day.dayNum} (${day.date.split(' ')[0]})`;
-    dayPillsContainer.appendChild(pill);
-  });
-
-  dayPillsContainer.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('day-pill')) return;
-
-    document.querySelectorAll('.day-pill').forEach(btn => btn.classList.remove('active'));
-    e.target.classList.add('active');
-
-    const selectedDay = e.target.dataset.day;
-    const activeTag = document.querySelector('.tag-btn.active')?.dataset.tag || 'all';
-
-    if (selectedDay === 'all') {
-      renderItineraryDays(activeTag, null);
-    } else {
-      renderItineraryDays(activeTag, parseInt(selectedDay, 10));
-    }
-  });
-}
-
-// Render Hotels & Rental Car Section
-function renderHotels() {
-  const hotelListContainer = document.getElementById('hotelList');
-  if (!hotelListContainer) return;
-
-  let hotelHTML = '';
-  TRIP_DATA.hotels.forEach(hotel => {
-    const isBooked = hotel.status === '已预订';
-    const statusColor = isBooked ? 'var(--accent-palm)' : 'var(--accent-coral)';
-
-    hotelHTML += `
-      <div class="hotel-item">
-        <div class="hotel-name">
-          <span>${hotel.name}</span>
-          <span class="hotel-price">¥${hotel.priceRMB.toFixed(2)}</span>
-        </div>
-        <div class="hotel-sub">📅 ${hotel.date} (${hotel.nights}晚) · <span style="color: ${statusColor}; font-weight:700;">${hotel.status}</span></div>
-        <div class="hotel-sub" style="margin-top: 0.3rem;">📍 ${hotel.address}</div>
-        <div class="hotel-sub" style="margin-top: 0.3rem; color: var(--text-main);">💡 ${hotel.notes}</div>
-        <div style="margin-top: 0.5rem; display:flex; gap:0.5rem;">
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.address)}" target="_blank" class="btn-action" style="font-size:0.75rem;">📍 导航去酒店</a>
-          <button class="btn-action" style="font-size:0.75rem;" onclick="copyToClipboard('${hotel.name}: ${hotel.address}')">📋 复制地址</button>
-        </div>
-      </div>
+    node.innerHTML = `
+      <span class="weather-kicker">Honolulu · ${weatherLabel(weatherState.code)}</span>
+      <strong>${weatherState.temperature}°F</strong>
+      <small>最高 ${weatherState.high}° · 最低 ${weatherState.low}° · 风速 ${weatherState.wind} mph</small>
     `;
   });
-  hotelListContainer.innerHTML = hotelHTML;
-
-  const carContainer = document.getElementById('carDetails');
-  if (!carContainer) return;
-
-  const car = TRIP_DATA.rentalCar;
-  carContainer.innerHTML = `
-    <div class="car-detail-list">
-      <div class="car-detail-row">
-        <span class="label">自驾租期</span>
-        <span class="value">${car.period}</span>
-      </div>
-      <div class="car-detail-row">
-        <span class="label">推荐公司与取还</span>
-        <span class="value">${car.providers}</span>
-      </div>
-      <div class="car-detail-row">
-        <span class="label">推荐车型</span>
-        <span class="value">${car.carTypes.join(' / ')}</span>
-      </div>
-      <div class="car-detail-row">
-        <span class="label">预估租车费(3天)</span>
-        <span class="value" style="color: var(--accent-coral);">$${car.costEstimateUSD} USD (约 ¥${(car.costEstimateUSD * 7.25).toFixed(0)})</span>
-      </div>
-      <div class="car-detail-row">
-        <span class="label">预估停车费(2晚)</span>
-        <span class="value">$${car.parkingEstimateUSD} USD</span>
-      </div>
-      <div class="car-detail-row">
-        <span class="label">总行驶里程/油费</span>
-        <span class="value">${car.totalMileageMiles} (约 $${car.gasEstimateUSD} 油费)</span>
-      </div>
-    </div>
-  `;
 }
 
-// Render Mandatory Reservations
-function renderReservations() {
-  const container = document.getElementById('reservationsContainer');
-  if (!container) return;
-
-  let html = '';
-  TRIP_DATA.reservations.forEach(res => {
-    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(res.mapQuery)}`;
-
-    html += `
-      <div class="res-card">
-        <div>
-          <div class="res-header">
-            <div class="res-name">${res.name}</div>
-            <span class="res-badge">必须提前预约</span>
-          </div>
-          <div class="res-window">⏰ 预约规则：${res.window}</div>
-          <div class="res-body">${res.notes}</div>
-        </div>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <a href="${res.officialLink}" target="_blank" rel="noopener" class="btn-action" style="background: var(--primary-ocean); color: white;">🌐 官方预订入口</a>
-          <a href="${mapUrl}" target="_blank" rel="noopener" class="btn-action">📍 位置地图</a>
-        </div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
+function showToast(message) {
+  window.clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.classList.add("is-visible");
+  toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2600);
 }
 
-// Render Packing Checklist
-function renderChecklist() {
-  const container = document.getElementById('checklistContainer');
-  if (!container) return;
-
-  const savedState = JSON.parse(localStorage.getItem('hawaii_packing_checklist') || '{}');
-
-  let html = '';
-  TRIP_DATA.packingCategories.forEach(cat => {
-    let itemsHTML = '';
-    cat.items.forEach(item => {
-      const isChecked = !!savedState[item.id];
-      itemsHTML += `
-        <label class="check-item ${isChecked ? 'completed' : ''}" data-id="${item.id}">
-          <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleChecklistItem('${item.id}', this)">
-          <span>${item.text}</span>
-        </label>
-      `;
-    });
-
-    html += `
-      <div class="checklist-card">
-        <div class="checklist-title">${cat.category}</div>
-        <div>${itemsHTML}</div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-}
-
-function toggleChecklistItem(id, checkboxEl) {
-  const savedState = JSON.parse(localStorage.getItem('hawaii_packing_checklist') || '{}');
-  savedState[id] = checkboxEl.checked;
-  localStorage.setItem('hawaii_packing_checklist', JSON.stringify(savedState));
-
-  const labelEl = checkboxEl.closest('.check-item');
-  if (checkboxEl.checked) {
-    labelEl.classList.add('completed');
-  } else {
-    labelEl.classList.remove('completed');
-  }
-}
-
-// Render Budget Calculator
-function renderBudget() {
-  const container = document.getElementById('budgetContainer');
-  if (!container) return;
-
-  const b = TRIP_DATA.budgetSummary;
-  const rate = TRIP_DATA.meta.exchangeRate;
-
-  const rentalRMB = b.rentalCarUSD * rate;
-  const parkingRMB = b.parkingUSD * rate;
-  const gasRMB = b.gasUSD * rate;
-  const ticketsRMB = b.ticketsUSD * rate;
-  const foodRMB = b.foodUSD * rate;
-
-  const totalRMB = b.hotelsTotalRMB + rentalRMB + parkingRMB + gasRMB + ticketsRMB + foodRMB;
-  const totalUSD = totalRMB / rate;
-
-  const perPersonRMB = totalRMB / TRIP_DATA.meta.travelers;
-  const perPersonUSD = totalUSD / TRIP_DATA.meta.travelers;
-
-  container.innerHTML = `
-    <div class="info-card">
-      <div class="card-title">💰 6天5晚 预算总览</div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: var(--primary-ocean-light); padding: 1.25rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--primary-ocean-dark); font-weight:600;">全员预估费用总计 (2人)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--primary-ocean-dark); margin-top: 0.2rem;">¥${totalRMB.toFixed(0)} RMB</div>
-          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">约 $${totalUSD.toFixed(0)} USD</div>
-        </div>
-        <div style="background: var(--accent-coral-light); padding: 1.25rem; border-radius: var(--radius-md);">
-          <div style="font-size: 0.85rem; color: var(--accent-coral); font-weight:600;">人均费用 (2人平摊)</div>
-          <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-coral); margin-top: 0.2rem;">$${perPersonUSD.toFixed(0)} USD</div>
-          <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.2rem;">(约 ¥${perPersonRMB.toFixed(0)} RMB / 人)</div>
-        </div>
-      </div>
-
-      <div class="car-detail-list">
-        <div class="car-detail-row">
-          <span class="label">🏨 酒店住宿费用 (5晚，待预订)</span>
-          <span class="value">¥${b.hotelsTotalRMB.toFixed(2)} RMB</span>
-        </div>
-        <div class="car-detail-row">
-          <span class="label">🚗 租车费用 (预估 3天)</span>
-          <span class="value">$${b.rentalCarUSD} USD (约 ¥${rentalRMB.toFixed(0)})</span>
-        </div>
-        <div class="car-detail-row">
-          <span class="label">🅿️ 停车费 (Sheraton $60 + Malia $35)</span>
-          <span class="value">$${b.parkingUSD} USD (约 ¥${parkingRMB.toFixed(0)})</span>
-        </div>
-        <div class="car-detail-row">
-          <span class="label">⛽ 油费 (整程约 1 箱油)</span>
-          <span class="value">$${b.gasUSD} USD (约 ¥${gasRMB.toFixed(0)})</span>
-        </div>
-        <div class="car-detail-row">
-          <span class="label">🎟️ 门票与活动预约预估</span>
-          <span class="value">$${b.ticketsUSD} USD (约 ¥${ticketsRMB.toFixed(0)})</span>
-        </div>
-        <div class="car-detail-row">
-          <span class="label">🍧 美食小吃与餐饮预估</span>
-          <span class="value">$${b.foodUSD} USD (约 ¥${foodRMB.toFixed(0)})</span>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Event Listeners
-function setupEventListeners() {
-  const navBtns = document.querySelectorAll('.nav-btn');
-  navBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      navBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const targetTab = btn.dataset.tab;
-      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-      document.getElementById(targetTab)?.classList.add('active');
-    });
-  });
-
-  const tagBtns = document.querySelectorAll('.tag-btn');
-  tagBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tagBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const tag = btn.dataset.tag;
-      const activeDay = document.querySelector('.day-pill.active')?.dataset.day || 'all';
-      renderItineraryDays(tag, activeDay === 'all' ? null : parseInt(activeDay, 10));
-    });
-  });
-}
-
-// Toast & Copy Utility
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    showToast(`✅ 已复制到剪贴板: ${text}`);
-  }).catch(() => {
-    showToast(`📋 内容: ${text}`);
-  });
-}
-
-function showToast(msg) {
-  let toast = document.getElementById('toastMsg');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'toastMsg';
-    toast.className = 'toast-msg';
-    document.body.appendChild(toast);
-  }
-
-  toast.innerText = msg;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2500);
-}
-
-// Detail Modal Controller for Flights, Hotels, Rental Cars & Tickets
-function openDetailModal(encodedJson) {
+async function copyText(text) {
   try {
-    const modalData = JSON.parse(decodeURIComponent(encodedJson));
-    let modalEl = document.getElementById('detailModalOverlay');
-    if (!modalEl) {
-      modalEl = document.createElement('div');
-      modalEl.id = 'detailModalOverlay';
-      modalEl.className = 'modal-overlay';
-      document.body.appendChild(modalEl);
-    }
+    await navigator.clipboard.writeText(text);
+    showToast("已复制公开行程信息");
+  } catch {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.setAttribute("readonly", "");
+    textArea.className = "clipboard-fallback";
+    document.body.append(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+    showToast("已复制公开行程信息");
+  }
+}
 
-    let itemsHTML = '';
-    if (modalData.items) {
-      modalData.items.forEach(it => {
-        itemsHTML += `
-          <div class="modal-info-row">
-            <span class="modal-label">${it.label}</span>
-            <span class="modal-value">
-              <span>${it.value}</span>
-              ${it.copyable ? `<button class="btn-copy-small" onclick="copyToClipboard('${it.value.split(' ')[0]}')">📋 复制</button>` : ''}
-            </span>
-          </div>
-        `;
+function openDrawer(eventId) {
+  const match = findEvent(TRIP_DATA, eventId);
+  if (!match) return;
+  previousFocus = document.activeElement;
+  drawer.innerHTML = renderEventDrawer(match.day, match.event);
+  drawerOverlay.hidden = false;
+  requestAnimationFrame(() => drawerOverlay.classList.add("is-open"));
+  document.body.classList.add("drawer-open");
+  drawer.querySelector("[data-action='close-drawer']")?.focus();
+}
+
+function closeDrawer() {
+  drawerOverlay.classList.remove("is-open");
+  document.body.classList.remove("drawer-open");
+  window.setTimeout(() => {
+    drawerOverlay.hidden = true;
+    drawer.innerHTML = "";
+  }, 220);
+  previousFocus?.focus?.();
+}
+
+function trapDrawerFocus(event) {
+  if (event.key !== "Tab" || drawerOverlay.hidden) return;
+  const focusable = [...drawer.querySelectorAll("a[href], button:not([disabled]), select, input")];
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function handleClick(event) {
+  const actionTarget = event.target.closest("[data-action]");
+  if (!actionTarget) return;
+  const action = actionTarget.dataset.action;
+
+  if (action === "open-event") openDrawer(actionTarget.dataset.eventId);
+  if (action === "close-drawer") closeDrawer();
+  if (action === "refresh-weather") refreshWeather();
+  if (action === "filter-tasks") store.setPrepareFilter(actionTarget.dataset.filter);
+  if (action === "copy-text") copyText(actionTarget.dataset.copy || "");
+  if (action === "copy-event") {
+    const match = findEvent(TRIP_DATA, actionTarget.dataset.eventId);
+    if (match) copyText(`${match.day.dateLabel} ${match.event.startTime} · ${match.event.title} · ${match.event.location}`);
+  }
+  if (action === "apply-update" && waitingWorker) waitingWorker.postMessage({ type: "SKIP_WAITING" });
+  if (action === "dismiss-update") updateBanner.hidden = true;
+}
+
+function handleChange(event) {
+  if (event.target.matches("[data-action='toggle-task']")) {
+    store.setTask(event.target.dataset.taskId, event.target.checked);
+  }
+  if (event.target.matches("[data-action='toggle-packing']")) {
+    store.setPacking(event.target.dataset.packingId, event.target.checked);
+  }
+  if (event.target.id === "mode-select") {
+    setModeOverride(event.target.value);
+    render();
+  }
+}
+
+function showUpdate(worker) {
+  waitingWorker = worker;
+  updateBanner.hidden = false;
+}
+
+async function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  try {
+    const registration = await navigator.serviceWorker.register("./sw.js");
+    if (registration.waiting) showUpdate(registration.waiting);
+
+    registration.addEventListener("updatefound", () => {
+      const worker = registration.installing;
+      worker?.addEventListener("statechange", () => {
+        if (worker.state === "installed" && navigator.serviceWorker.controller) showUpdate(worker);
       });
-    }
+    });
 
-    modalEl.innerHTML = `
-      <div class="modal-container">
-        <div class="modal-header">
-          <div>
-            <span class="modal-category">${modalData.category || '行程详情'}</span>
-            <h3 class="modal-title">${modalData.title}</h3>
-          </div>
-          <button class="modal-close-btn" onclick="closeDetailModal()">✕</button>
-        </div>
-        <div class="modal-body">
-          ${modalData.flightStatusLink ? `
-            <div style="margin-bottom: 1.25rem;">
-              <a href="${modalData.flightStatusLink}" target="_blank" rel="noopener" class="btn-action" style="background: var(--primary-ocean); color: white; width: 100%; justify-content: center; padding: 0.65rem 1rem; font-size: 0.95rem;">
-                🌐 点击免费查询实时航班状态 (Google Flight Tracking)
-              </a>
-            </div>
-          ` : ''}
-          <div class="modal-info-list">
-            ${itemsHTML}
-          </div>
-        </div>
-      </div>
-    `;
-
-    modalEl.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    modalEl.onclick = (e) => {
-      if (e.target === modalEl) closeDetailModal();
-    };
-
-    document.onkeydown = (e) => {
-      if (e.key === 'Escape') closeDetailModal();
-    };
-  } catch (err) {
-    console.error('Failed to open modal:', err);
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (reloadForWorker) return;
+      reloadForWorker = true;
+      location.reload();
+    });
+  } catch {
+    // The app still works online when service worker registration is unavailable.
   }
 }
 
-function closeDetailModal() {
-  const modalEl = document.getElementById('detailModalOverlay');
-  if (modalEl) {
-    modalEl.classList.remove('active');
-  }
-  document.body.style.overflow = '';
-}
+window.addEventListener("hashchange", render);
+document.addEventListener("click", handleClick);
+document.addEventListener("change", handleChange);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !drawerOverlay.hidden) closeDrawer();
+  trapDrawerFocus(event);
+});
+drawerOverlay.addEventListener("click", (event) => {
+  if (event.target === drawerOverlay) closeDrawer();
+});
+store.subscribe(render);
+
+if (!location.hash) history.replaceState(null, "", "#overview");
+render();
+refreshWeather();
+registerServiceWorker();
+window.setInterval(updateClocks, 30_000);
+window.setInterval(() => {
+  const { mode, route } = currentContext();
+  if (mode === "trip" && route.section === "overview") render();
+}, 60_000);

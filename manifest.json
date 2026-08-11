@@ -1,12 +1,12 @@
 {
-  "name": "夏威夷欧胡岛 · 👫 甜蜜之旅 2026",
-  "short_name": "夏威夷2026",
-  "description": "专为 2026 夏威夷欧胡岛 6天5晚 甜蜜旅行打造的 PWA 仪表盘",
+  "name": "Oahu 2026 · 六天五晚旅行工作台",
+  "short_name": "Oahu 2026",
+  "description": "夏威夷欧胡岛六天五晚行程、准备清单与旅行工具。",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0284c7",
-  "theme_color": "#0284c7",
+  "background_color": "#f4f7f5",
+  "theme_color": "#073b4c",
   "icons": [
     {
       "src": "assets/icon-192.png",

@@ -1,200 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌺 夏威夷欧胡岛 6天5晚 旅行计划 | Hawaii Oahu Trip 2026</title>
-  <meta name="description" content="专为 2026 年 8 月 16 日 - 8 月 22 日夏威夷欧胡岛行程打造的动态交互式旅行计划指南。">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>夏威夷欧胡岛 6天5晚 · Oahu 2026</title>
+  <meta name="description" content="2026 年夏威夷欧胡岛六天五晚行程、预约、准备清单与旅行工具。">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
-
-  <!-- iPhone & Android PWA Optimization Tags -->
-  <meta name="theme-color" content="#0284c7">
+  <meta name="theme-color" content="#073b4c">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="夏威夷2026">
-  
-  <!-- Favicons & App Icons -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Oahu 2026">
   <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
-
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#app-view">跳到主要内容</a>
 
-  <!-- Hero Banner Header -->
-  <header class="hero-header">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span>📍 夏威夷 · 欧胡岛 (Oahu, Hawaii)</span>
-        <span>·</span>
-        <span>📅 2026.08.16 - 08.22 (周日 - 周六)</span>
-      </div>
-      <h1 class="hero-title">🌺 夏威夷欧胡岛 6天5晚 深度之旅</h1>
-      <div class="hero-subtitle">
-        <span>✈️ 洛杉矶往返 (8/21 晚返程，8/22 晨抵 LAX)</span>
-        <span>🏨 Sheraton 无边泳池 & Waikiki Malia</span>
-        <span>🚗 3天自驾环岛</span>
-      </div>
+  <div class="app-shell">
+    <aside class="desktop-sidebar" id="desktop-nav" aria-label="桌面导航"></aside>
 
-      <!-- Live Dual Clock & Timezone Widget -->
-      <div style="margin-top: 1.25rem; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(8px); padding: 0.8rem 1.2rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.25); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
-        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;">
-          <div>
-            <span style="font-size: 0.75rem; opacity: 0.8; text-uppercase: uppercase;">🌺 檀香山时间 (HST)</span>
-            <div id="hnlClock" style="font-size: 1.3rem; font-weight: 700; font-family: monospace;">--:--:--</div>
-          </div>
-          <div style="font-size: 1.2rem; opacity: 0.5;">↔</div>
-          <div>
-            <span style="font-size: 0.75rem; opacity: 0.8; text-uppercase: uppercase;">🌴 洛杉矶时间 (PDT)</span>
-            <div id="laxClock" style="font-size: 1.3rem; font-weight: 700; font-family: monospace;">--:--:--</div>
-          </div>
-          <a href="#urgentCareSection" onclick="document.querySelector('[data-tab=tab-hotels]').click();" style="font-size: 0.8rem; background: #ef4444; color: #fff; padding: 0.25rem 0.7rem; border-radius: 99px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;">🏥 酒店附近诊所 (Urgent Care)</a>
-        </div>
-
-        <!-- Live Weather Widget -->
-        <div id="weatherWidget" style="font-size: 0.9rem;">
-          <span>☀️ 正在获取檀香山天气...</span>
-        </div>
-      </div>
-
-      <!-- 4 Horizontal Stat Cards -->
-      <div class="hero-stats">
-        <div class="stat-card">
-          <div class="label">行程时间</div>
-          <div class="value">8/16 - 8/22</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">当务之急</div>
-          <div class="value" style="color: #fed7aa;">订机票 & Sheraton</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">自驾租车</div>
-          <div class="value">8/18 - 8/20 (3天)</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">核心任务</div>
-          <div class="value">恐龙湾/古兰尼抢票</div>
-        </div>
-      </div>
+    <div class="app-column">
+      <header class="topbar" id="topbar"></header>
+      <main class="app-main" id="app-view" tabindex="-1"></main>
+      <footer class="app-footer">
+        <span>Oahu 2026</span>
+        <span>公开安全数据 · 本机进度 · 离线可用</span>
+      </footer>
     </div>
-  </header>
 
-  <!-- Sticky Navigation Bar (4 Main Functional Modules) -->
-  <div class="sticky-nav-wrapper">
-    <nav class="nav-container">
-      <button class="nav-btn active" data-tab="tab-itinerary">🗺️ 路线与行程</button>
-      <button class="nav-btn" data-tab="tab-reservations">🎟️ 预约与门票</button>
-      <button class="nav-btn" data-tab="tab-hotels">🏨 住宿、交通与诊所</button>
-      <button class="nav-btn" data-tab="tab-checklist">🛒 清单、购物与预算</button>
-    </nav>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="手机导航"></nav>
   </div>
 
-  <!-- Main Application Content Area -->
-  <main class="main-layout">
+  <div class="drawer-overlay" id="detail-drawer-overlay" hidden>
+    <aside class="detail-drawer" id="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title"></aside>
+  </div>
 
-    <!-- Module 1: 🗺️ 路线与行程 (Itinerary) -->
-    <section id="tab-itinerary" class="tab-pane active">
-      <div class="filter-bar">
-        <div class="day-selector-pills" id="dayPills">
-          <!-- Populated by app.js -->
-        </div>
+  <div class="update-banner" id="update-banner" hidden role="status" aria-live="polite">
+    <div>
+      <strong>行程已有更新</strong>
+      <span>刷新后即可使用最新版本。</span>
+    </div>
+    <div class="update-actions">
+      <button type="button" class="button button-primary" data-action="apply-update">立即刷新</button>
+      <button type="button" class="button button-quiet" data-action="dismiss-update">稍后</button>
+    </div>
+  </div>
 
-        <div class="tag-filter-group">
-          <button class="tag-btn active" data-tag="all">全部类型</button>
-          <button class="tag-btn" data-tag="drive">🚗 自驾大环线</button>
-          <button class="tag-btn" data-tag="relax">🏖️ 泡酒店渡假</button>
-          <button class="tag-btn" data-tag="adventure">🌋 探险/徒步</button>
-          <button class="tag-btn" data-tag="transit">✈️ 航班/交通</button>
-        </div>
-      </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript>此旅行工作台需要启用 JavaScript 才能显示行程。</noscript>
 
-      <div class="days-container" id="daysContainer">
-        <!-- Populated dynamically by app.js -->
-      </div>
-    </section>
-
-    <!-- Module 2: 🎟️ 预约与门票 (Bookings & Reservations) -->
-    <section id="tab-reservations" class="tab-pane">
-      <div class="info-card" style="margin-bottom: 1.5rem;">
-        <div class="card-title">🎟️ 强预约项目看板 (官方入口与规则)</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
-          夏威夷热门自然保护区及历史遗址实行严格的人流管制，请根据开放时间窗口提前预约。
-        </p>
-        <div class="reservation-grid" id="reservationsContainer">
-          <!-- Populated by app.js -->
-        </div>
-      </div>
-
-      <div id="todoContainer">
-        <!-- Populated dynamically by app.js -->
-      </div>
-    </section>
-
-    <!-- Module 3: 🏨 住宿、交通与诊所 (Stay, Transport & Urgent Care) -->
-    <section id="tab-hotels" class="tab-pane">
-      <div class="section-grid">
-        <div class="info-card">
-          <div class="card-title">🏨 酒店入住与房型变更切片</div>
-          <div id="hotelList">
-            <!-- Populated by app.js -->
-          </div>
-        </div>
-
-        <div class="info-card">
-          <div class="card-title">🚗 自驾租车与停车油费计划</div>
-          <div id="carDetails">
-            <!-- Populated by app.js -->
-          </div>
-          <div style="margin-top: 1.5rem; background: var(--primary-ocean-light); padding: 1rem; border-radius: var(--radius-md); font-size: 0.9rem; color: var(--primary-ocean-dark);">
-            💡 <strong>取还车策略提醒：</strong><br>
-            8/18 早上步行前往 Waikiki Avis/Hertz 门店取车，8/20 晚间在 Waikiki 门店还车。可免去 8/16, 8/17, 8/21 昂贵的市区停车费。
-          </div>
-        </div>
-      </div>
-
-      <!-- 🏥 Urgent Care Clinic Section -->
-      <div class="info-card" id="urgentCareSection" style="margin-top: 1.5rem; border-top: 4px solid var(--badge-food);">
-        <div class="card-title" style="color: var(--badge-food);">🏥 酒店附近 Urgent Care 诊所与医疗救助</div>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-          🚑 <strong>生命紧急状况请立即拨打 911</strong>。<br>
-          非危及生命的意外不适（如发烧感冒、水土不服、海水呛到、皮肤刮伤等），推荐使用以下 Waikiki 酒店附近的 Urgent Care 诊所：
-        </p>
-        <div id="urgentCareList">
-          <!-- Populated dynamically by app.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Module 4: 🛒 清单、购物与预算 (Checklist, Wishlist & Budget) -->
-    <section id="tab-checklist" class="tab-pane">
-      <div class="info-card" style="margin-bottom: 1.5rem;">
-        <div class="card-title">✅ 互动式行李打包与特产必买清单</div>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
-          勾选框支持本地保存，每次打开或刷新页面都会保留你的准备进度。
-        </p>
-        <div class="checklist-grid" id="checklistContainer">
-          <!-- Populated by app.js -->
-        </div>
-      </div>
-
-      <div id="budgetContainer">
-        <!-- Populated by app.js -->
-      </div>
-    </section>
-
-  </main>
-
-  <footer style="text-align: center; padding: 2rem 1rem; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 3rem;">
-    🌺 Hawaii Oahu Trip 2026 · Built for GitHub Pages · Have a safe & marvelous trip! 🏄‍♂️
-  </footer>
-
-  <!-- Scripts -->
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

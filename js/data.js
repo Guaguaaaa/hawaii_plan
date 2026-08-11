@@ -1,210 +1,246 @@
 /**
- * Hawaii Oahu Trip 2026 Data Source (Door-to-Door Complete Journey)
- * Period: 2026.08.16 - 2026.08.22 (6 Days 5 Nights)
+ * Hawaii Oahu Trip 2026 — single editable data source.
+ * Keep this file public-safe: never add real names, contact details, home
+ * addresses, identity documents, booking references, or private photos.
  */
 
-const TRIP_DATA = {
+export const TRIP_DATA = {
   meta: {
-    title: "夏威夷欧胡岛 6天5晚 深度游",
-    subtitle: "2026.08.16 (周日) — 2026.08.22 (周六)",
+    title: "夏威夷欧胡岛 6天5晚",
+    subtitle: "2026.08.16 — 2026.08.21",
     startDate: "2026-08-16",
-    endDate: "2026-08-22",
+    endDate: "2026-08-21",
     destination: "Honolulu, Oahu, Hawaii",
-    currency: "USD / RMB",
-    exchangeRate: 7.25, // 1 USD ≈ 7.25 RMB
+    destinationLabel: "夏威夷 · 欧胡岛",
+    exchangeRate: 7.25,
     travelers: 2,
-    timezoneDiff: "檀香山 (HST) 比 洛杉矶 (PDT) 慢 3 小时"
+    homeTimezone: "America/Los_Angeles",
+    destinationTimezone: "Pacific/Honolulu"
   },
 
-  // Google Sheets Live Sync Configuration (Optional)
-  googleSheets: {
-    budgetCsvUrl: "",
-    checklistCsvUrl: "",
-    todoCsvUrl: ""
-  },
-
-  // 🏥 酒店附近 Urgent Care & 医疗救助诊所
   urgentCare: [
     {
-      name: "Straub Doctors on Call (Sheraton 酒店内)",
-      location: "Sheraton Waikiki Beach Resort 底楼 (Lower Level)",
+      id: "clinic-straub",
+      name: "Straub Doctors on Call",
+      context: "Sheraton 酒店内",
+      location: "Sheraton Waikiki Beach Resort Lower Level",
       phone: "(808) 971-6000",
-      hours: "每天 08:00 - 18:00",
+      hours: "每天 08:00–18:00",
       mapQuery: "Doctors on Call at Sheraton Waikiki",
-      notes: "🌟 就在 Sheraton 酒店楼下！提供门诊、X光、化验，提供 Waikiki 区域酒店免费班车接送"
+      notes: "提供门诊、X 光和化验；可查询 Waikiki 区域酒店接送服务。"
     },
     {
-      name: "Kuhio Medical Clinic (Malia 酒店旁)",
-      location: "2310 Kuhio Ave, Suite 223 (距 Malia 酒店步行 1 分钟)",
+      id: "clinic-kuhio",
+      name: "Kuhio Medical Clinic",
+      context: "Malia 酒店附近",
+      location: "2310 Kuhio Ave, Suite 223",
       phone: "(808) 924-6688",
-      hours: "周一至周五 08:00-17:00, 周六 09:00-17:00",
+      hours: "周一至周五 08:00–17:00，周六 09:00–17:00",
       mapQuery: "Kuhio Medical Clinic Honolulu",
-      notes: "🌟 紧邻 Waikiki Malia 酒店，出门过马路即到"
+      notes: "距 Waikiki Malia 步行约 1 分钟。"
     },
     {
-      name: "Doctors of Waikiki (夜间急诊诊所)",
+      id: "clinic-doctors-waikiki",
+      name: "Doctors of Waikiki",
+      context: "营业至晚间",
       location: "120 Liliuokalani Ave #101, Honolulu",
       phone: "(808) 922-2112",
-      hours: "每天 08:00 - 22:00 (营业至晚 10 点)",
+      hours: "每天 08:00–22:00",
       mapQuery: "Doctors of Waikiki",
-      notes: "Waikiki 营业时间最长的综合 Urgent Care，适合晚间不适就医"
+      notes: "适合晚间非危及生命的不适就医。"
     },
     {
+      id: "clinic-urgent-waikiki",
       name: "Urgent Care Clinic of Waikiki",
+      context: "Kalakaua 大道",
       location: "2155 Kalakaua Ave, Suite 308",
       phone: "(808) 924-3399",
-      hours: "周一至周五 09:00-17:00, 周日 09:00-12:00",
+      hours: "周一至周五 09:00–17:00，周日 09:00–12:00",
       mapQuery: "Urgent Care Clinic of Waikiki",
-      notes: "位于 Kalakaua 大道，提供 Waikiki 区域内免费出租车接送至诊所"
+      notes: "可向诊所确认 Waikiki 区域出租车接送服务。"
     }
   ],
 
-  todoList: [
+  tasks: [
     {
-      phase: "🔥 当务之急",
-      task: "订洛杉矶往返檀香山机票 (LAX↔HNL)",
-      priority: "🟢 已完成",
-      deadline: "已确定 (8/7)",
-      status: "已完成",
-      notes: "已确定阿拉斯加航空：去程 8/16 AS803 (10:05-12:58)，回程 8/21 AS826 (11:33-19:53)"
+      id: "book-flights",
+      group: "bookings",
+      title: "确认洛杉矶往返檀香山机票",
+      priority: "high",
+      dueAt: "2026-08-07T18:00:00-07:00",
+      deadlineLabel: "已于 8/7 确认",
+      status: "done",
+      notes: "AS803：8/16 10:05–12:58；AS826：8/21 11:33–19:53。"
     },
     {
-      phase: "🔥 当务之急",
-      task: "预订 Waikiki Malia 酒店 (8/16 1晚)",
-      priority: "🔴 紧急",
-      deadline: "尽快 (8月上旬)",
-      status: "未完成",
-      notes: "8/16 首晚入住 (896.41 + 321.33 = 1,217.74 RMB)"
+      id: "book-malia-first",
+      group: "bookings",
+      title: "确认 Waikiki Malia 首晚住宿",
+      priority: "urgent",
+      dueAt: "2026-08-12T18:00:00-07:00",
+      deadlineLabel: "尽快",
+      status: "todo",
+      notes: "8/16 入住，1 晚。"
     },
     {
-      phase: "🔥 当务之急",
-      task: "预订 Sheraton Waikiki 酒店 (8/17-8/18 2晚)",
-      priority: "🔴 紧急",
-      deadline: "尽快 (8月上旬)",
-      status: "未完成",
-      notes: "奢华海景度假日 (5029.62 + 835.28 = 5,864.90 RMB)，无边泳池"
+      id: "book-sheraton",
+      group: "bookings",
+      title: "确认 Sheraton Waikiki 住宿",
+      priority: "urgent",
+      dueAt: "2026-08-12T18:00:00-07:00",
+      deadlineLabel: "尽快",
+      status: "todo",
+      notes: "8/17–8/18 入住，2 晚。"
     },
     {
-      phase: "🔥 当务之急",
-      task: "预订 Waikiki Malia 酒店 (8/19-8/20 2晚)",
-      priority: "🔴 紧急",
-      deadline: "尽快 (8月上旬)",
-      status: "未完成",
-      notes: "环岛与古兰尼完结后入住 (1679.42 + 642.67 = 2,322.09 RMB)"
+      id: "book-malia-last",
+      group: "bookings",
+      title: "确认 Waikiki Malia 后段住宿",
+      priority: "urgent",
+      dueAt: "2026-08-12T18:00:00-07:00",
+      deadlineLabel: "尽快",
+      status: "todo",
+      notes: "8/19–8/20 入住，2 晚。"
     },
     {
-      phase: "🔥 当务之急",
-      task: "预订 Avis / Hertz 租车 (8/18早-8/20晚 3天)",
-      priority: "🔴 紧急",
-      deadline: "尽快 (8月上旬)",
-      status: "未完成",
-      notes: "Waikiki 门店取还车"
+      id: "book-rental-car",
+      group: "bookings",
+      title: "预订 Waikiki 门店租车",
+      priority: "urgent",
+      dueAt: "2026-08-12T18:00:00-07:00",
+      deadlineLabel: "尽快",
+      status: "todo",
+      notes: "Avis / Hertz；计划 8/18 早至 8/20 晚。"
     },
     {
-      phase: "🎟️ 预订抢票",
-      task: "预订古兰尼牧场 Kualoa Ranch (UTV / Jungle)",
-      priority: "🟠 高",
-      deadline: "提前 1 个月",
-      status: "未完成",
-      notes: "热门 UTV Tour 极易售罄，需提前官网上锁"
+      id: "book-kualoa",
+      group: "tickets",
+      title: "预订 Kualoa Ranch 热门项目",
+      priority: "high",
+      dueAt: "2026-07-20T18:00:00-10:00",
+      deadlineLabel: "建议提前 1 个月",
+      status: "todo",
+      notes: "UTV Tour / Movie Sites Tour / Jungle Adventure。"
     },
     {
-      phase: "🎟️ 预订抢票",
-      task: "预订珍珠港 USS Arizona 纪念馆门票",
-      priority: "🟠 高",
-      deadline: "提前 8 周 / 前一天15:00",
-      status: "未完成",
-      notes: "Recreation.gov 抢票"
+      id: "book-pearl-harbor",
+      group: "tickets",
+      title: "预约 USS Arizona Memorial",
+      priority: "high",
+      dueAt: "2026-08-19T15:00:00-10:00",
+      deadlineLabel: "提前 8 周或前一天 15:00",
+      status: "todo",
+      notes: "通过 Recreation.gov 查询和预约。"
     },
     {
-      phase: "🎟️ 预订抢票",
-      task: "预约钻石山 Diamond Head 登顶名额",
-      priority: "🟡 中",
-      deadline: "提前 14 天 (8/3左右)",
-      status: "未完成",
-      notes: "预约 8/17 早晨 06:30 场次"
+      id: "book-diamond-head",
+      group: "tickets",
+      title: "预约 Diamond Head 登顶时段",
+      priority: "medium",
+      dueAt: "2026-08-03T18:00:00-10:00",
+      deadlineLabel: "建议提前 14 天",
+      status: "todo",
+      notes: "目标：8/17 06:30 时段。"
     },
     {
-      phase: "🎟️ 预订抢票",
-      task: "抢恐龙湾 Hanauma Bay 门票",
-      priority: "🔴 紧急",
-      deadline: "提前 2 天早7:00 (HST)",
-      status: "未完成",
-      notes: "8/16 早 7:00 (HST) 抢 8/18 (Day3) 门票"
+      id: "book-hanauma",
+      group: "tickets",
+      title: "预约 Hanauma Bay 入园",
+      priority: "urgent",
+      dueAt: "2026-08-16T07:00:00-10:00",
+      deadlineLabel: "提前 2 天当地时间 07:00",
+      status: "todo",
+      notes: "出发前再次确认开放日与预约规则。"
     },
     {
-      phase: "🧳 行前打包",
-      task: "检查护照有效期 & 驾照原件/翻译件",
-      priority: "🟠 高",
-      deadline: "出发前 7 天",
-      status: "未完成",
-      notes: "租车及机场安检必需"
+      id: "prep-documents",
+      group: "preparation",
+      title: "检查旅行证件与驾照材料",
+      priority: "high",
+      dueAt: "2026-08-09T18:00:00-07:00",
+      deadlineLabel: "出发前 7 天",
+      status: "todo",
+      notes: "确认有效期并准备所需副本。"
     },
     {
-      phase: "🧳 行前打包",
-      task: "采购 Reef-Safe 环保防晒霜 & 涉水鞋/面镜",
-      priority: "🟡 中",
-      deadline: "出发前 3 天",
-      status: "未完成",
-      notes: "夏威夷法律规定使用环保防晒"
+      id: "prep-sun-water",
+      group: "preparation",
+      title: "准备环保防晒和水上装备",
+      priority: "medium",
+      dueAt: "2026-08-13T18:00:00-07:00",
+      deadlineLabel: "出发前 3 天",
+      status: "todo",
+      notes: "Reef-safe 防晒、涉水鞋和浮潜面镜。"
     },
     {
-      phase: "🧳 行前打包",
-      task: "打包夏日服饰、长裙、薄外套、充电宝",
-      priority: "🟡 中",
-      deadline: "出发前 1 天 (8/15)",
-      status: "未完成",
-      notes: "防晒衣服与室内空调薄外套"
+      id: "prep-pack",
+      group: "preparation",
+      title: "完成服装与随身物品打包",
+      priority: "medium",
+      dueAt: "2026-08-15T20:00:00-07:00",
+      deadlineLabel: "8/15 晚前",
+      status: "todo",
+      notes: "夏装、薄外套、充电宝和防晒用品。"
     }
   ],
 
   hotels: [
     {
-      date: "8/16 (周日 1晚)",
+      id: "malia-first",
       name: "Waikiki Malia",
+      checkIn: "2026-08-16",
+      checkOut: "2026-08-17",
+      dateLabel: "8/16 · 1 晚",
       nights: 1,
       priceRMB: 1217.74,
-      status: "待查确认",
+      status: "pending",
+      taskId: "book-malia-first",
       address: "2470 Kuhio Ave, Honolulu, HI 96815",
-      notes: "首晚入住 (896.41+321.33 RMB)，方便离机场交通，次日搬至 Sheraton",
-      pnrPlaceholder: "MALIA-CONF-NIGHT1"
+      notes: "抵达首晚入住，次日前往 Sheraton。"
     },
     {
-      date: "8/17 – 8/18 (周一 - 周二 2晚)",
+      id: "sheraton",
       name: "Sheraton Waikiki Beach Resort",
+      checkIn: "2026-08-17",
+      checkOut: "2026-08-19",
+      dateLabel: "8/17–8/18 · 2 晚",
       nights: 2,
       priceRMB: 5864.90,
-      status: "待查确认",
+      status: "pending",
+      taskId: "book-sheraton",
       address: "2255 Kalakaua Ave, Honolulu, HI 96815",
-      notes: "奢华海景度假日 (5029.62+835.28 RMB)，无边泳池；8/18 自驾停车 1 晚约 $60",
-      pnrPlaceholder: "SHERATON-CONF-8899"
+      notes: "海景度假与无边泳池；8/18 停车预算约 $60。"
     },
     {
-      date: "8/19 – 8/20 (周三 - 周四 2晚)",
+      id: "malia-last",
       name: "Waikiki Malia",
+      checkIn: "2026-08-19",
+      checkOut: "2026-08-21",
+      dateLabel: "8/19–8/20 · 2 晚",
       nights: 2,
       priceRMB: 2322.09,
-      status: "待查确认",
+      status: "pending",
+      taskId: "book-malia-last",
       address: "2470 Kuhio Ave, Honolulu, HI 96815",
-      notes: "环岛与古兰尼完结后入住 (1679.42+642.67 RMB)，8/19 自驾停车 1 晚约 $35",
-      pnrPlaceholder: "MALIA-CONF-NIGHT2"
+      notes: "自驾行程期间入住；8/19 停车预算约 $35。"
     }
   ],
 
   rentalCar: {
-    period: "8/18 (早) — 8/20 (晚) 连续三天",
-    providers: "Avis / Hertz (Waikiki 门店取还车)",
+    id: "rental-car",
+    status: "pending",
+    taskId: "book-rental-car",
+    period: "8/18 早 — 8/20 晚",
+    providers: "Avis / Hertz · Waikiki 门店取还",
     carTypes: ["Toyota Corolla", "Nissan Sentra", "Hyundai Elantra"],
     costEstimateUSD: 280,
     parkingEstimateUSD: 95,
     gasEstimateUSD: 40,
-    totalMileageMiles: "180 - 220 英里 (290 - 355 公里)",
-    pnrPlaceholder: "AVIS-WAIKIKI-7788"
+    totalMileage: "180–220 英里（290–355 公里）"
   },
 
-  budgetSummary: {
-    hotelsTotalRMB: 9404.73,
-    hotelsPerPersonRMB: 4702.36,
+  budget: {
+    hotelsRMB: 9404.73,
     rentalCarUSD: 280,
     parkingUSD: 95,
     gasUSD: 40,
@@ -215,537 +251,500 @@ const TRIP_DATA = {
   reservations: [
     {
       id: "hanauma",
+      taskId: "book-hanauma",
       name: "Hanauma Bay 恐龙湾",
-      required: true,
-      window: "提前 2 天当地时间早 7:00 抢票",
+      window: "提前 2 天当地时间 07:00",
       officialLink: "https://pros.hnl.info/hanauma-bay",
       mapQuery: "Hanauma Bay, Honolulu, HI",
-      notes: "火山海湾渐变色，浮潜天堂。周一/周二闭园注意确认。",
-      codePlaceholder: "HANAUMA-RSV-1029"
+      notes: "预约前确认开放日；抵达后需观看保护区教育短片。"
     },
     {
       id: "kualoa",
+      taskId: "book-kualoa",
       name: "Kualoa Ranch 古兰尼牧场",
-      required: true,
-      window: "建议提前 1-2 个月在官网预订",
+      window: "热门项目建议提前 1–2 个月",
       officialLink: "https://www.kualoa.com/",
       mapQuery: "Kualoa Ranch, Kaneohe, HI",
-      notes: "侏罗纪公园取景地。UTV Tour / Movie Sites Tour / Jungle Adventure。",
-      codePlaceholder: "KUALOA-UTV-5566"
+      notes: "UTV、Movie Sites 与 Jungle Adventure 需要分别确认余位。"
     },
     {
-      id: "diamondhead",
+      id: "diamond-head",
+      taskId: "book-diamond-head",
       name: "Diamond Head 钻石山",
-      required: true,
-      window: "提前 14 天预约登顶时间",
+      window: "建议提前 14 天",
       officialLink: "https://gostateparks.hawaii.gov/diamondhead",
       mapQuery: "Diamond Head State Monument",
-      notes: "看火奴鲁鲁全景与日出，建议预约早晨场避免正午暴晒。",
-      codePlaceholder: "DH-HIKE-0821"
+      notes: "优先选择晨间时段，避开正午暴晒。"
     },
     {
-      id: "pearlharbor",
-      name: "Pearl Harbor 珍珠港亚利桑那号",
-      required: true,
-      window: "提前 8 周或前一天 15:00 抢票",
+      id: "pearl-harbor",
+      taskId: "book-pearl-harbor",
+      name: "USS Arizona Memorial",
+      window: "提前 8 周或前一天 15:00",
       officialLink: "https://www.recreation.gov/ticket/facility/233301",
       mapQuery: "Pearl Harbor National Memorial",
-      notes: "USS Arizona Memorial 门票预订，预计游查 2.5 小时。",
-      codePlaceholder: "PEARL-REC-9922"
+      notes: "预计参观约 2.5 小时，提前确认随身物品限制。"
     }
   ],
 
   days: [
     {
+      id: "day-1",
       dayNum: 1,
-      date: "8月16日 (周日)",
-      title: "洛杉矶家中 ➔ LAX ✈️ HNL ➔ 入住 Waikiki Malia",
-      tag: "transit",
-      carStatus: "🚫 不租车 (Uber)",
-      hotelStay: "Waikiki Malia",
-      summary: "搭乘 Alaska Airlines AS803 直飞檀香山，下午入住 Waikiki Malia 酒店，Waikiki 海滩漫步与 sunset 晚餐",
+      dateISO: "2026-08-16",
+      dateLabel: "8月16日 · 周日",
+      shortDate: "8/16",
+      title: "抵达檀香山",
+      theme: "transit",
+      transport: "Uber / 步行",
+      hotel: "Waikiki Malia",
+      summary: "从洛杉矶飞往檀香山，入住 Malia，在 Waikiki 海边迎接第一场日落。",
       timeline: [
         {
-          time: "07:00",
-          activity: "从家中出发前往 LAX 机场",
-          location: "Home ➔ Los Angeles International Airport (LAX)",
-          mapQuery: "Los Angeles International Airport",
+          id: "d1-lax-transfer",
+          startTime: "07:00",
+          title: "前往 LAX 机场",
+          location: "Los Angeles International Airport",
+          mapQuery: "Los Angeles International Airport Terminal 6",
           type: "transit",
-          details: "检查护照、驾照原件、银行卡及手机充电宝，提前 3 小时前往 LAX Terminal 6",
-          modalData: {
-            title: "🚗 家中 ➔ LAX 机场送机",
-            category: "出发交通",
-            items: [
-              { label: "出发地点", value: "洛杉矶家中" },
-              { label: "目的地", value: "LAX Terminal 6 (Alaska Airlines Check-in)" },
-              { label: "建议出发时间", value: "07:00 (预留 1h 路程 + 2h 机场安检托运)" },
-              { label: "出行方式", value: "Uber / Lyft / 朋友送机" },
-              { label: "行前最后检查", value: "护照、驾照、银行卡、手机充电宝、环保防晒霜" }
-            ]
-          }
+          details: "预留交通、托运与安检时间，前往 Terminal 6。",
+          info: [
+            ["建议抵达", "起飞前至少 2 小时"],
+            ["出行方式", "Uber / Lyft / 送机"]
+          ]
         },
         {
-          time: "10:05 - 12:58",
-          activity: "LAX ✈️ HNL (航班: 阿拉斯加航空 AS 803)",
-          location: "LAX Terminal 6 ➔ HNL Terminal 1",
+          id: "d1-flight-as803",
+          startTime: "10:05",
+          endTime: "12:58",
+          title: "AS803 · LAX → HNL",
+          location: "LAX Terminal 6 → HNL Terminal 1",
           mapQuery: "LAX Airport Terminal 6",
           type: "flight",
-          badge: "航班卡片与追踪",
-          details: "飞行 5 小时 53 分钟，跨太平洋直飞檀香山 (HNL)",
-          modalData: {
-            title: "✈️ 去程航班: LAX ➔ HNL",
-            category: "去程航班",
-            flightNum: "AS 803 (Alaska Airlines)",
-            pnr: "已确认 (已出票)",
-            flightStatusLink: "https://www.google.com/search?q=AS803+flight+status",
-            items: [
-              { label: "航空公司与航班号", value: "Alaska Airlines AS 803 (已确认)" },
-              { label: "预订确认码 (PNR)", value: "已确认 / 电子机票已出", copyable: true },
-              { label: "出发 Terminal / 登机口", value: "LAX Terminal 6" },
-              { label: "到达 Terminal / 登机口", value: "HNL Terminal 1" },
-              { label: "起飞与降落时间", value: "10:05 (LAX PDT) ➔ 12:58 (HNL HST)" },
-              { label: "座位分配", value: "主舱 / 已选座" },
-              { label: "托运行李额度", value: "每人 1 件托运行李 (限重 50 lbs / 23kg)" },
-              { label: "Check-in 柜台", value: "LAX Terminal 6 Alaska Airlines Check-in" },
-              { label: "登机凭证", value: "已保存在 Alaska Airlines App / Apple Wallet" }
-            ]
-          }
+          badge: "航班",
+          details: "Alaska Airlines 直飞，计划飞行 5 小时 53 分钟。",
+          statusLink: "https://www.google.com/search?q=AS803+flight+status",
+          info: [
+            ["航班", "Alaska Airlines AS803"],
+            ["出发", "10:05 · LAX Terminal 6"],
+            ["抵达", "12:58 · HNL Terminal 1"],
+            ["行李", "每人 1 件托运行李，限重 50 lbs / 23 kg"]
+          ]
         },
         {
-          time: "13:30",
-          activity: "打 Uber 前往 Waikiki Malia 酒店",
-          location: "Daniel K. Inouye International Airport ➔ Waikiki Malia",
+          id: "d1-hnl-transfer",
+          startTime: "13:30",
+          title: "机场前往 Waikiki Malia",
+          location: "HNL → Waikiki Malia",
           mapQuery: "Waikiki Malia Hotel",
           type: "transit",
-          details: "HNL 机场 Ride-share 指定上车点 (Terminal 1 出发层 Ride-Share Zone)",
-          modalData: {
-            title: "🚕 HNL 机场接机 ➔ Waikiki Malia 酒店",
-            category: "接机交通",
-            items: [
-              { label: "上车地点", value: "HNL Terminal 1 Ride-Share Pickup Zone" },
-              { label: "预估车程与车费", value: "约 25 分钟 (约 $35 - $45 USD)" },
-              { label: "目的地", value: "Waikiki Malia Main Lobby Drop-off" }
-            ]
-          }
+          details: "前往 Terminal 1 指定网约车上车区，预计车程约 25 分钟。",
+          info: [
+            ["上车", "HNL Terminal 1 Ride-Share Pickup Zone"],
+            ["预计车费", "$35–45"]
+          ]
         },
         {
-          time: "14:30",
-          activity: "Waikiki Malia 办理入住 & 寄存行李",
+          id: "d1-malia-checkin",
+          startTime: "14:30",
+          title: "Waikiki Malia 办理入住",
           location: "Waikiki Malia",
           mapQuery: "Waikiki Malia Hotel",
           type: "hotel",
-          badge: "首晚入住确认",
-          details: "办理 Waikiki Malia 首晚入住 (896.41+321.33 RMB)，前往房间休息",
-          modalData: {
-            title: "🏨 Waikiki Malia Hotel 办理入住 (首晚)",
-            category: "酒店入住详情",
-            pnr: "MALIA-CONF-NIGHT1",
-            items: [
-              { label: "预订确认号 (Confirmation)", value: "MALIA-CONF-NIGHT1 (示例)", copyable: true },
-              { label: "地址", value: "2470 Kuhio Ave, Honolulu, HI 96815" },
-              { label: "入住时间", value: "8/16 14:30 入住 | 8/17 退房换至 Sheraton" },
-              { label: "周边便利", value: "出门即到 ABC Store 及周边餐厅" }
-            ]
-          }
+          badge: "住宿",
+          details: "办理首晚入住，安置行李并稍作休息。",
+          info: [
+            ["地址", "2470 Kuhio Ave, Honolulu, HI 96815"],
+            ["退房", "8/17 前往 Sheraton"]
+          ]
         },
         {
-          time: "16:00",
-          activity: "Waikiki 海滩漫步 & ABC Store 采购",
-          location: "Kalakaua Ave & Waikiki Beach",
+          id: "d1-waikiki-walk",
+          startTime: "16:00",
+          title: "Waikiki 海滩漫步与采购",
+          location: "Waikiki Beach",
           mapQuery: "Waikiki Beach Honolulu",
           type: "relax",
-          details: "漫步 Waikiki 海滩，去楼下 ABC Store 采购水、零食及防晒霜"
+          details: "海边散步，在 ABC Store 补充水、零食和防晒用品。"
         },
         {
-          time: "18:30",
-          activity: "Waikiki 享用海滩晚宴 & 观赏夏威夷日落",
+          id: "d1-sunset-dinner",
+          startTime: "18:30",
+          title: "海滩晚餐与日落",
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach",
-          type: "view",
-          details: "在海滩边餐厅享用晚餐，体验夏威夷第一天的浪漫夕阳与海风"
+          type: "food",
+          details: "在海边用餐，欣赏抵达夏威夷后的第一场日落。"
         }
       ]
     },
     {
+      id: "day-2",
       dayNum: 2,
-      date: "8月17日 (周一)",
-      title: "Sheraton 度假日｜钻石山日出与市区艺术",
-      tag: "relax",
-      carStatus: "🚫 不租车 (步行 / Uber)",
-      hotelStay: "Sheraton Waikiki Beach Resort",
-      summary: "晨间登顶 Diamond Head 看火奴鲁鲁全景，打卡 HoMA 艺术馆，Sheraton 无边泳池玩水看日落",
+      dateISO: "2026-08-17",
+      dateLabel: "8月17日 · 周一",
+      shortDate: "8/17",
+      title: "钻石山与 Sheraton",
+      theme: "relax",
+      transport: "Uber / 步行",
+      hotel: "Sheraton Waikiki Beach Resort",
+      summary: "晨间登顶 Diamond Head，逛艺术馆和市区，下午入住 Sheraton。",
       timeline: [
         {
-          time: "06:30",
-          activity: "Diamond Head 钻石山徒步日出",
+          id: "d2-diamond-head",
+          startTime: "06:30",
+          endTime: "08:00",
+          title: "Diamond Head 晨间徒步",
           location: "Diamond Head State Monument",
           mapQuery: "Diamond Head State Monument",
           type: "adventure",
-          badge: "需提前预约",
-          details: "晨间登顶火山口，俯瞰整个太平洋与 Waikiki 城市全景",
-          modalData: {
-            title: "🏔️ Diamond Head 钻石山预约凭证",
-            category: "登顶预约",
-            pnr: "DH-CONF-8821",
-            items: [
-              { label: "预约确认号", value: "DH-CONF-8821 (示例)", copyable: true },
-              { label: "预约登顶时间段", value: "06:30 AM - 08:00 AM" },
-              { label: "门票与交通", value: "门票 $5/人，Uber 车程约 10 分钟" }
-            ]
-          }
+          badge: "需预约",
+          taskId: "book-diamond-head",
+          details: "从火山口俯瞰太平洋和 Waikiki 城市全景。",
+          info: [
+            ["目标时段", "06:30–08:00"],
+            ["门票与交通", "门票约 $5/人，Uber 约 10 分钟"]
+          ]
         },
         {
-          time: "10:00",
-          activity: "Malia 退房 ➔ 前往 Sheraton 寄存行李",
-          location: "Waikiki Malia ➔ Sheraton Waikiki",
+          id: "d2-hotel-transfer",
+          startTime: "10:00",
+          title: "Malia 退房并寄存行李",
+          location: "Waikiki Malia → Sheraton Waikiki",
           mapQuery: "Sheraton Waikiki Beach Resort",
           type: "hotel",
-          details: "办理 Waikiki Malia 退房，前往 Sheraton Waikiki 礼宾部免费寄存行李"
+          details: "退房后前往 Sheraton 礼宾部寄存行李。"
         },
         {
-          time: "10:30",
-          activity: "Honolulu Museum of Art (HoMA)",
-          location: "Honolulu Museum of Art",
+          id: "d2-homa",
+          startTime: "10:30",
+          title: "Honolulu Museum of Art",
+          location: "900 S Beretania St",
           mapQuery: "Honolulu Museum of Art",
           type: "culture",
-          details: "出片神地！日式中庭与现代艺术展览，氛围感拉满",
-          modalData: {
-            title: "🎨 Honolulu Museum of Art (HoMA)",
-            category: "艺术门票",
-            items: [
-              { label: "地址", value: "900 S Beretania St, Honolulu, HI 96814" },
-              { label: "门票信息", value: "成人约 $20 USD / 现场或官网购票" },
-              { label: "开放时间", value: "10:00 - 18:00 (周一开放)" },
-              { label: "拍照建议", value: "日式庭院、咖啡厅与现代艺术走廊" }
-            ]
-          }
+          details: "参观日式庭院与现代艺术展览。",
+          info: [
+            ["开放参考", "10:00–18:00，出发前复核"],
+            ["门票参考", "成人约 $20"]
+          ]
         },
         {
-          time: "13:00",
-          activity: "Royal Hawaiian & International Market Place",
+          id: "d2-shopping",
+          startTime: "13:00",
+          title: "Royal Hawaiian 商圈漫步",
           location: "Royal Hawaiian Center",
           mapQuery: "Royal Hawaiian Center",
           type: "shopping",
-          details: "逛街，打卡 ABC Store 寻找夏威夷限定 **黑皮 Kitty** 玩偶！"
+          details: "逛 Royal Hawaiian Center、International Market Place 和 ABC Store。"
         },
         {
-          time: "15:00",
-          activity: "Sheraton 办理 Check-in & 边缘无边泳池",
-          location: "Sheraton Waikiki Edge Infinity Pool",
+          id: "d2-sheraton-checkin",
+          startTime: "15:00",
+          title: "Sheraton 入住与无边泳池",
+          location: "Sheraton Waikiki",
           mapQuery: "Sheraton Waikiki Beach Resort",
           type: "relax",
-          badge: "Check-in 15:00",
-          details: "下午 3 点返回 Sheraton 办理 Check-in 入住奢华海景房，在无边泳池玩水看海景！（在酒店玩水！休息诶嘿嘿嘿～🤤）"
+          badge: "15:00 入住",
+          details: "办理入住，在 Edge Infinity Pool 看海放松。"
         },
         {
-          time: "18:30",
-          activity: "Waikiki Beach 日落时刻",
+          id: "d2-sunset",
+          startTime: "18:30",
+          title: "Waikiki Beach 日落",
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach Honolulu",
           type: "view",
-          details: "漫步金黄沙滩，欣赏威基基经典椰林落日"
+          details: "漫步沙滩，欣赏椰林日落。"
         }
       ]
     },
     {
+      id: "day-3",
       dayNum: 3,
-      date: "8月18日 (周二)",
-      title: "Sheraton 度假日｜无边泳池看海 & 全天度假放松",
-      tag: "relax",
-      carStatus: "🚫 不租车 (全天泡酒店)",
-      hotelStay: "Sheraton Waikiki Beach Resort",
-      summary: "全天留给 Sheraton Waikiki 度假村，睡到自然醒，无边泳池看海玩水，海滩日光浴与海鲜日落",
+      dateISO: "2026-08-18",
+      dateLabel: "8月18日 · 周二",
+      shortDate: "8/18",
+      title: "Sheraton 度假日",
+      theme: "relax",
+      transport: "步行",
+      hotel: "Sheraton Waikiki Beach Resort",
+      summary: "全天留给酒店、泳池和海滩，放慢节奏享受 Waikiki。",
       timeline: [
         {
-          time: "09:00",
-          activity: "起床 & 享用 Sheraton 奢华海景早餐",
-          location: "Sheraton Waikiki Beach Resort",
+          id: "d3-breakfast",
+          startTime: "09:00",
+          title: "海景早餐",
+          location: "Sheraton Waikiki",
           mapQuery: "Sheraton Waikiki Beach Resort",
-          type: "hotel",
-          details: "享受无忧清晨，在海景露台享用夏威夷风味早餐与咖啡"
+          type: "food",
+          details: "睡到自然醒，在海景露台享用早餐和咖啡。"
         },
         {
-          time: "11:00",
-          activity: "Sheraton Edge Infinity Pool 边缘无边泳池",
+          id: "d3-pool",
+          startTime: "11:00",
+          title: "Edge Infinity Pool",
           location: "Sheraton Waikiki Edge Infinity Pool",
           mapQuery: "Sheraton Waikiki Edge Infinity Pool",
           type: "relax",
-          details: "全天畅游夏威夷最美无边泳池，俯瞰太平洋海景，晒太阳看海放松"
+          details: "无边泳池看海、晒太阳和玩水。"
         },
         {
-          time: "13:30",
-          activity: "Royal Hawaiian Center 漫步午餐",
+          id: "d3-lunch",
+          startTime: "13:30",
+          title: "Royal Hawaiian Center 午餐",
           location: "Royal Hawaiian Center",
           mapQuery: "Royal Hawaiian Center",
           type: "food",
-          details: "在 Sheraton 楼下 Royal Hawaiian 绿荫中庭享用午餐，轻松漫步"
+          details: "在绿荫中庭午餐并轻松漫步。"
         },
         {
-          time: "16:00",
-          activity: "海滩戏水 & 泳池 Sunset 鸡尾酒",
+          id: "d3-beach",
+          startTime: "16:00",
+          title: "海滩与 Sunset 鸡尾酒",
           location: "Sheraton Waikiki Pool Bar",
           mapQuery: "Sheraton Waikiki Beach Resort",
           type: "relax",
-          details: "泳池边品尝热带特调鸡尾酒，感受凉爽海风与微醺假期"
+          details: "海滩戏水，在泳池边感受日落前的海风。"
         },
         {
-          time: "18:30",
-          activity: "Waikiki Beach 日落晚餐",
+          id: "d3-dinner",
+          startTime: "18:30",
+          title: "Waikiki 日落晚餐",
           location: "Waikiki Beach",
           mapQuery: "Waikiki Beach Honolulu",
-          type: "view",
-          details: "漫步金黄沙滩，在海边餐厅享用丰盛晚宴，欣赏椰林落日"
+          type: "food",
+          details: "在海边用餐，欣赏椰林落日。"
         }
       ]
     },
     {
+      id: "day-4",
       dayNum: 4,
-      date: "8月19日 (周三)",
-      title: "东南海岸线自驾｜果冻海与火山悬崖",
-      tag: "drive",
-      carStatus: "🚗 租车 Day 1 (东南岸大环线)",
-      hotelStay: "Waikiki Malia (停车 $35)",
-      summary: "退房 Sheraton 入住 Malia，步行取车，打卡恐龙湾、喷泉洞、绝美 Lanikai 细白沙滩、平等院，坦塔罗斯山看夜景",
+      dateISO: "2026-08-19",
+      dateLabel: "8月19日 · 周三",
+      shortDate: "8/19",
+      title: "东南海岸线自驾",
+      theme: "drive",
+      transport: "租车 · Day 1",
+      hotel: "Waikiki Malia",
+      summary: "沿东南海岸打卡恐龙湾、喷泉洞、Lanikai、平等院和 Tantalus 夜景。",
       timeline: [
         {
-          time: "08:30",
-          activity: "Sheraton 退房 ➔ Waikiki 门店取车",
+          id: "d4-car-pickup",
+          startTime: "08:30",
+          title: "Sheraton 退房并取车",
           location: "Waikiki Rental Car Branch",
           mapQuery: "Avis Rent A Car Waikiki",
           type: "transit",
-          badge: "租车凭证与确认号",
-          details: "办理 Sheraton 退房，行李带上车，步行前往 Avis / Hertz 取车",
-          modalData: {
-            title: "🚗 Avis / Hertz Waikiki 门店取车",
-            category: "租车订单详情",
-            pnr: "AVIS-HI-778899",
-            items: [
-              { label: "租车确认号 (Confirmation)", value: "AVIS-HI-778899 (示例)", copyable: true },
-              { label: "取车地点", value: "Avis / Hertz Waikiki International Market Place 门店" },
-              { label: "预订车型", value: "Standard Sedan (Toyota Corolla / Nissan Sentra 或同级)" },
-              { label: "租期", value: "8/19 08:30 - 8/20 18:00 (连续 2 天)" },
-              { label: "取车必需凭证", value: "主驾驶驾照原件、翻译件、主驾驶名下信用卡" }
-            ]
-          }
+          badge: "取车",
+          taskId: "book-rental-car",
+          details: "退房后携带行李前往 Waikiki 门店取车。",
+          info: [
+            ["门店", "Avis / Hertz Waikiki 门店"],
+            ["车型", "Standard Sedan 或同级"],
+            ["材料", "驾照所需材料与主驾驶信用卡"]
+          ]
         },
         {
-          time: "09:30",
-          activity: "Hanauma Bay 恐龙湾浮潜",
+          id: "d4-hanauma",
+          startTime: "09:30",
+          endTime: "11:00",
+          title: "Hanauma Bay 浮潜",
           location: "Hanauma Bay Nature Preserve",
           mapQuery: "Hanauma Bay",
           type: "adventure",
-          badge: "需提前预约",
-          details: "火山海湾，渐变果冻海，夏威夷最出名的浮潜天堂",
-          modalData: {
-            title: "🤿 Hanauma Bay 恐龙湾浮潜预约",
-            category: "门票预约凭证",
-            pnr: "HANAUMA-CONF-1029",
-            items: [
-              { label: "预约确认码", value: "HANAUMA-CONF-1029 (示例)", copyable: true },
-              { label: "入园时间段", value: "09:30 AM (需提前 15 分钟抵达门外排队)" },
-              { label: "门票费用", value: "$25/人 (非夏威夷居民，现场或网上已付)" },
-              { label: "停车费", value: "$3 USD (现金/刷卡)" }
-            ]
-          }
+          badge: "需预约",
+          taskId: "book-hanauma",
+          details: "在火山海湾浮潜，入园前再次确认开放与预约状态。",
+          info: [
+            ["目标入园", "09:30，建议提前 15 分钟"],
+            ["费用参考", "门票约 $25/人，停车约 $3"]
+          ]
         },
         {
-          time: "11:30",
-          activity: "Kahala Beach & Halona Blowhole 喷泉洞",
+          id: "d4-kahala-halona",
+          startTime: "11:30",
+          title: "Kahala Beach 与 Halona Blowhole",
           location: "Halona Blowhole Lookout",
           mapQuery: "Halona Blowhole Lookout",
           type: "view",
-          details: "Jennie 拍照同款 Kahala 海滩 -> Halona 岩洞海浪喷泉 (She Her Hers 封面同款绿浪)"
+          details: "欣赏 Kahala 海滩、火山岩洞与喷泉般的海浪。"
         },
         {
-          time: "13:00",
-          activity: "Lanikai Beach & Kailua Town 午餐",
-          location: "Lanikai Beach / Kailua",
+          id: "d4-lanikai",
+          startTime: "13:00",
+          title: "Lanikai Beach 与 Kailua 午餐",
+          location: "Lanikai / Kailua",
           mapQuery: "Lanikai Beach",
           type: "food",
-          details: "细白沙滩玻璃海。午餐推荐 Kalapawai Cafe 或 Adela's Country Eatery"
+          details: "细白沙滩和玻璃海；午餐可选 Kalapawai Cafe 或 Adela's。"
         },
         {
-          time: "15:30",
-          activity: "Byodo-in Temple 平等院",
-          location: "Byodo-In Temple Hawaii",
+          id: "d4-byodo",
+          startTime: "15:30",
+          title: "Byodo-In Temple 平等院",
+          location: "Valley of the Temples",
           mapQuery: "Byodo-In Temple Hawaii",
           type: "culture",
-          details: "山脚下的日式禅意寺庙，绿意盎然，Valley of the Temples 庄严出片"
+          details: "游览山脚下的日式寺庙与园林。"
         },
         {
-          time: "18:30",
-          activity: "Tantalus Lookout 日落与夜景",
+          id: "d4-tantalus",
+          startTime: "18:30",
+          title: "Tantalus Lookout 日落",
           location: "Tantalus Lookout",
           mapQuery: "Tantalus Lookout Puu Ualakaa State Park",
           type: "view",
-          details: "俯瞰整条檀香山天际线与钻石头山的壮丽夕阳与夜景"
+          details: "俯瞰 Honolulu 天际线、Diamond Head 与城市夜景。"
         },
         {
-          time: "20:00",
-          activity: "Waikiki 特色 Poke 晚餐 & 入住 Malia",
-          location: "Waikiki Malia Hotel",
+          id: "d4-malia-checkin",
+          startTime: "20:00",
+          title: "Poke 晚餐并入住 Malia",
+          location: "Waikiki Malia",
           mapQuery: "Waikiki Malia Hotel",
           type: "hotel",
-          badge: "Malia 入住确认",
-          details: "打卡 Musubi Cafe 饭团 或 Maguro Spot Poke Bowl，入住 Malia 酒店停车 ($35/晚)",
-          modalData: {
-            title: "🏨 Waikiki Malia Hotel 办理入住",
-            category: "酒店入住详情",
-            pnr: "MALIA-CONF-NIGHT2",
-            items: [
-              { label: "预订确认号", value: "MALIA-CONF-NIGHT2 (示例)", copyable: true },
-              { label: "入住时间", value: "8/19 - 8/21 (共 2 晚)" },
-              { label: "停车信息", value: "酒店代客停车约 $35/晚 (8/19 停 1 晚)" }
-            ]
-          }
+          badge: "住宿",
+          details: "可选 Musubi Cafe 或 Maguro Spot，随后入住并停车。",
+          info: [
+            ["入住", "8/19–8/21，共 2 晚"],
+            ["停车", "8/19 预算约 $35"]
+          ]
         }
       ]
     },
     {
+      id: "day-5",
       dayNum: 5,
-      date: "8月20日 (周四)",
-      title: "北岸大环线 & 古兰尼牧场 & 珍珠港｜还车",
-      tag: "drive",
-      carStatus: "🚗 租车 Day 2 (北岸与古兰尼 & 傍晚还车)",
-      hotelStay: "Waikiki Malia (无停车费)",
-      summary: "打卡 Dole 菠萝园，珍珠港亚利桑那号，蒜蓉虾饭，古兰尼牧场 UTV，草帽岛，侏罗纪雨林植物园，傍晚还车",
+      dateISO: "2026-08-20",
+      dateLabel: "8月20日 · 周四",
+      shortDate: "8/20",
+      title: "北岸、珍珠港与古兰尼",
+      theme: "drive",
+      transport: "租车 · Day 2",
+      hotel: "Waikiki Malia",
+      summary: "珍珠港、Dole 菠萝园、北岸午餐与 Kualoa Ranch，傍晚返回 Waikiki 还车。",
       timeline: [
         {
-          time: "08:30",
-          activity: "Pearl Harbor 珍珠港历史怀古",
+          id: "d5-pearl-harbor",
+          startTime: "08:30",
+          endTime: "10:30",
+          title: "Pearl Harbor 历史参观",
           location: "Pearl Harbor National Memorial",
           mapQuery: "Pearl Harbor National Memorial",
           type: "culture",
-          badge: "需提前预约",
-          details: "参观 USS Arizona Memorial 亚利桑那号纪念馆，感受历史沉淀 (预计 2.5h)",
-          modalData: {
-            title: "⚓ Pearl Harbor 珍珠港亚利桑那号门票",
-            category: "纪念馆凭证",
-            pnr: "PEARL-REC-5544",
-            items: [
-              { label: "预订确认号 (Recreation.gov)", value: "PEARL-REC-5544 (示例)", copyable: true },
-              { label: "渡轮与纪念馆场次", value: "08:45 AM (需提前 30 分钟通过安检)" }
-            ]
-          }
+          badge: "需预约",
+          taskId: "book-pearl-harbor",
+          details: "参观 USS Arizona Memorial，预计约 2.5 小时。",
+          info: [["建议", "提前 30 分钟抵达并确认安检规则"]]
         },
         {
-          time: "10:30",
-          activity: "前往 Dole 菠萝园",
+          id: "d5-dole",
+          startTime: "10:30",
+          title: "Dole 菠萝园",
           location: "Dole Plantation",
           mapQuery: "Dole Plantation Hawaii",
           type: "attraction",
-          details: "坐 Pineapple Express 观光小火车，打卡 Dole Whip 菠萝冰淇淋，买菠萝 Kitty 限定（不用全部项目，和你在一起就足够啦❤️）"
+          details: "体验 Pineapple Express，品尝 Dole Whip 并逛纪念品商店。"
         },
         {
-          time: "12:00",
-          activity: "北岸美食午餐 (蒜蓉虾饭 / 漂亮饭)",
-          location: "Giovanni's Shrimp Truck / Haleiwa Joe's",
+          id: "d5-lunch",
+          startTime: "12:00",
+          title: "北岸午餐",
+          location: "Haleiwa",
           mapQuery: "Giovanni's Shrimp Truck Haleiwa",
           type: "food",
-          details: "Giovanni's 经典 Garlic Shrimp 蒜蓉虾饭，或 Haleiwa Joe's fine dining 风景好的漂亮饭"
+          details: "可选 Giovanni's Garlic Shrimp 或 Haleiwa Joe's。"
         },
         {
-          time: "13:30",
-          activity: "Kualoa Ranch 古兰尼牧场",
+          id: "d5-kualoa",
+          startTime: "13:30",
+          endTime: "15:30",
+          title: "Kualoa Ranch 古兰尼牧场",
           location: "Kualoa Ranch",
           mapQuery: "Kualoa Ranch Hawaii",
           type: "adventure",
-          badge: "需提前预约",
-          details: "侏罗纪公园取景地！体验 UTV 越野车 / Movie Sites Tour / Jungle Adventure",
-          modalData: {
-            title: "🌋 Kualoa Ranch 古兰尼牧场预订",
-            category: "活动预订凭证",
-            pnr: "KUALOA-UTV-9988",
-            items: [
-              { label: "预订确认号", value: "KUALOA-UTV-9988 (示例)", copyable: true },
-              { label: "行程项目", value: "Raptor UTV Tour / Movie Sites Tour / Jungle Adventure" }
-            ]
-          }
+          badge: "需预约",
+          taskId: "book-kualoa",
+          details: "体验 UTV、Movie Sites 或 Jungle Adventure 项目。",
+          info: [["项目选择", "Raptor UTV / Movie Sites / Jungle Adventure"]]
         },
         {
-          time: "15:30",
-          activity: "Kualoa Regional Park & 侏罗纪植物园",
-          location: "Kualoa Regional Park & Ho'omaluhia Garden",
+          id: "d5-garden",
+          startTime: "15:30",
+          title: "草帽岛与 Ho'omaluhia",
+          location: "Kualoa Regional Park / Ho'omaluhia Garden",
           mapQuery: "Ho'omaluhia Botanical Garden",
           type: "nature",
-          details: "草帽岛明信片打卡，游览 Ho'omaluhia Botanical Garden 侏罗纪火山雨林"
+          details: "打卡草帽岛视角，游览火山雨林植物园。"
         },
         {
-          time: "18:00",
-          activity: "返回 Waikiki 门店还车 & 海滩散步",
-          location: "Waikiki Rental Branch",
+          id: "d5-return-car",
+          startTime: "18:00",
+          title: "返回 Waikiki 还车",
+          location: "Waikiki Rental Car Branch",
           mapQuery: "Avis Rent A Car Waikiki",
           type: "transit",
-          details: "顺畅归还租车，加满油箱，从今晚起无额外停车费！傍晚在 Waikiki 海滩散步晚餐"
+          details: "加满油后还车，傍晚回 Waikiki 散步用餐。"
         }
       ]
     },
     {
+      id: "day-6",
       dayNum: 6,
-      date: "8月21日 (周五)",
-      title: "Waikiki 告别 ➔ HNL ✈️ LAX ➔ 回到温馨的家",
-      tag: "transit",
-      carStatus: "🚫 不租车 (Uber)",
-      hotelStay: "无 (今晚抵达 LAX)",
-      summary: "享用夏威夷最后早餐，打车前往 HNL 机场搭乘 AS826 航班，傍晚顺利飞抵 LAX 返家",
+      dateISO: "2026-08-21",
+      dateLabel: "8月21日 · 周五",
+      shortDate: "8/21",
+      title: "告别 Waikiki，返回洛杉矶",
+      theme: "transit",
+      transport: "Uber / 步行",
+      hotel: "当晚抵达洛杉矶",
+      summary: "最后一顿 Waikiki 早餐，搭乘 AS826 返回 LAX。",
       timeline: [
         {
-          time: "08:00",
-          activity: "Waikiki Malia 办理退房 & 告别早餐",
+          id: "d6-breakfast-checkout",
+          startTime: "08:00",
+          title: "Malia 退房与告别早餐",
           location: "Waikiki Malia",
           mapQuery: "Waikiki Malia",
           type: "hotel",
-          details: "办理退房，在 Waikiki 享用丰盛的夏威夷特色早餐"
+          details: "办理退房，在 Waikiki 享用最后一顿早餐。"
         },
         {
-          time: "08:40",
-          activity: "打 Uber 前往 HNL 檀香山机场",
+          id: "d6-airport-transfer",
+          startTime: "08:40",
+          title: "前往 HNL 机场",
           location: "Daniel K. Inouye International Airport",
-          mapQuery: "Daniel K. Inouye International Airport",
+          mapQuery: "Daniel K. Inouye International Airport Terminal 1",
           type: "transit",
-          details: "打车前往 HNL 机场 Terminal 1 (预留 2.5 小时办理登机、托运及安检)"
+          details: "前往 Terminal 1，预留登机、托运与安检时间。"
         },
         {
-          time: "11:33 - 19:53",
-          activity: "HNL ✈️ LAX (航班: 阿拉斯加航空 AS 826)",
-          location: "HNL Terminal 1 ➔ LAX Terminal 6",
+          id: "d6-flight-as826",
+          startTime: "11:33",
+          endTime: "19:53",
+          title: "AS826 · HNL → LAX",
+          location: "HNL Terminal 1 → LAX Terminal 6",
           mapQuery: "Daniel K. Inouye International Airport Terminal 1",
           type: "flight",
-          badge: "返程航班详情",
-          details: "直飞 5 小时 20 分钟，当晚 (8/21 周五) 19:53 顺利抵洛杉矶 (LAX)",
-          modalData: {
-            title: "✈️ 返程航班: HNL ➔ LAX",
-            category: "返程航班",
-            flightNum: "AS 826 (Alaska Airlines)",
-            pnr: "已确认 (已出票)",
-            flightStatusLink: "https://www.google.com/search?q=AS826+flight+status",
-            items: [
-              { label: "航空公司与航班号", value: "Alaska Airlines AS 826 (已确认)" },
-              { label: "预订确认码 (PNR)", value: "已确认 / 电子机票已出", copyable: true },
-              { label: "出发 Terminal / 登机口", value: "HNL Terminal 1" },
-              { label: "到达 Terminal / 登机口", value: "LAX Terminal 6" },
-              { label: "起飞与降落时间", value: "11:33 (HNL HST) ➔ 19:53 (LAX PDT)" },
-              { label: "座位分配", value: "主舱 / 已选座" },
-              { label: "托运行李额度", value: "每人 1 件托运行李 (限重 50 lbs / 23kg)" }
-            ]
-          }
+          badge: "航班",
+          details: "Alaska Airlines 直飞，计划飞行 5 小时 20 分钟。",
+          statusLink: "https://www.google.com/search?q=AS826+flight+status",
+          info: [
+            ["航班", "Alaska Airlines AS826"],
+            ["出发", "11:33 · HNL Terminal 1"],
+            ["抵达", "19:53 · LAX Terminal 6"],
+            ["行李", "每人 1 件托运行李，限重 50 lbs / 23 kg"]
+          ]
         },
         {
-          time: "20:30 (8/21)",
-          activity: "从 LAX 机场接机返回温馨家中",
-          location: "LAX Terminal 6 ➔ Home",
-          mapQuery: "Los Angeles International Airport",
+          id: "d6-home-transfer",
+          startTime: "20:30",
+          title: "离开 LAX，行程结束",
+          location: "LAX Terminal 6",
+          mapQuery: "Los Angeles International Airport Terminal 6",
           type: "transit",
-          details: "领取行李，Uber / 朋友接机，安全返回洛杉矶家中，夏威夷之旅圆满结束！",
-          modalData: {
-            title: "🏠 LAX 机场接机返回家中",
-            category: "返程交通",
-            items: [
-              { label: "接机地点", value: "LAX Terminal 6 Arrivals / Ride-Share Pickup Zone" },
-              { label: "目的地", value: "洛杉矶家中" },
-              { label: "休息提醒", value: "顺畅返回家中，好好休息与整理夏威夷照片！" }
-            ]
-          }
+          details: "领取行李后乘网约车或接机车辆离开机场。"
         }
       ]
     }
@@ -753,43 +752,47 @@ const TRIP_DATA = {
 
   packingCategories: [
     {
-      category: "📄 必备证件与财务",
+      id: "documents",
+      title: "证件与财务",
       items: [
-        { id: "p1", text: "护照 & 护照复印件/电子件" },
-        { id: "p2", text: "驾照原件 & 翻译件/租车确认单" },
-        { id: "p3", text: "银行卡 (Visa/Mastercard)" },
-        { id: "p4", text: "少量美金现金 (小费与停车)" },
-        { id: "p5", text: "酒店/机票/景点预约单电子件" }
+        { id: "p1", title: "旅行证件及所需副本" },
+        { id: "p2", title: "驾照所需材料与租车文件" },
+        { id: "p3", title: "Visa / Mastercard 银行卡" },
+        { id: "p4", title: "少量现金用于小费与停车" },
+        { id: "p5", title: "机票、酒店与景点预约电子件" }
       ]
     },
     {
-      category: "🤿 海滩与水上装备",
+      id: "water",
+      title: "海滩与水上装备",
       items: [
-        { id: "p6", text: "Reef-Safe 环保防晒霜 (夏威夷规定)" },
-        { id: "p7", text: "泳衣 / 泳裤 / 防晒冲浪服" },
-        { id: "p8", text: "浮潜面镜 & 咬嘴" },
-        { id: "p9", text: "防滑涉水鞋 (火山岩防刮脚)" },
-        { id: "p10", text: "手机防水袋 & 速干海滩巾" }
+        { id: "p6", title: "Reef-safe 环保防晒霜" },
+        { id: "p7", title: "泳装与防晒冲浪服" },
+        { id: "p8", title: "浮潜面镜与咬嘴" },
+        { id: "p9", title: "防滑涉水鞋" },
+        { id: "p10", title: "手机防水袋与速干海滩巾" }
       ]
     },
     {
-      category: "👕 服饰与随身配件",
+      id: "clothing",
+      title: "服装与随身配件",
       items: [
-        { id: "p11", text: "夏日清凉服装 & 出片长裙" },
-        { id: "p12", text: "轻薄外套 / 防晒衣 (室内空调强)" },
-        { id: "p13", text: "太阳镜 & 遮阳帽" },
-        { id: "p14", text: "徒步运动鞋 (钻石山 & 牧场)" },
-        { id: "p15", text: "人字拖 / 凉鞋" }
+        { id: "p11", title: "夏日服装与长裙" },
+        { id: "p12", title: "轻薄外套或防晒衣" },
+        { id: "p13", title: "太阳镜与遮阳帽" },
+        { id: "p14", title: "徒步运动鞋" },
+        { id: "p15", title: "人字拖或凉鞋" }
       ]
     },
     {
-      category: "🎁 限定纪念品必买清单",
+      id: "souvenirs",
+      title: "纪念品愿望清单",
       items: [
-        { id: "p16", text: "ABC Store 夏威夷黑皮 Hello Kitty" },
-        { id: "p17", text: "Dole 菠萝园菠萝限定 Kitty" },
-        { id: "p18", text: "Snoopy's Surf Shop 冲浪史努比周边" },
-        { id: "p19", text: "Honolulu Cookie 铁盒曲奇饼干" },
-        { id: "p20", text: "Kona 考纳咖啡豆" }
+        { id: "p16", title: "ABC Store 夏威夷限定 Hello Kitty" },
+        { id: "p17", title: "Dole 菠萝限定 Kitty" },
+        { id: "p18", title: "Snoopy's Surf Shop 周边" },
+        { id: "p19", title: "Honolulu Cookie 铁盒曲奇" },
+        { id: "p20", title: "Kona 咖啡豆" }
       ]
     }
   ]
