@@ -1,4 +1,4 @@
-const CACHE_VERSION = "oahu-workbench-v6";
+const CACHE_VERSION = "oahu-workbench-v7";
 const APP_SHELL = [
   "./",
   "./index.html",

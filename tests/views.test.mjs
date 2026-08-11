@@ -19,6 +19,16 @@ test("brand surfaces reuse the existing favicon assets", () => {
   assert.match(source, /assets\/favicon-32x32\.png/);
 });
 
+test("the iOS PWA topbar respects the device safe area", () => {
+  const styles = readFileSync(new URL("../css/style.css", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+
+  assert.match(html, /viewport-fit=cover/);
+  assert.match(styles, /--safe-area-top:\s*env\(safe-area-inset-top, 0px\)/);
+  assert.match(styles, /min-height:\s*calc\(var\(--topbar-height\) \+ var\(--safe-area-top\)\)/);
+  assert.match(styles, /padding:\s*calc\(10px \+ var\(--safe-area-top\)\) 18px 10px/);
+});
+
 test("planning overview has neutral day links, dual clocks, and a highlighted countdown", () => {
   const html = renderOverview(
     TRIP_DATA,
