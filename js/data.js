@@ -783,7 +783,7 @@ export const TRIP_DATA = {
         { id: "p7", title: "泳装与防晒冲浪服" },
         { id: "p8", title: "浮潜面镜与咬嘴" },
         { id: "p9", title: "防滑涉水鞋" },
-        { id: "p10", title: "手机防水袋与速干海滩巾" }
+        { id: "p10", title: "速干海滩巾" }
       ]
     },
     {
@@ -796,17 +796,26 @@ export const TRIP_DATA = {
         { id: "p14", title: "徒步运动鞋" },
         { id: "p15", title: "人字拖或凉鞋" }
       ]
-    },
+    }
+  ],
+
+  arrivalShoppingCategories: [
     {
-      id: "souvenirs",
-      title: "纪念品愿望清单",
+      id: "arrival-essentials",
+      title: "抵达后补给",
       items: [
-        { id: "p16", title: "ABC Store 夏威夷限定 Hello Kitty" },
-        { id: "p17", title: "Dole 菠萝限定 Kitty" },
-        { id: "p18", title: "Snoopy's Surf Shop 周边" },
-        { id: "p19", title: "Honolulu Cookie 铁盒曲奇" },
-        { id: "p20", title: "Kona 咖啡豆" }
+        { id: "buy-waterproof-pouch", title: "手机防水袋" },
+        { id: "buy-bug-repellent", title: "驱蚊用品" },
+        { id: "buy-beach-essentials", title: "需要补充的沙滩用品" }
       ]
     }
+  ],
+
+  souvenirWishlist: [
+    { id: "p16", title: "ABC Store 夏威夷限定 Hello Kitty" },
+    { id: "p17", title: "Dole 菠萝限定 Kitty" },
+    { id: "p18", title: "Snoopy's Surf Shop 周边" },
+    { id: "p19", title: "Honolulu Cookie 铁盒曲奇" },
+    { id: "p20", title: "Kona 咖啡豆" }
   ]
 };

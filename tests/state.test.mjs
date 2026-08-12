@@ -5,7 +5,9 @@ import { TRIP_DATA } from "../js/data.js";
 import {
   LocalTripStore,
   getAutoMode,
+  getArrivalShoppingProgress,
   getCurrentAndNext,
+  getPackingProgress,
   parseRoute
 } from "../js/state.js";
 
@@ -63,6 +65,21 @@ test("legacy task and packing state migrates to stable ids", () => {
   const store = new LocalTripStore();
   assert.equal(store.snapshot().tasks["book-malia-first"], true);
   assert.equal(store.snapshot().packing.p6, true);
+  store.setArrivalShopping("buy-bug-repellent", true);
+  assert.equal(store.snapshot().arrivalShopping["buy-bug-repellent"], true);
   assert.equal(localStorage.getItem("hawaii_todo_state"), null);
   assert.equal(localStorage.getItem("hawaii_packing_checklist"), null);
+});
+
+test("packing and arrival shopping keep independent completion progress", () => {
+  const localState = {
+    packing: { p6: true },
+    arrivalShopping: { "buy-bug-repellent": true }
+  };
+
+  const packing = getPackingProgress(TRIP_DATA, localState);
+  const shopping = getArrivalShoppingProgress(TRIP_DATA, localState);
+  assert.equal(packing.done, 1);
+  assert.equal(shopping.done, 1);
+  assert.equal(shopping.total, 3);
 });

@@ -227,6 +227,9 @@ function handleChange(event) {
   if (event.target.matches("[data-action='toggle-packing']")) {
     store.setPacking(event.target.dataset.packingId, event.target.checked);
   }
+  if (event.target.matches("[data-action='toggle-arrival-shopping']")) {
+    store.setArrivalShopping(event.target.dataset.arrivalShoppingId, event.target.checked);
+  }
   if (event.target.id === "mode-select") {
     setModeOverride(event.target.value);
     render();

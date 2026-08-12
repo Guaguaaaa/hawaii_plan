@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import { TRIP_DATA } from "../js/data.js";
-import { renderItinerary, renderOverview, renderTools } from "../js/views.js";
+import { renderItinerary, renderOverview, renderPrepare, renderTools } from "../js/views.js";
 
 const localState = {
   version: 2,
@@ -58,6 +58,17 @@ test("itinerary cards open details without a separate detail button", () => {
   assert.match(html, />地图导航<\/a>/);
   assert.match(html, /♡ 双人时光/);
   assert.match(html, /data-mood="romantic"/);
+});
+
+test("prepare separates departure packing, arrival shopping, and souvenirs", () => {
+  const html = renderPrepare(TRIP_DATA, localState);
+
+  assert.match(html, />打包清单</);
+  assert.match(html, />当地购物清单</);
+  assert.match(html, /data-action="toggle-arrival-shopping"/);
+  assert.match(html, />纪念品愿望</);
+  assert.match(html, /不计入准备或采购进度/);
+  assert.doesNotMatch(html, /<h3>纪念品愿望清单<\/h3>/);
 });
 
 test("tools keeps both clocks and groups budget text into a dedicated layout", () => {

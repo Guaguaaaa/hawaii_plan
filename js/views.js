@@ -1,4 +1,5 @@
 import {
+  getArrivalShoppingProgress,
   getCountdownDays,
   getCurrentAndNext,
   getHotelForDate,
@@ -485,6 +486,7 @@ function fullTask(task, localState) {
 export function renderPrepare(data, localState) {
   const taskProgress = getTaskProgress(data, localState);
   const packingProgress = getPackingProgress(data, localState);
+  const arrivalShoppingProgress = getArrivalShoppingProgress(data, localState);
   const filter = localState.prepareFilter || "todo";
   const visibleTasks = data.tasks.filter((task) => {
     if (filter === "all") return true;
@@ -513,7 +515,7 @@ export function renderPrepare(data, localState) {
     </section>
 
     <section class="content-section">
-      <div class="section-heading"><div><span class="eyebrow">随身物品</span><h2>打包清单</h2></div><span>${packingProgress.done}/${packingProgress.total} 完成</span></div>
+      <div class="section-heading"><div><span class="eyebrow">出发前 · 收进行李</span><h2>打包清单</h2></div><span>${packingProgress.done}/${packingProgress.total} 完成</span></div>
       <div class="packing-grid">
         ${data.packingCategories.map((category) => `
           <article class="surface packing-card">
@@ -527,6 +529,27 @@ export function renderPrepare(data, localState) {
           </article>
         `).join("")}
       </div>
+    </section>
+
+    <section class="content-section local-shopping-section">
+      <div class="section-heading"><div><span class="eyebrow">抵达后 · 当地购买</span><h2>当地购物清单</h2><p class="section-description">补给与纪念品集中在这里；只有抵达后需要使用的物品会计入采购进度。</p></div><span>${arrivalShoppingProgress.done}/${arrivalShoppingProgress.total} 补给已购</span></div>
+      <article class="surface local-shopping-card">
+        <div class="local-shopping-group arrival-shopping-group">
+          <div class="local-shopping-group-heading"><span class="eyebrow">优先补齐</span><h3>抵达后补给</h3></div>
+          ${(data.arrivalShoppingCategories || []).map((category) => `
+            <div class="packing-items" aria-label="${escapeHtml(category.title)}">
+              ${category.items.map((item) => {
+                const checked = Boolean(localState.arrivalShopping?.[item.id]);
+                return `<label class="packing-item ${checked ? "is-done" : ""}"><input type="checkbox" data-action="toggle-arrival-shopping" data-arrival-shopping-id="${item.id}" ${checked ? "checked" : ""}><span>${escapeHtml(item.title)}</span></label>`;
+              }).join("")}
+            </div>
+          `).join("")}
+        </div>
+        <div class="local-shopping-group souvenir-wishlist-group">
+          <div class="local-shopping-group-heading"><span class="eyebrow">慢慢挑选</span><h3>纪念品愿望</h3><p>不计入准备或采购进度。</p></div>
+          <div class="souvenir-wishlist-items">${(data.souvenirWishlist || []).map((item) => `<span>${escapeHtml(item.title)}</span>`).join("")}</div>
+        </div>
+      </article>
     </section>
   `;
 }

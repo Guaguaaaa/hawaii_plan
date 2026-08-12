@@ -1668,6 +1668,84 @@ progress::-moz-progress-bar {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.section-description {
+  max-width: 520px;
+  margin: 7px 0 0;
+  color: var(--ink-500);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.local-shopping-section {
+  padding-top: 4px;
+}
+
+.local-shopping-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  overflow: hidden;
+  padding: 0;
+  border-color: color-mix(in srgb, var(--coral-500) 26%, var(--border));
+}
+
+.local-shopping-group {
+  min-width: 0;
+  padding: 19px;
+}
+
+.arrival-shopping-group {
+  position: relative;
+}
+
+.arrival-shopping-group::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 112px;
+  height: 4px;
+  background: var(--coral-500);
+  content: "";
+}
+
+.souvenir-wishlist-group {
+  border-left: 1px solid var(--border);
+  background: var(--sand-100);
+}
+
+.local-shopping-group-heading {
+  margin-bottom: 12px;
+}
+
+.local-shopping-group-heading h3 {
+  margin: 3px 0 0;
+}
+
+.local-shopping-group-heading p {
+  margin: 5px 0 0;
+  color: var(--ink-500);
+  font-size: 11px;
+}
+
+.souvenir-wishlist-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.souvenir-wishlist-items span {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--coral-500) 22%, var(--border));
+  border-radius: 999px;
+  background: color-mix(in srgb, #fff 64%, var(--sand-100));
+  color: var(--ink-700);
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .packing-card {
   padding: 19px;
 }
@@ -2382,6 +2460,15 @@ noscript {
   .packing-grid,
   .clinic-grid {
     grid-template-columns: 1fr;
+  }
+
+  .local-shopping-card {
+    grid-template-columns: 1fr;
+  }
+
+  .souvenir-wishlist-group {
+    border-top: 1px solid var(--border);
+    border-left: 0;
   }
 
   .tasks-heading {

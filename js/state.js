@@ -30,6 +30,7 @@ function emptyState() {
     version: 2,
     tasks: {},
     packing: {},
+    arrivalShopping: {},
     prepareFilter: "todo"
   };
 }
@@ -78,6 +79,11 @@ export class LocalTripStore {
 
   setPacking(id, checked) {
     this.state.packing[id] = checked;
+    this.persist();
+  }
+
+  setArrivalShopping(id, checked) {
+    this.state.arrivalShopping[id] = checked;
     this.persist();
   }
 
@@ -184,6 +190,12 @@ export function getPackingProgress(data, localState) {
   const items = data.packingCategories.flatMap((category) => category.items);
   const done = items.filter((item) => Boolean(localState.packing[item.id])).length;
   return { done, total: items.length, percent: Math.round((done / items.length) * 100) };
+}
+
+export function getArrivalShoppingProgress(data, localState) {
+  const items = (data.arrivalShoppingCategories || []).flatMap((category) => category.items);
+  const done = items.filter((item) => Boolean(localState.arrivalShopping?.[item.id])).length;
+  return { done, total: items.length, percent: items.length ? Math.round((done / items.length) * 100) : 0 };
 }
 
 export function getTopTasks(data, localState, limit = 3) {
