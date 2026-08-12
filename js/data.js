@@ -6,13 +6,13 @@
 
 export const TRIP_DATA = {
   meta: {
-    title: "夏威夷欧胡岛 6天5晚",
+    title: "夏威夷Oahu岛 6天5晚",
     subtitle: "2026.08.16 — 2026.08.21",
     startDate: "2026-08-16",
     endDate: "2026-08-21",
     destination: "Honolulu, Oahu, Hawaii",
     destinationLabel: "夏威夷 · 欧胡岛",
-    tagline: "两个人 · 一座岛 · 六天海风",
+    tagline: "和宝贝一起，吹海风",
     exchangeRate: 7.25,
     travelers: 2,
     homeTimezone: "America/Los_Angeles",
@@ -71,6 +71,7 @@ export const TRIP_DATA = {
       dueAt: "2026-08-07T18:00:00-07:00",
       deadlineLabel: "已于 8/7 确认",
       status: "done",
+      fixedDone: true,
       notes: "AS803：8/16 10:05–12:58；AS826：8/21 11:33–19:53。"
     },
     {
@@ -79,8 +80,9 @@ export const TRIP_DATA = {
       title: "确认 Waikiki Malia 首晚住宿",
       priority: "urgent",
       dueAt: "2026-08-12T18:00:00-07:00",
-      deadlineLabel: "尽快",
-      status: "todo",
+      deadlineLabel: "已确认",
+      status: "done",
+      fixedDone: true,
       notes: "8/16 入住，1 晚。"
     },
     {
@@ -89,8 +91,9 @@ export const TRIP_DATA = {
       title: "确认 Sheraton Waikiki 住宿",
       priority: "urgent",
       dueAt: "2026-08-12T18:00:00-07:00",
-      deadlineLabel: "尽快",
-      status: "todo",
+      deadlineLabel: "已确认",
+      status: "done",
+      fixedDone: true,
       notes: "8/17–8/18 入住，2 晚。"
     },
     {
@@ -99,8 +102,9 @@ export const TRIP_DATA = {
       title: "确认 Waikiki Malia 后段住宿",
       priority: "urgent",
       dueAt: "2026-08-12T18:00:00-07:00",
-      deadlineLabel: "尽快",
-      status: "todo",
+      deadlineLabel: "已确认",
+      status: "done",
+      fixedDone: true,
       notes: "8/19–8/20 入住，2 晚。"
     },
     {
@@ -166,12 +170,12 @@ export const TRIP_DATA = {
     {
       id: "prep-sun-water",
       group: "preparation",
-      title: "准备环保防晒和水上装备",
+      title: "准备环保防晒和海滩用品",
       priority: "medium",
       dueAt: "2026-08-13T18:00:00-07:00",
       deadlineLabel: "出发前 3 天",
       status: "todo",
-      notes: "Reef-safe 防晒、涉水鞋和浮潜面镜。"
+      notes: "Reef-safe 防晒、泳衣和速干海滩巾。"
     },
     {
       id: "prep-pack",
@@ -330,7 +334,7 @@ export const TRIP_DATA = {
             ["航班", "Alaska Airlines AS803"],
             ["出发", "10:05 · LAX Terminal 6"],
             ["抵达", "12:58 · HNL Terminal 1"],
-            ["行李", "每人 1 件托运行李，限重 50 lbs / 23 kg"]
+            ["行李", "两人共 1 件托运行李，限重 50 lbs / 23 kg"]
           ]
         },
         {
@@ -378,6 +382,14 @@ export const TRIP_DATA = {
           type: "food",
           mood: "romantic",
           details: "在海边用餐，欣赏抵达夏威夷后的第一场日落。"
+        },
+        {
+          id: "d1-arrival-planning",
+          startTime: "20:15",
+          title: "预约门票、预订租车并确认后续行程",
+          location: "Waikiki Malia",
+          type: "relax",
+          details: "落地后集中查看门票余位、完成租车预订，并确认接下来几天的行程安排。"
         }
       ]
     },
@@ -541,15 +553,15 @@ export const TRIP_DATA = {
         {
           id: "d4-car-pickup",
           startTime: "08:30",
-          title: "Sheraton 退房并取车",
-          location: "Waikiki Rental Car Branch",
-          mapQuery: "Avis Rent A Car Waikiki",
+          title: "前往 Waikiki Hertz 取车",
+          location: "Hertz Rent A Car · Waikiki",
+          mapQuery: "Hertz Rent A Car Waikiki",
           type: "transit",
           badge: "取车",
           taskId: "book-rental-car",
-          details: "退房后携带行李前往 Waikiki 门店取车。",
+          details: "退房后携带行李前往 Waikiki Hertz 门店取车。",
           info: [
-            ["门店", "Avis / Hertz Waikiki 门店"],
+            ["门店", "Hertz Waikiki 门店"],
             ["车型", "Standard Sedan 或同级"],
             ["材料", "驾照所需材料与主驾驶信用卡"]
           ]
@@ -712,16 +724,16 @@ export const TRIP_DATA = {
       theme: "transit",
       transport: "Uber / 步行",
       hotel: "当晚抵达洛杉矶",
-      summary: "最后一顿 Waikiki 早餐，搭乘 AS826 返回 LAX。",
+      summary: "整理行李后搭乘 AS826 返回 LAX。",
       timeline: [
         {
           id: "d6-breakfast-checkout",
           startTime: "08:00",
-          title: "Malia 退房与告别早餐",
+          title: "Malia 退房",
           location: "Waikiki Malia",
           mapQuery: "Waikiki Malia",
           type: "hotel",
-          details: "办理退房，在 Waikiki 享用最后一顿早餐。"
+          details: "办理退房，确认行李后前往机场。"
         },
         {
           id: "d6-airport-transfer",
@@ -747,7 +759,7 @@ export const TRIP_DATA = {
             ["航班", "Alaska Airlines AS826"],
             ["出发", "11:33 · HNL Terminal 1"],
             ["抵达", "19:53 · LAX Terminal 6"],
-            ["行李", "每人 1 件托运行李，限重 50 lbs / 23 kg"]
+            ["行李", "两人共 1 件托运行李，限重 50 lbs / 23 kg"]
           ]
         },
         {
@@ -768,10 +780,10 @@ export const TRIP_DATA = {
       id: "documents",
       title: "证件与财务",
       items: [
-        { id: "p1", title: "旅行证件及所需副本" },
+        { id: "p1", title: "护照等证件及所需副本" },
         { id: "p2", title: "驾照所需材料与租车文件" },
-        { id: "p3", title: "Visa / Mastercard 银行卡" },
-        { id: "p4", title: "少量现金用于小费与停车" },
+        { id: "p3", title: "银行卡" },
+        { id: "p4", title: "少量现金" },
         { id: "p5", title: "机票、酒店与景点预约电子件" }
       ]
     },
@@ -779,22 +791,92 @@ export const TRIP_DATA = {
       id: "water",
       title: "海滩与水上装备",
       items: [
-        { id: "p6", title: "Reef-safe 环保防晒霜" },
-        { id: "p7", title: "泳装与防晒冲浪服" },
-        { id: "p8", title: "浮潜面镜与咬嘴" },
-        { id: "p9", title: "防滑涉水鞋" },
-        { id: "p10", title: "速干海滩巾" }
+        { id: "p6", title: "防晒霜" },
+        { id: "p7", title: "泳衣" },
+        { id: "p8", title: "速干海滩毛巾" }
       ]
     },
     {
       id: "clothing",
       title: "服装与随身配件",
       items: [
-        { id: "p11", title: "夏日服装与长裙" },
-        { id: "p12", title: "轻薄外套或防晒衣" },
-        { id: "p13", title: "太阳镜与遮阳帽" },
-        { id: "p14", title: "徒步运动鞋" },
-        { id: "p15", title: "人字拖或凉鞋" }
+        { id: "p9", title: "6 天 5 晚夏日衣物与长裙" },
+        { id: "p10", title: "内衣、内裤与袜子" },
+        { id: "p11", title: "轻薄外套或防晒衣" },
+        { id: "p12", title: "徒步运动鞋" },
+        { id: "p13", title: "洞洞鞋" },
+        { id: "p14", title: "太阳镜" },
+        { id: "p15", title: "遮阳帽" },
+        { id: "p16", title: "睡衣" }
+      ]
+    },
+    {
+      id: "accessories",
+      title: "饰品与贵重随身物品",
+      items: [
+        { id: "p17", title: "项链" },
+        { id: "p18", title: "戒指" },
+        { id: "p19", title: "耳钉" },
+        { id: "p20", title: "手链/手镯" },
+        { id: "p21", title: "手表" }
+      ]
+    },
+    {
+      id: "electronics",
+      title: "电子设备与配件",
+      items: [
+        { id: "p22", title: "手机与充电器" },
+        { id: "p23", title: "电脑与充电器" },
+        { id: "p24", title: "相机及配件" },
+        { id: "p25", title: "充电宝（随身携带）" },
+        { id: "p26", title: "耳机" },
+        { id: "p27", title: "多口充电器与充电线" },
+        { id: "p28", title: "相机存储卡与备用电池" },
+        { id: "p29", title: "车载充电器" }
+      ]
+    },
+    {
+      id: "toiletries",
+      title: "洗漱与护肤",
+      items: [
+        { id: "p30", title: "隐形眼镜" },
+        { id: "p31", title: "牙刷牙膏" },
+        { id: "p32", title: "身体乳" },
+        { id: "p33", title: "香水" },
+        { id: "p34", title: "洗面奶" },
+        { id: "p35", title: "日常护肤品" },
+        { id: "p36", title: "润唇膏" },
+        { id: "p37", title: "卸妆油" },
+        { id: "p38", title: "保湿水/精华" },
+        { id: "p39", title: "面霜" },
+        { id: "p40", title: "晒后舒缓或芦荟胶" }
+      ]
+    },
+    {
+      id: "makeup",
+      title: "化妆与工具",
+      items: [
+        { id: "p41", title: "底妆" },
+        { id: "p42", title: "防水眉笔/眼妆" },
+        { id: "p43", title: "腮红/修容" },
+        { id: "p44", title: "口红" },
+        { id: "p45", title: "定妆" },
+        { id: "p46", title: "发圈/发夹" },
+        { id: "p47", title: "梳子" },
+        { id: "p48", title: "化妆刷或粉扑" },
+        { id: "p49", title: "化妆包" }
+      ]
+    },
+    {
+      id: "medication",
+      title: "常用药品",
+      items: [
+        { id: "p50", title: "感冒药" },
+        { id: "p51", title: "止痛药" },
+        { id: "p52", title: "止泻药" },
+        { id: "p53", title: "过敏药" },
+        { id: "p54", title: "创口贴" },
+        { id: "p55", title: "个人处方药" },
       ]
     }
   ],
@@ -812,10 +894,10 @@ export const TRIP_DATA = {
   ],
 
   souvenirWishlist: [
-    { id: "p16", title: "ABC Store 夏威夷限定 Hello Kitty" },
-    { id: "p17", title: "Dole 菠萝限定 Kitty" },
-    { id: "p18", title: "Snoopy's Surf Shop 周边" },
-    { id: "p19", title: "Honolulu Cookie 铁盒曲奇" },
-    { id: "p20", title: "Kona 咖啡豆" }
+    { id: "souvenir-abc-hello-kitty", title: "ABC Store 夏威夷限定 Hello Kitty" },
+    { id: "souvenir-dole-kitty", title: "Dole 菠萝限定 Kitty" },
+    { id: "souvenir-snoopy-surf", title: "Snoopy's Surf Shop 周边" },
+    { id: "souvenir-honolulu-cookie", title: "Honolulu Cookie 铁盒曲奇" },
+    { id: "souvenir-kona-coffee", title: "Kona 咖啡豆" }
   ]
 };

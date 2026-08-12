@@ -1,6 +1,16 @@
 const STORAGE_KEY = "hawaii_ui_state_v2";
 const MODE_OVERRIDE_KEY = "hawaii_mode_override";
 
+const PACKING_ID_V3_TO_V4 = {
+  p1: "p1", p2: "p2", p3: "p3", p4: "p4", p5: "p5", p6: "p6", p7: "p7", p10: "p8",
+  p11: "p9", p12: "p10", p13: "p11", p14: "p12", p15: "p13", p21: "p14", p44: "p15", p22: "p16",
+  p23: "p17", p45: "p18", p46: "p19", p47: "p20", p24: "p21",
+  p25: "p22", p26: "p23", p27: "p24", p28: "p25", p29: "p26", p30: "p27", p31: "p28", p32: "p29",
+  p33: "p30", p34: "p31", p35: "p32", p36: "p33", p37: "p34", p38: "p35", p39: "p36", p48: "p37", p49: "p38", p50: "p39", p40: "p40",
+  p41: "p41", p51: "p42", p52: "p43", p53: "p44", p54: "p45", p55: "p46", p56: "p47", p57: "p48", p42: "p49",
+  p58: "p50", p59: "p51", p60: "p52", p61: "p53", p62: "p54", p43: "p55"
+};
+
 const LEGACY_TASK_MAP = {
   "todo_🔥 当务之急_0": "book-flights",
   "todo_🔥 当务之急_1": "book-malia-first",
@@ -27,11 +37,11 @@ function readJson(storage, key, fallback) {
 
 function emptyState() {
   return {
-    version: 2,
+    version: 4,
     tasks: {},
     packing: {},
     arrivalShopping: {},
-    prepareFilter: "todo"
+    prepareFilter: "all"
   };
 }
 
@@ -49,18 +59,35 @@ function migrateLegacyState() {
     if (/^p\d+$/.test(id)) next.packing[id] = Boolean(checked);
   });
 
+  migratePackingIds(next);
+
   localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   localStorage.removeItem("hawaii_todo_state");
   localStorage.removeItem("hawaii_packing_checklist");
   return next;
 }
 
+function migratePackingIds(state) {
+  const packing = {};
+  Object.entries(PACKING_ID_V3_TO_V4).forEach(([oldId, newId]) => {
+    if (Object.prototype.hasOwnProperty.call(state.packing, oldId)) packing[newId] = Boolean(state.packing[oldId]);
+  });
+  state.packing = packing;
+}
+
 export class LocalTripStore {
   constructor() {
     this.listeners = new Set();
-    this.state = localStorage.getItem(STORAGE_KEY)
-      ? { ...emptyState(), ...readJson(localStorage, STORAGE_KEY, emptyState()) }
-      : migrateLegacyState();
+    const savedState = localStorage.getItem(STORAGE_KEY)
+      ? readJson(localStorage, STORAGE_KEY, emptyState())
+      : null;
+    this.state = savedState ? { ...emptyState(), ...savedState } : migrateLegacyState();
+    if (this.state.version < 3 && this.state.prepareFilter === "todo") this.state.prepareFilter = "all";
+    if (this.state.version < 4) {
+      migratePackingIds(this.state);
+      this.state.version = 4;
+      this.persist();
+    }
   }
 
   snapshot() {
@@ -175,6 +202,7 @@ export function getCurrentAndNext(day, date = new Date()) {
 }
 
 export function isTaskDone(task, localState) {
+  if (task.fixedDone) return true;
   if (Object.prototype.hasOwnProperty.call(localState.tasks, task.id)) {
     return Boolean(localState.tasks[task.id]);
   }

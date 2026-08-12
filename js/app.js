@@ -212,10 +212,6 @@ function handleClick(event) {
   if (action === "refresh-weather") refreshWeather();
   if (action === "filter-tasks") store.setPrepareFilter(actionTarget.dataset.filter);
   if (action === "copy-text") copyText(actionTarget.dataset.copy || "");
-  if (action === "copy-event") {
-    const match = findEvent(TRIP_DATA, actionTarget.dataset.eventId);
-    if (match) copyText(`${match.day.dateLabel} ${match.event.startTime} · ${match.event.title} · ${match.event.location}`);
-  }
   if (action === "apply-update" && waitingWorker) waitingWorker.postMessage({ type: "SKIP_WAITING" });
   if (action === "dismiss-update") updateBanner.hidden = true;
 }

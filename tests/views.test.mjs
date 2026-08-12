@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 import { TRIP_DATA } from "../js/data.js";
-import { renderItinerary, renderOverview, renderPrepare, renderTools } from "../js/views.js";
+import { renderEventDrawer, renderItinerary, renderOverview, renderPrepare, renderTools } from "../js/views.js";
 
 const localState = {
   version: 2,
@@ -60,6 +60,13 @@ test("itinerary cards open details without a separate detail button", () => {
   assert.match(html, /data-mood="romantic"/);
 });
 
+test("event drawers keep only the map navigation action", () => {
+  const html = renderEventDrawer(TRIP_DATA.days[0], TRIP_DATA.days[0].timeline[1]);
+
+  assert.match(html, />地图导航<\/a>/);
+  assert.doesNotMatch(html, /复制公开信息|查询航班状态|copy-event/);
+});
+
 test("prepare separates departure packing, arrival shopping, and souvenirs", () => {
   const html = renderPrepare(TRIP_DATA, localState);
 
@@ -69,6 +76,16 @@ test("prepare separates departure packing, arrival shopping, and souvenirs", () 
   assert.match(html, />纪念品愿望</);
   assert.match(html, /不计入准备或采购进度/);
   assert.doesNotMatch(html, /<h3>纪念品愿望清单<\/h3>/);
+});
+
+test("prepare defaults to all tasks and keeps completed tasks at the bottom", () => {
+  const html = renderPrepare(TRIP_DATA, { ...localState, prepareFilter: "all" });
+  const firstOpenTask = html.indexOf("预订 Waikiki 门店租车");
+  const firstFixedTask = html.indexOf("确认洛杉矶往返檀香山机票");
+
+  assert.match(html, /data-filter="all" class="is-active" aria-pressed="true"/);
+  assert.ok(firstOpenTask >= 0 && firstFixedTask > firstOpenTask);
+  assert.match(html, /data-task-id="book-flights" checked disabled/);
 });
 
 test("tools keeps both clocks and groups budget text into a dedicated layout", () => {

@@ -1631,6 +1631,14 @@ progress::-moz-progress-bar {
   border-top: 1px solid var(--border);
 }
 
+.task-row.is-fixed {
+  cursor: default;
+}
+
+.task-row.is-fixed input {
+  cursor: default;
+}
+
 .task-checkmark {
   display: none;
 }

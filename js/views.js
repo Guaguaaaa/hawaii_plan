@@ -473,9 +473,10 @@ function reservationCard(item, data, localState) {
 
 function fullTask(task, localState) {
   const checked = isTaskDone(task, localState);
+  const fixed = Boolean(task.fixedDone);
   return `
-    <label class="task-row ${checked ? "is-done" : ""}">
-      <input type="checkbox" data-action="toggle-task" data-task-id="${task.id}" ${checked ? "checked" : ""}>
+    <label class="task-row ${checked ? "is-done" : ""} ${fixed ? "is-fixed" : ""}">
+      <input type="checkbox" data-action="toggle-task" data-task-id="${task.id}" ${checked ? "checked" : ""} ${fixed ? "disabled" : ""}>
       <span class="task-checkmark" aria-hidden="true"></span>
       <span class="task-copy"><strong>${escapeHtml(task.title)}</strong><small>${escapeHtml(task.notes)}</small></span>
       <span class="task-meta"><span class="priority priority-${task.priority}">${PRIORITY_LABELS[task.priority]}</span><small>${escapeHtml(task.deadlineLabel)}</small></span>
@@ -487,11 +488,11 @@ export function renderPrepare(data, localState) {
   const taskProgress = getTaskProgress(data, localState);
   const packingProgress = getPackingProgress(data, localState);
   const arrivalShoppingProgress = getArrivalShoppingProgress(data, localState);
-  const filter = localState.prepareFilter || "todo";
+  const filter = localState.prepareFilter || "all";
   const visibleTasks = data.tasks.filter((task) => {
     if (filter === "all") return true;
     return filter === "done" ? isTaskDone(task, localState) : !isTaskDone(task, localState);
-  });
+  }).sort((a, b) => Number(isTaskDone(a, localState)) - Number(isTaskDone(b, localState)));
 
   return `
     <section class="page-intro page-intro-with-progress">
@@ -658,8 +659,6 @@ export function renderEventDrawer(day, event) {
       ${infoRows ? `<dl class="detail-list drawer-info">${infoRows}</dl>` : ""}
       <div class="drawer-actions">
         ${event.mapQuery ? `<a class="button button-primary" href="${mapUrl(event.mapQuery)}" target="_blank" rel="noopener">地图导航</a>` : ""}
-        ${event.statusLink ? `<a class="button button-primary" href="${event.statusLink}" target="_blank" rel="noopener">查询航班状态</a>` : ""}
-        <button class="button button-quiet" type="button" data-action="copy-event" data-event-id="${event.id}">复制公开信息</button>
       </div>
     </div>
   `;
